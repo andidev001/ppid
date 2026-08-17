@@ -65,135 +65,29 @@
                         <h2 class="text-xl font-black text-[#0f172a] brand-font tracking-tight">{{ $kategoriLabel }}</h2>
                     </div>
 
-                    <form action="{{ route('informasi.kategori', $kategori) }}" method="GET"
-                        class="w-full md:w-auto search-form">
-                        <div class="relative">
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari informasi..."
-                                class="w-full md:w-72 pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#9333ea] focus:border-[#9333ea] transition-all font-medium text-sm shadow-sm hover:border-slate-300">
-                            <div
-                                class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                                <svg class="w-5 h-5 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </form>
+
                 </div>
 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse min-w-[800px]">
+                <div class="overflow-x-auto p-4 sm:px-6 sm:pb-6 sm:pt-4">
+                    <table id="informasiTable" class="w-full text-left border-collapse min-w-[800px]">
                         <thead>
                             <tr
                                 class="bg-indigo-50/50 text-indigo-700 text-sm font-semibold brand-font border-b border-indigo-100/50">
                                 <th class="px-6 py-4 w-16 text-center">No</th>
-                                <th class="px-6 py-4 w-5/12">Judul Informasi</th>
-                                <th class="px-6 py-4">Keterangan Singkat</th>
+                                <th class="px-6 py-4 w-4/12">Judul Informasi</th>
+                                <th class="px-6 py-4 w-2/12">Penanggung Jawab</th>
+                                <th class="px-6 py-4 w-3/12">Keterangan Singkat</th>
+                                @if($kategori === 'semua')
+                                <th class="px-6 py-4 text-center w-2/12">Kategori</th>
+                                @endif
                                 <th class="px-6 py-4 text-center w-48">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-slate-100">
-                            @forelse($informations as $index => $info)
-                                <tr class="hover:bg-slate-50 transition-colors group/row">
-                                    <td class="px-6 py-5 text-slate-400 text-center font-mono">
-                                        {{ $informations->firstItem() + $index }}
-                                    </td>
-                                    <td class="px-6 py-5">
-                                        <div class="flex items-center gap-2">
-                                            <span class="font-bold text-slate-800">{{ $info->title }}</span>
-                                            @if($info->published_year)
-                                                <span
-                                                    class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-bold border border-slate-200">
-                                                    {{ $info->published_year }}
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-5 text-slate-500 leading-relaxed">
-                                        {{ Str::limit($info->description, 80) }}
-                                    </td>
-                                    @if($kategori === 'semua')
-                                        <td class="px-6 py-5 text-center">
-                                            <span class="px-2.5 py-1 text-[11px] font-bold tracking-wider rounded-md uppercase border 
-                                                @if($info->category == 'berkala') bg-indigo-50 text-indigo-600 border-indigo-200
-                                                @elseif($info->category == 'serta_merta') bg-amber-50 text-amber-600 border-amber-200
-                                                @elseif($info->category == 'setiap_saat') bg-emerald-50 text-emerald-600 border-emerald-200
-                                                @elseif($info->category == 'dikecualikan') bg-rose-50 text-rose-600 border-rose-200
-                                                @else bg-slate-50 text-slate-600 border-slate-200 @endif
-                                            ">
-                                                {{ str_replace('_', ' ', $info->category) }}
-                                            </span>
-                                        </td>
-                                    @endif
-                                    <td class="px-6 py-5 text-center">
-                                        @if($info->visibility === 'restricted')
-                                            <a href="{{ route('pilih_permohonan') }}"
-                                                class="inline-flex items-center justify-center text-xs px-4 py-2 bg-rose-50 text-rose-700 rounded-lg font-bold hover:bg-rose-100 transition-colors border border-rose-100 w-full whitespace-nowrap">
-                                                Ajukan Akses
-                                            </a>
-                                        @else
-                                            <div class="flex items-center justify-center gap-2">
-                                                @if(($info->info_type ?? 'file') === 'file')
-                                                    <button
-                                                        @click.prevent="showPreview = true; loadPdfViewer('{{ asset('storage/' . $info->file_path) }}')"
-                                                        class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-xs font-bold hover:bg-indigo-100 transition-colors w-full flex items-center justify-center gap-1.5 cursor-pointer"><svg
-                                                            class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                                            </path>
-                                                        </svg> Lihat Dokumen</button>
-                                                @elseif($info->info_type === 'url')
-                                                    <a href="{{ $info->url }}" target="_blank"
-                                                        class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-xs font-bold hover:bg-indigo-100 transition-colors w-full flex items-center justify-center gap-1.5 cursor-pointer">
-                                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
-                                                            </path>
-                                                        </svg> Buka Tautan
-                                                    </a>
-                                                @elseif($info->info_type === 'video')
-                                                    <button @click.prevent="openVideo('{{ base64_encode($info->video_embed) }}')"
-                                                        class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-xs font-bold hover:bg-indigo-100 transition-colors w-full flex items-center justify-center gap-1.5 cursor-pointer">
-                                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
-                                                            </path>
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                        </svg> Putar Video
-                                                    </button>
-                                                @endif
-                                            </div>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="4" class="px-6 py-16 text-center">
-                                        <div
-                                            class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-50 mb-4">
-                                            <svg class="w-8 h-8 text-slate-300" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                            </svg>
-                                        </div>
-                                        <h3 class="text-slate-800 font-bold mb-1">Data Tidak Ditemukan</h3>
-                                        <p class="text-slate-500 text-sm">Coba cari dengan kata kunci yang berbeda.</p>
-                                    </td>
-                                </tr>
-                            @endforelse
+                           <!-- DataTables Body -->
                         </tbody>
                     </table>
                 </div>
-
-                @if($informations->hasPages())
-                    <div class="px-6 py-5 bg-slate-50/80 border-t border-slate-100">
-                        {{ $informations->appends(request()->query())->links() }}
-                    </div>
-                @endif
             </div>
 
             <!-- PDF Preview Modal -->
@@ -204,16 +98,96 @@
         </div>
     </div>
 
-    <!-- Script to maintain scroll state if search -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let form = document.querySelector('.search-form');
-            if (form) {
-                form.addEventListener('submit', function () {
-                    let input = form.querySelector('input');
-                    input.classList.add('opacity-50');
-                });
+
+@endsection
+
+@section('scripts')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<style>
+    /* Styling adjustments for datatables in public view */
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 0.3em 0.8em;
+        border-radius: 0.5rem;
+        border: none;
+        background: transparent;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+        background: #4f46e5;
+        border: none;
+        color: white !important;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background: #e0e7ff;
+        border: none;
+        color: #4f46e5 !important;
+    }
+    .dataTables_wrapper .dataTables_filter input {
+        border-radius: 0.75rem;
+        border: 1px solid #e2e8f0;
+        padding: 0.5rem 1rem;
+        outline: none;
+    }
+    .dataTables_wrapper .dataTables_filter input:focus {
+        border-color: #818cf8;
+        box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+    }
+    .dataTables_wrapper {
+        margin-top: -0.5rem;
+    }
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        margin-bottom: 1rem;
+    }
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 1.5rem;
+    }
+    .dataTables_wrapper .dataTables_length label,
+    .dataTables_wrapper .dataTables_filter label {
+        font-weight: 500;
+        color: #475569;
+    }
+    @media (max-width: 768px) {
+        .dataTables_wrapper .dataTables_filter,
+        .dataTables_wrapper .dataTables_length {
+            margin-top: 0.5rem;
+        }
+        .dataTables_wrapper {
+            margin-top: 0;
+        }
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#informasiTable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('informasi.kategori', ['kategori' => $kategori]) }}",
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false, className: 'text-center font-mono text-slate-400 px-6 py-5' },
+                { data: 'title', name: 'title', className: 'px-6 py-5' },
+                { data: 'penanggung_jawab', name: 'penanggung_jawab', className: 'px-6 py-5 text-indigo-500 font-medium whitespace-nowrap' },
+                { data: 'description', name: 'description', className: 'px-6 py-5 text-slate-500 leading-relaxed' },
+                @if($kategori === 'semua')
+                { data: 'category_badge', name: 'category', className: 'text-center px-6 py-5' },
+                @endif
+                { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center px-6 py-5' }
+            ],
+            language: {
+                search: "Cari Informasi:",
+                lengthMenu: "Tampilkan _MENU_ entri",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ dokumen",
+                infoEmpty: "Tidak ada dokumen",
+                paginate: {
+                    first: "Awal",
+                    last: "Akhir",
+                    next: "Lanjut",
+                    previous: "Kembali"
+                }
             }
         });
-    </script>
+    });
+</script>
 @endsection

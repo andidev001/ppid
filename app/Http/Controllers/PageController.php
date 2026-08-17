@@ -245,14 +245,68 @@ class PageController extends Controller
             $query = \App\Models\PublicInformation::where('category', $kategori);
         }
 
-        if ($request->has('search') && !empty($request->search)) {
-            $query->where(function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->search . '%')
-                    ->orWhere('description', 'like', '%' . $request->search . '%');
-            });
+        if ($request->ajax()) {
+            return \Yajra\DataTables\Facades\DataTables::of($query)
+                ->addIndexColumn()
+                ->editColumn('title', function ($info) {
+                    $yearHtml = $info->published_year 
+                        ? '<span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-bold border border-slate-200 ml-2">' . $info->published_year . '</span>' 
+                        : '';
+                    return '<div class="font-bold text-slate-800">' . htmlspecialchars($info->title) . $yearHtml . '</div>';
+                })
+                ->addColumn('penanggung_jawab', function ($info) {
+                    return $info->penanggung_jawab ? htmlspecialchars($info->penanggung_jawab) : '-';
+                })
+                ->addColumn('description', function ($info) {
+                    return \Illuminate\Support\Str::limit(htmlspecialchars($info->description), 80);
+                })
+                ->addColumn('category_badge', function ($info) {
+                    $catColors = [
+                        'berkala' => 'bg-indigo-50 text-indigo-600 border-indigo-200',
+                        'serta_merta' => 'bg-amber-50 text-amber-600 border-amber-200',
+                        'setiap_saat' => 'bg-emerald-50 text-emerald-600 border-emerald-200',
+                        'dikecualikan' => 'bg-rose-50 text-rose-600 border-rose-200',
+                        'pengadaan' => 'bg-blue-50 text-blue-600 border-blue-200'
+                    ];
+                    $color = $catColors[$info->category] ?? 'bg-slate-50 text-slate-600 border-slate-200';
+                    $label = strtoupper(str_replace('_', ' ', $info->category));
+                    return '<span class="px-2.5 py-1 text-[11px] font-bold tracking-wider rounded-md uppercase border ' . $color . '">' . $label . '</span>';
+                })
+                ->addColumn('action', function ($info) {
+                    $url = '#';
+                    if ($info->info_type == 'file' && $info->file_path) {
+                        $url = asset('storage/' . $info->file_path);
+                    } elseif ($info->info_type == 'url' && $info->url) {
+                        $url = $info->url;
+                    } elseif ($info->info_type == 'video' && $info->video_embed) {
+                        $url = $info->video_embed; // Wait, we might need a different handling for video or a link
+                    }
+                    
+                    if ($info->visibility !== 'public') {
+                         return '<span class="text-[11px] font-bold text-rose-600 bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-md uppercase tracking-wider">Dikecualikan</span>';
+                    }
+                    
+                    if ($info->info_type == 'fisik') {
+                         return '<span class="text-[10px] sm:text-[11px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-2 py-1 sm:px-2.5 rounded-md tracking-wide flex items-center justify-center gap-1"><svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>Tersedia Cetak/Fisik</span>';
+                    }
+
+                    return '<a href="' . $url . '" target="_blank"
+                                class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white rounded-lg transition-colors text-xs font-bold w-full sm:w-auto shadow-sm shadow-indigo-100">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                    </path>
+                                </svg>
+                                Lihat Dokumen
+                            </a>';
+                })
+                ->rawColumns(['title', 'category_badge', 'action'])
+                ->make(true);
         }
 
-        $data['informations'] = $query->latest()->paginate(15);
+        $data['informations'] = collect([]); // Dummy to not break initial view load
         return view('pages.informasi', $data);
     }
 
@@ -289,5 +343,13 @@ class PageController extends Controller
             ->get();
 
         return view('pages.publikasi_show', $data);
+    }
+
+    public function galeri()
+    {
+        $data = $this->getCommonData();
+        $data['videos'] = \App\Models\GalleryVideo::orderBy('order_num')->orderBy('created_at', 'desc')->paginate(12);
+        
+        return view('pages.galeri', $data);
     }
 }

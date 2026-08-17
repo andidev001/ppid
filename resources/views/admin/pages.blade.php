@@ -265,13 +265,21 @@
                         </div>
                     </div>
 
-                    <div class="flex-1 flex flex-col h-full w-full"
+                    <div class="flex-1 flex flex-col h-full w-full gap-6"
                         x-bind:style="activeTab === 'waktu_biaya' ? 'position: relative; display: flex;' : 'position: absolute; transform: translateX(-9999px); visibility: hidden; opacity: 0;'">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Konten Waktu dan Biaya
-                            Layanan</label>
-                        <div class="flex-1 relative">
-                            <textarea name="page_waktu_biaya"
-                                class="tinymce">{!! $settings['page_waktu_biaya'] ?? '' !!}</textarea>
+                        
+                        <div class="flex-1 relative flex flex-col">
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Konten Waktu Pelayanan</label>
+                            <div class="flex-1 min-h-[300px]">
+                                <textarea name="page_waktu" class="tinymce">{!! $settings['page_waktu'] ?? $settings['page_waktu_biaya'] ?? '' !!}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="flex-1 relative flex flex-col">
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Konten Biaya Pelayanan</label>
+                            <div class="flex-1 min-h-[300px]">
+                                <textarea name="page_biaya" class="tinymce">{!! $settings['page_biaya'] ?? '' !!}</textarea>
+                            </div>
                         </div>
                     </div>
 

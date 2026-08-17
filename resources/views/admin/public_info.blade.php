@@ -31,6 +31,7 @@
                             <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">No</th>
                             <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Judul
                                 Dokumen</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Penanggung Jawab</th>
                             <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Akses
                             </th>
                             <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Tgl Diunggah
@@ -55,6 +56,9 @@
                                                         </div>
                                                         <div class="text-xs text-slate-500 mt-1 max-w-xs truncate"
                                                             title="{{ $info->description }}">{{ $info->description ?: '-' }}</div>
+                                                    </td>
+                                                    <td class="px-6 py-4 text-sm text-slate-600 font-medium">
+                                                        {{ $info->penanggung_jawab ?: '-' }}
                                                     </td>
                                                     <td class="px-6 py-4">
                                                         @if($info->visibility === 'public')
@@ -115,8 +119,10 @@
                                 'visibility' => $info->visibility,
                                 'info_type' => $info->info_type ?? 'file',
                                 'url' => $info->url,
-                                'video_embed' => $info->video_embed
-                            ]) }}" @click="let d = JSON.parse($event.currentTarget.dataset.info); openEdit(d.id, d.title, d.description, d.visibility, d.info_type, d.url, d.video_embed, d.published_year)"
+                                'video_embed' => $info->video_embed,
+                                'published_year' => $info->published_year,
+                                'penanggung_jawab' => $info->penanggung_jawab
+                            ]) }}" @click="let d = JSON.parse($event.currentTarget.dataset.info); openEdit(d.id, d.title, d.description, d.visibility, d.info_type, d.url, d.video_embed, d.published_year, d.penanggung_jawab)"
                                                             class="inline-block p-2 text-amber-500 hover:bg-amber-50 rounded-lg transition-colors mr-1"
                                                             title="Edit Dokumen">
                                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -256,6 +262,29 @@
                             <input type="text" name="title" x-model="editData.title" required
                                 class="w-full border border-slate-300 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
                         </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 items-end">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Tahun Pembuatan/Penerbitan</label>
+                                <input type="number" name="published_year" x-model="editData.published_year" placeholder="Contoh: 2024"
+                                    class="w-full border border-slate-300 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Penanggung Jawab (Bidang/Divisi)</label>
+                                <input type="text" name="penanggung_jawab" x-model="editData.penanggung_jawab" placeholder="Contoh: Kesiswaan, Sarpras..." list="bidangPilihan"
+                                    class="w-full border border-slate-300 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
+                                <datalist id="bidangPilihan">
+                                    <option value="Kurikulum">
+                                    <option value="Kesiswaan">
+                                    <option value="Sarana & Prasarana (Sarpras)">
+                                    <option value="Humas">
+                                    <option value="Tata Usaha">
+                                    <option value="BKK">
+                                    <option value="Hubin">
+                                </datalist>
+                            </div>
+                        </div>
+
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Deskripsi &amp;
                                 Ringkasan</label>
@@ -272,12 +301,13 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Tipe Informasi</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Bentuk Informasi yang Tersedia</label>
                             <select name="info_type" x-model="editData.info_type"
                                 class="w-full border border-slate-300 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white transition-all font-medium">
                                 <option value="file">Dokumen / File Upload</option>
                                 <option value="url">Link URL / Tautan Eksternal</option>
-                                <option value="video"> Video Embed</option>
+                                <option value="video">Video Embed</option>
+                                <option value="fisik">Bentuk Fisik/Cetak (Tanpa Unggahan)</option>
                             </select>
                         </div>
                         <div x-show="editData.info_type === 'file'" x-cloak>
@@ -395,10 +425,12 @@
                     this.editData.info_type = 'file';
                     this.editData.url = '';
                     this.editData.video_embed = '';
+                    this.editData.published_year = '{{ date('Y') }}';
+                    this.editData.penanggung_jawab = '';
                     this.editFormAction = '{{ route('admin.public-info.store') }}';
                     this.showEditModal = true;
                 },
-                openEdit(id, title, description, visibility, info_type = 'file', url = '', video_embed = '', published_year = '') {
+                openEdit(id, title, description, visibility, info_type = 'file', url = '', video_embed = '', published_year = '', penanggung_jawab = '') {
                     this.isEditMode = true;
                     this.editData.id = id;
                     this.editData.title = title;
@@ -408,6 +440,7 @@
                     this.editData.url = url;
                     this.editData.video_embed = video_embed;
                     this.editData.published_year = published_year;
+                    this.editData.penanggung_jawab = penanggung_jawab;
                     this.editFormAction = `{{ url('admin/public-info') }}/${id}`;
                     this.showEditModal = true;
                 }

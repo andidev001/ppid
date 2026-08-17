@@ -323,8 +323,9 @@ class AdminController extends Controller
             'category' => 'required|string',
             'published_year' => 'nullable|integer',
             'description' => 'nullable|string',
+            'penanggung_jawab' => 'nullable|string',
             'visibility' => 'required|in:public,restricted',
-            'info_type' => 'required|in:file,url,video',
+            'info_type' => 'required|in:file,url,video,fisik',
             'info_file' => 'nullable|required_if:info_type,file|file|mimes:pdf,doc,docx,xls,xlsx|max:10240',
             'url' => 'nullable|required_if:info_type,url|url',
             'video_embed' => 'nullable|required_if:info_type,video|string',
@@ -340,6 +341,7 @@ class AdminController extends Controller
             'category' => $req->category,
             'published_year' => $req->published_year,
             'description' => $req->description,
+            'penanggung_jawab' => $req->penanggung_jawab,
             'visibility' => $req->visibility,
             'info_type' => $req->info_type,
             'file_path' => $path,
@@ -375,8 +377,9 @@ class AdminController extends Controller
             'title' => 'required|string',
             'published_year' => 'nullable|integer',
             'description' => 'nullable|string',
+            'penanggung_jawab' => 'nullable|string',
             'visibility' => 'required|in:public,restricted',
-            'info_type' => 'required|in:file,url,video',
+            'info_type' => 'required|in:file,url,video,fisik',
             'info_file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:10240',
             'url' => 'nullable|required_if:info_type,url|url',
             'video_embed' => 'nullable|required_if:info_type,video|string',
@@ -399,6 +402,8 @@ class AdminController extends Controller
 
         $info->title = $req->title;
         $info->description = $req->description;
+        $info->published_year = $req->published_year;
+        $info->penanggung_jawab = $req->penanggung_jawab;
         $info->visibility = $req->visibility;
         $info->info_type = $req->info_type;
         $info->url = $req->url;
@@ -485,7 +490,8 @@ class AdminController extends Controller
             'page_prosedur_sengketa',
             'page_penanganan_sengketa',
             'page_kanal_layanan',
-            'page_waktu_biaya',
+            'page_waktu',
+            'page_biaya',
         ];
 
         foreach ($keys as $key) {

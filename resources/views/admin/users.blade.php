@@ -349,12 +349,14 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="bg-slate-50 px-4 py-4 sm:flex sm:flex-row-reverse sm:px-6">
-                            <button type="submit" form="createUserForm" class="inline-flex w-full justify-center rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 sm:ml-3 sm:w-auto transition-colors">
-                                Simpan Akun
-                            </button>
-                            <button type="button" @click="showAddModal = false" class="mt-3 inline-flex w-full justify-center rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 sm:mt-0 sm:w-auto transition-colors">
+                        <div class="bg-slate-50 px-6 py-4 flex flex-col-reverse sm:flex-row justify-end gap-3">
+                            <button type="button" @click="showAddModal = false"
+                                class="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-slate-50 transition-colors">
                                 Batal
+                            </button>
+                            <button type="submit" form="createUserForm"
+                                class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all">
+                                Simpan Akun
                             </button>
                         </div>
                     </div>

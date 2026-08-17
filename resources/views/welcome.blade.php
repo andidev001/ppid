@@ -862,88 +862,129 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                     <!-- Buku Tamu Card -->
-                    <a href="{{ route('guestbook.create') }}"
-                        class="group relative bg-emerald-50 border border-emerald-100 rounded-3xl p-10 sm:p-12 flex flex-col items-center text-center shadow-sm overflow-hidden hover:shadow-xl hover:shadow-emerald-900/10 hover:-translate-y-1 transition-all duration-300">
-                        <!-- Subtle gradient overlay -->
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-white/70 to-transparent pointer-events-none">
+                    <a href="{{ route('guestbook.create') }}" class="group relative bg-white border border-slate-200 rounded-3xl p-8 sm:p-10 shadow-sm hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-200 overflow-hidden hover:-translate-y-1 transition-all duration-300 block">
+                        <div class="absolute -right-8 -top-8 w-64 h-64 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-full opacity-50 blur-3xl group-hover:opacity-80 transition-opacity duration-500 pointer-events-none"></div>
+                        
+                        <div class="relative z-10 flex flex-col md:flex-row items-start gap-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-blue-600 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-indigo-500/30 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-extrabold text-slate-800 brand-font mb-2 tracking-tight group-hover:text-indigo-600 transition-colors">Buku Tamu Digital</h3>
+                                <p class="text-slate-500 text-sm mb-6 leading-relaxed">Berikan saran, masukan, dan kritik membangun Anda kepada instansi kami melalui sistem buku tamu digital yang terintegrasi.</p>
+                                <span class="inline-flex items-center text-indigo-600 font-bold text-sm group-hover:text-indigo-700">
+                                    Isi Buku Tamu Sekarang
+                                    <svg class="w-4 h-4 ml-1.5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </span>
+                            </div>
                         </div>
-                        <!-- Decorative circle -->
-                        <div
-                            class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-100 rounded-full opacity-60 group-hover:scale-125 transition-transform duration-500 pointer-events-none">
-                        </div>
-                        <div
-                            class="absolute -bottom-8 -left-8 w-32 h-32 bg-teal-100 rounded-full opacity-40 group-hover:scale-110 transition-transform duration-500 pointer-events-none">
-                        </div>
-
-                        <div
-                            class="relative z-10 w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300 shadow-sm">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h3
-                            class="relative z-10 text-xl sm:text-2xl font-extrabold text-slate-800 brand-font mb-3 tracking-tight">
-                            Buku Tamu</h3>
-                        <p class="relative z-10 text-slate-600 text-sm mb-8 max-w-xs mx-auto leading-relaxed">
-                            Tinggalkan pesan, masukan, atau saran Anda kepada kami melalui buku tamu digital.</p>
-                        <span
-                            class="relative z-10 inline-flex items-center justify-center px-8 py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-sm hover:bg-emerald-700 shadow-lg shadow-emerald-600/30 group-hover:shadow-xl group-hover:shadow-emerald-600/50 brand-font">
-                            Isi Buku Tamu
-                            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1.5 transition-transform" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </span>
                     </a>
 
                     <!-- Survei Kepuasan Card -->
-                    <a href="{{ route('survey.index') }}"
-                        class="group relative bg-indigo-50 border border-indigo-100 rounded-3xl p-10 sm:p-12 flex flex-col items-center text-center shadow-sm overflow-hidden hover:shadow-xl hover:shadow-indigo-900/10 hover:-translate-y-1 transition-all duration-300">
-                        <!-- Subtle gradient overlay -->
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent pointer-events-none">
-                        </div>
-                        <!-- Decorative circle -->
-                        <div
-                            class="absolute -top-10 -left-10 w-40 h-40 bg-indigo-100 rounded-full opacity-60 group-hover:scale-125 transition-transform duration-500 pointer-events-none">
-                        </div>
-                        <div
-                            class="absolute -bottom-8 -right-8 w-32 h-32 bg-purple-100 rounded-full opacity-40 group-hover:scale-110 transition-transform duration-500 pointer-events-none">
-                        </div>
+                    <a href="{{ route('survey.index') }}" class="group relative bg-slate-900 border border-slate-700/50 rounded-3xl p-8 sm:p-10 shadow-xl shadow-slate-900/20 hover:shadow-2xl hover:shadow-blue-900/30 hover:border-slate-600 overflow-hidden hover:-translate-y-1 transition-all duration-300 block">
+                        <div class="absolute -left-10 -bottom-10 w-64 h-64 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full opacity-50 blur-3xl group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none"></div>
 
-                        <div
-                            class="relative z-10 w-16 h-16 text-indigo-600 mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="w-full h-full drop-shadow-sm">
-                                <path fill-rule="evenodd"
-                                    d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h9a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5h-1.082A2.25 2.25 0 0013.167 2h-2.334a2.25 2.25 0 00-2.25 1.75H7.5zm1.5 6a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm1.5-1.5a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5zm-1.5 6a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm1.5-1.5a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5z"
-                                    clip-rule="evenodd" />
-                            </svg>
+                        <div class="relative z-10 flex flex-col md:flex-row items-start gap-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-violet-500 to-purple-600 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-purple-500/30 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-extrabold text-white brand-font mb-2 tracking-tight">Survei Kepuasan</h3>
+                                <p class="text-indigo-200 text-sm mb-6 leading-relaxed">Bantu kami meningkatkan standar dan kualitas layanan publik dengan berpartisipasi mengisi survei IKM ini.</p>
+                                <span class="inline-flex items-center text-indigo-300 font-bold text-sm group-hover:text-white transition-colors">
+                                    Mulai Isi Survei
+                                    <svg class="w-4 h-4 ml-1.5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </span>
+                            </div>
                         </div>
-                        <h3
-                            class="relative z-10 text-xl sm:text-2xl font-extrabold text-slate-800 brand-font mb-3 tracking-tight">
-                            Survei Kepuasan</h3>
-                        <p class="relative z-10 text-slate-600 text-sm mb-8 max-w-xs mx-auto leading-relaxed">Bantu
-                            kami meningkatkan kualitas layanan publik dengan mengisi survei singkat.</p>
-                        <span
-                            class="relative z-10 inline-flex items-center justify-center px-8 py-3.5 bg-indigo-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-indigo-600/30 group-hover:shadow-xl group-hover:shadow-indigo-600/50 brand-font">
-                            Mulai Isi Survei
-                            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1.5 transition-transform" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </span>
                     </a>
-
                 </div>
             </div>
 
         </div>
+        <!-- Galeri & Link Terkait Section -->
+        <section class="bg-slate-900 pt-20 pb-40 -mb-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <!-- Left: Website Wilayah (Standard Tailwind Colors) -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-3xl p-6 sm:p-8">
+                        <div class="flex items-center gap-4 border-b border-slate-700 pb-5 mb-6">
+                            <div class="w-10 h-10 rounded-xl bg-orange-400 text-white flex items-center justify-center shrink-0 shadow-lg shadow-orange-500/30">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </div>
+                            <h3 class="text-sm font-bold text-white tracking-widest uppercase">Website Wilayah Kota / Kabupaten</h3>
+                        </div>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            @forelse($related_links ?? [] as $link)
+                                <a href="{{ $link->url }}" target="_blank" rel="noopener noreferrer" class="group flex flex-col items-center justify-center p-4 bg-slate-900/50 rounded-2xl hover:bg-slate-700/80 border border-slate-700/50 transition-colors gap-3">
+                                    <div class="w-14 h-14 bg-slate-800 rounded-full p-2 border border-slate-600 flex items-center justify-center group-hover:scale-110 transition-transform overflow-hidden">
+                                        @if($link->logo_path)
+                                            <img src="{{ asset('storage/' . $link->logo_path) }}" class="w-full h-full object-contain" alt="">
+                                        @else
+                                            <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                        @endif
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-300 text-center group-hover:text-white">{{ $link->title }}</span>
+                                </a>
+                            @empty
+                                <p class="text-slate-400 text-sm italic col-span-3">Belum ada data wilayah tersimpan.</p>
+                            @endforelse
+                        </div>
+                    </div>
+
+                    <!-- Right: Galeri Video -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-3xl p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-4 border-b border-slate-700 pb-5 mb-6">
+                                <div class="w-10 h-10 rounded-xl bg-orange-400 text-white flex items-center justify-center shrink-0 shadow-lg shadow-orange-500/30">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <h3 class="text-sm font-bold text-white tracking-widest uppercase">Galeri</h3>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                @forelse($gallery_videos ?? [] as $vid)
+                                <a href="{{ $vid->youtube_url }}" target="_blank" class="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-slate-700 group block">
+                                    @if($vid->youtube_id)
+                                        <img src="https://img.youtube.com/vi/{{ $vid->youtube_id }}/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/{{ $vid->youtube_id }}/hqdefault.jpg'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Video">
+                                    @else
+                                        <div class="w-full h-full bg-slate-900 flex items-center justify-center">
+                                            <svg class="w-8 h-8 text-slate-500" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                        </div>
+                                    @endif
+                                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-colors">
+                                        <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                        </div>
+                                    </div>
+                                    <div class="absolute bottom-2 left-2 right-2 flex justify-center">
+                                        <span class="bg-black/70 backdrop-blur text-white text-[10px] font-bold px-3 py-1 rounded inline-block text-center line-clamp-1">{{ strtoupper($vid->title) }}</span>
+                                    </div>
+                                </a>
+                                @empty
+                                    <p class="text-slate-400 text-sm italic col-span-2">Belum ada galeri video tersimpan.</p>
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <!-- Action Button -->
+                        <div class="mt-8 flex justify-start">
+                            <a href="{{ route('galeri') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-500 text-slate-300 text-sm font-semibold hover:bg-white hover:text-slate-900 transition-colors shadow-sm">
+                                Lihat semua galeri
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <x-public-footer :settings="$settings" />

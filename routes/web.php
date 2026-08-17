@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/galeri', [\App\Http\Controllers\PageController::class, 'galeri'])->name('galeri');
 
 Route::get('/profil/ppid', [\App\Http\Controllers\PageController::class, 'profilPpid'])->name('profil.ppid');
 Route::get('/profil/tugas-fungsi', [\App\Http\Controllers\PageController::class, 'tugasFungsi'])->name('profil.tugas_fungsi');
@@ -120,6 +121,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/komentar', [\App\Http\Controllers\CommentController::class, 'adminIndex'])->name('admin.comments.index');
     Route::patch('/admin/komentar/{id}/approve', [\App\Http\Controllers\CommentController::class, 'approve'])->name('admin.comments.approve');
     Route::delete('/admin/komentar/{id}', [\App\Http\Controllers\CommentController::class, 'destroy'])->name('admin.comments.destroy');
+
+    // Home Content (Landing Page Dynamic Data)
+    Route::get('/admin/home-content', [\App\Http\Controllers\Admin\HomeContentController::class, 'index'])->name('admin.home_content.index');
+    Route::post('/admin/home-content/link', [\App\Http\Controllers\Admin\HomeContentController::class, 'storeLink'])->name('admin.home_content.store_link');
+    Route::put('/admin/home-content/link/{link}', [\App\Http\Controllers\Admin\HomeContentController::class, 'updateLink'])->name('admin.home_content.update_link');
+    Route::delete('/admin/home-content/link/{link}', [\App\Http\Controllers\Admin\HomeContentController::class, 'destroyLink'])->name('admin.home_content.destroy_link');
+    Route::post('/admin/home-content/video', [\App\Http\Controllers\Admin\HomeContentController::class, 'storeVideo'])->name('admin.home_content.store_video');
+    Route::put('/admin/home-content/video/{video}', [\App\Http\Controllers\Admin\HomeContentController::class, 'updateVideo'])->name('admin.home_content.update_video');
+    Route::delete('/admin/home-content/video/{video}', [\App\Http\Controllers\Admin\HomeContentController::class, 'destroyVideo'])->name('admin.home_content.destroy_video');
 });
 
 require __DIR__ . '/auth.php';

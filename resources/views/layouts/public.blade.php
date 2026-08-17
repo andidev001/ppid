@@ -441,6 +441,7 @@
 
     <x-public-footer :settings="$settings" />
 
+    @yield('scripts')
 </body>
 
 </html>

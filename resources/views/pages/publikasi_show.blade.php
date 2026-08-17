@@ -120,12 +120,12 @@
                                         d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                                 </svg>
                             </a>
-                            <!-- Native Share OS (Including Instagram Stories/Direct on Mobile) -->
-                            <button
-                                onclick="navigator.share({ title: @json($publication->title), url: @json(request()->url()) }).catch(console.error);"
+                            <!-- Native Share OS (Including Instagram Stories/Direct on Mobile) / Fallback Copy Link -->
+                            <button data-title="{{ $publication->title }}" data-url="{{ request()->url() }}"
+                                onclick="if (navigator.share) { navigator.share({ title: this.dataset.title, url: this.dataset.url }).catch(console.error); } else { navigator.clipboard.writeText(this.dataset.title + ' - ' + this.dataset.url); alert('Tautan berhasil disalin ke Setempel (Clipboard)! Silakan buka Instagram Anda untuk membagikan tautan ini.'); }"
                                 class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 via-rose-500 to-purple-600 text-white flex items-center justify-center transition-all shadow-md hover:shadow-rose-500/40 hover:-translate-y-0.5 group"
-                                title="Share via Device / Instagram">
-                                <!-- Instagram SVG Logo here! -->
+                                title="Bagikan ke Instagram / Perangkat">
+                                <!-- Instagram SVG Logo -->
                                 <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor"
                                     viewBox="0 0 24 24">
                                     <path

@@ -75,7 +75,13 @@
                                         </svg>
                                     </button>
                                     <button
-                                        @click="openEdit({{ $info->id }}, @json($info->title), @json($info->description), '{{ $info->visibility }}')"
+                                        data-info="{{ json_encode([
+                                            'id' => $info->id,
+                                            'title' => $info->title,
+                                            'description' => $info->description,
+                                            'visibility' => $info->visibility
+                                        ]) }}"
+                                        @click="let d = JSON.parse($event.currentTarget.dataset.info); openEdit(d.id, d.title, d.description, d.visibility)"
                                         class="inline-block p-2 text-amber-500 hover:bg-amber-50 rounded-lg transition-colors mr-1"
                                         title="Edit Dokumen">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -181,9 +187,7 @@
                 </div>
                 <form :action="editFormAction" method="POST" enctype="multipart/form-data" class="p-6">
                     @csrf
-                    <template x-if="isEditMode">
-                        <input type="hidden" name="_method" value="PUT">
-                    </template>
+                    <input type="hidden" name="_method" value="PUT" x-bind:disabled="!isEditMode">
                     <input type="hidden" name="category" value="{{ $category }}">
 
                     <div class="space-y-5">
@@ -290,7 +294,7 @@
                     this.editData.title = title;
                     this.editData.description = description;
                     this.editData.visibility = visibility;
-                    this.editFormAction = `/admin/public-info/${id}`;
+                    this.editFormAction = `{{ url('admin/public-info') }}/${id}`;
                     this.showEditModal = true;
                 }
             }

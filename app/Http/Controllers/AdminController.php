@@ -499,4 +499,21 @@ class AdminController extends Controller
         $user->delete();
         return back()->with('success', 'Akun pengguna berhasil dihapus.');
     }
+
+    /**
+     * Handle image upload from TinyMCE editor.
+     * Returns JSON with the image URL expected by TinyMCE images_upload_handler.
+     */
+    public function uploadEditorImage(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+        ]);
+
+        $path = $request->file('file')->store('editor-images', 'public');
+
+        return response()->json([
+            'location' => asset('storage/' . $path)
+        ]);
+    }
 }

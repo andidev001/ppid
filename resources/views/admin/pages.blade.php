@@ -165,6 +165,9 @@
         }
     </style>
     <script>
+        var editorImageUploadUrl = "{{ route('admin.editor.upload-image') }}";
+        var editorCsrfToken = "{{ csrf_token() }}";
+
         function initTinyMCE() {
             if (typeof tinymce === 'undefined') return;
             // Remove existing instances first so Turbo can re-init cleanly
@@ -172,17 +175,74 @@
             tinymce.init({
                 selector: 'textarea.tinymce',
                 height: 500,
-                menubar: false,
+                menubar: 'edit view insert format table tools',
                 plugins: [
                     'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
                     'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
                     'insertdatetime', 'media', 'table', 'help', 'wordcount'
                 ],
                 toolbar: 'undo redo | blocks | ' +
-                    'bold italic backcolor | alignleft aligncenter ' +
-                    'alignright alignjustify | bullist numlist outdent indent | ' +
-                    'removeformat | table | code',
-                content_style: 'body { font-family:Inter,Helvetica,Arial,sans-serif; font-size:16px; color:#334155; } h1, h2, h3, h4, h5, h6 { font-family: Outfit, sans-serif; color:#0f172a; }'
+                    'bold italic underline strikethrough | forecolor backcolor | ' +
+                    'alignleft aligncenter alignright alignjustify | ' +
+                    'bullist numlist outdent indent | ' +
+                    'table image link media | removeformat | code fullscreen',
+
+                // ─── Table settings ───────────────────────────────────────────
+                table_toolbar: 'tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol',
+                table_appearance_options: true,
+                table_advtab: true,
+                table_cell_advtab: true,
+                table_row_advtab: true,
+
+                // ─── Image upload settings ────────────────────────────────────
+                automatic_uploads: true,
+                images_upload_url: editorImageUploadUrl,
+                // Custom handler to add CSRF token header (Laravel requirement)
+                images_upload_handler: function (blobInfo, progress) {
+                    return new Promise(function (resolve, reject) {
+                        var formData = new FormData();
+                        formData.append('file', blobInfo.blob(), blobInfo.filename());
+                        formData.append('_token', editorCsrfToken);
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', editorImageUploadUrl, true);
+
+                        xhr.upload.onprogress = function (e) {
+                            if (e.lengthComputable) {
+                                progress(e.loaded / e.total * 100);
+                            }
+                        };
+
+                        xhr.onload = function () {
+                            if (xhr.status === 403) {
+                                reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
+                                return;
+                            }
+                            if (xhr.status < 200 || xhr.status >= 300) {
+                                reject('HTTP Error: ' + xhr.status);
+                                return;
+                            }
+                            var json = JSON.parse(xhr.responseText);
+                            if (!json || typeof json.location !== 'string') {
+                                reject('Invalid JSON: ' + xhr.responseText);
+                                return;
+                            }
+                            resolve(json.location);
+                        };
+
+                        xhr.onerror = function () {
+                            reject('Upload failed. Code: ' + xhr.status);
+                        };
+
+                        xhr.send(formData);
+                    });
+                },
+                // Prevent pasted base64 images from being stored inline
+                images_dataimg_filter: function (img) {
+                    return img.hasAttribute('internal-blob');
+                },
+
+                content_style: 'body { font-family:Inter,Helvetica,Arial,sans-serif; font-size:16px; color:#334155; } h1, h2, h3, h4, h5, h6 { font-family: Outfit, sans-serif; color:#0f172a; } table { border-collapse: collapse; width: 100%; } table th, table td { border: 1px solid #cbd5e1; padding: 8px 12px; } table th { background: #f1f5f9; font-weight: 600; }'
             });
         }
 

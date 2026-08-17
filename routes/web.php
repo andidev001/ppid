@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/pages', [AdminController::class, 'pages'])->name('admin.pages');
     Route::post('/admin/pages', [AdminController::class, 'updatePages'])->name('admin.pages.update');
+    Route::post('/admin/editor/upload-image', [AdminController::class, 'uploadEditorImage'])->name('admin.editor.upload-image');
     Route::get('/admin/requests', [AdminController::class, 'requestsIndex'])->name('admin.requests.index');
     Route::get('/admin/requests/data', [AdminController::class, 'requestsData'])->name('admin.requests.data');
     Route::patch('/admin/requests/{id}', [AdminController::class, 'updateRequest'])->name('admin.requests.update');

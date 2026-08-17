@@ -87,28 +87,51 @@
         </div>
     </div>
 
-    <!-- TincyMCE Script -->
+    <!-- TinyMCE Script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
-        /* Sembunyikan notifikasi API Key dan branding TinyMCE */
         .tox-notifications-container,
         .tox-promotion {
             display: none !important;
         }
     </style>
     <script>
-        (function() {
+        (function () {
+            var uploadUrl = "{{ route('admin.editor.upload-image') }}";
+            var csrfToken = "{{ csrf_token() }}";
+
             const initEditor = () => {
                 if (typeof tinymce === 'undefined' || !document.getElementById('content-editor')) return;
                 tinymce.remove('#content-editor');
                 tinymce.init({
                     selector: '#content-editor',
-                    height: 400,
-                    menubar: false,
-                    plugins: ['advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'],
-                    toolbar: 'undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-                    content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px }',
-                    skin: "oxide",
+                    height: 450,
+                    menubar: 'edit view insert format table tools',
+                    plugins: ['advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media', 'table', 'help', 'wordcount'],
+                    toolbar: 'undo redo | blocks | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table image link | removeformat | code fullscreen',
+                    table_toolbar: 'tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol',
+                    table_advtab: true, table_cell_advtab: true, table_row_advtab: true,
+                    automatic_uploads: true,
+                    images_upload_handler: function (blobInfo, progress) {
+                        return new Promise(function (resolve, reject) {
+                            var fd = new FormData();
+                            fd.append('file', blobInfo.blob(), blobInfo.filename());
+                            fd.append('_token', csrfToken);
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', uploadUrl, true);
+                            xhr.upload.onprogress = e => { if (e.lengthComputable) progress(e.loaded / e.total * 100); };
+                            xhr.onload = function () {
+                                if (xhr.status < 200 || xhr.status >= 300) { reject('HTTP Error: ' + xhr.status); return; }
+                                var json = JSON.parse(xhr.responseText);
+                                if (!json || typeof json.location !== 'string') { reject('Invalid JSON'); return; }
+                                resolve(json.location);
+                            };
+                            xhr.onerror = () => reject('Upload failed');
+                            xhr.send(fd);
+                        });
+                    },
+                    images_dataimg_filter: img => img.hasAttribute('internal-blob'),
+                    content_style: 'body { font-family: Inter, sans-serif; font-size: 15px; color: #334155; } table { border-collapse: collapse; width: 100%; } table th, table td { border: 1px solid #cbd5e1; padding: 8px 12px; } table th { background: #f1f5f9; font-weight: 600; }',
                     promotion: false
                 });
             };
@@ -117,7 +140,7 @@
 
             if (!window.tinymceTurboInterceptor) {
                 document.addEventListener('turbo:load', () => {
-                    setTimeout(() => { if(window.tinymceInitActive) window.tinymceInitActive(); }, 150);
+                    setTimeout(() => { if (window.tinymceInitActive) window.tinymceInitActive(); }, 150);
                 });
                 window.tinymceTurboInterceptor = true;
             }

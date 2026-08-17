@@ -41,71 +41,106 @@
                     </thead>
                     <tbody class="divide-y divide-slate-100">
                         @forelse ($informations as $index => $info)
-                            <tr class="hover:bg-slate-50/50 transition-colors">
-                                <td class="px-6 py-4 text-sm text-slate-500">{{ $informations->firstItem() + $index }}</td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm font-semibold text-slate-800">{{ $info->title }}</div>
-                                    <div class="text-xs text-slate-500 mt-1 max-w-xs truncate"
-                                        title="{{ $info->description }}">{{ $info->description ?: '-' }}</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    @if($info->visibility === 'public')
-                                        <span
-                                            class="px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">Publik
-                                            (Terbuka)</span>
-                                    @else
-                                        <span
-                                            class="px-2.5 py-1 rounded-full text-xs font-medium bg-rose-100 text-rose-700">Tertutup
-                                            (Harus Mohon)</span>
-                                    @endif
-                                </td>
-                                <td class="px-6 py-4 text-sm text-slate-500 whitespace-nowrap">
-                                    {{ $info->created_at->format('d M Y') }}
-                                </td>
-                                <td class="px-6 py-4 text-right whitespace-nowrap">
-                                    <button @click="openPdf('{{ asset('storage/' . $info->file_path) }}')"
-                                        class="inline-block p-2 text-indigo-500 hover:bg-indigo-50 rounded-lg transition-colors mr-1"
-                                        title="Lihat PDF">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                            </path>
-                                        </svg>
-                                    </button>
-                                    <button
-                                        data-info="{{ json_encode([
-                                            'id' => $info->id,
-                                            'title' => $info->title,
-                                            'description' => $info->description,
-                                            'visibility' => $info->visibility
-                                        ]) }}"
-                                        @click="let d = JSON.parse($event.currentTarget.dataset.info); openEdit(d.id, d.title, d.description, d.visibility)"
-                                        class="inline-block p-2 text-amber-500 hover:bg-amber-50 rounded-lg transition-colors mr-1"
-                                        title="Edit Dokumen">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                            </path>
-                                        </svg>
-                                    </button>
-                                    <form action="{{ route('admin.public-info.destroy', $info->id) }}" method="POST"
-                                        class="inline-block form-delete">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
-                                            title="Hapus Dokumen">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
+                                                <tr class="hover:bg-slate-50/50 transition-colors">
+                                                    <td class="px-6 py-4 text-sm text-slate-500">{{ $informations->firstItem() + $index }}</td>
+                                                    <td class="px-6 py-4">
+                                                        <div class="flex items-center gap-2">
+                                                            <div class="text-sm font-semibold text-slate-800">{{ $info->title }}</div>
+                                                            @if($info->published_year)
+                                                                <span
+                                                                    class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-bold border border-slate-200">
+                                                                    {{ $info->published_year }}
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                        <div class="text-xs text-slate-500 mt-1 max-w-xs truncate"
+                                                            title="{{ $info->description }}">{{ $info->description ?: '-' }}</div>
+                                                    </td>
+                                                    <td class="px-6 py-4">
+                                                        @if($info->visibility === 'public')
+                                                            <span
+                                                                class="px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">Publik
+                                                                (Terbuka)</span>
+                                                        @else
+                                                            <span
+                                                                class="px-2.5 py-1 rounded-full text-xs font-medium bg-rose-100 text-rose-700">Tertutup
+                                                                (Harus Mohon)</span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="px-6 py-4 text-sm text-slate-500 whitespace-nowrap">
+                                                        {{ $info->created_at->format('d M Y') }}
+                                                    </td>
+                                                    <td class="px-6 py-4 text-right whitespace-nowrap">
+                                                        @if(($info->info_type ?? 'file') === 'file')
+                                                            <button @click="openPdf('{{ asset('storage/' . $info->file_path) }}')"
+                                                                class="inline-block p-2 text-indigo-500 hover:bg-indigo-50 rounded-lg transition-colors mr-1"
+                                                                title="Lihat Dokumen">
+                                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                                                    </path>
+                                                                </svg>
+                                                            </button>
+                                                        @elseif($info->info_type === 'url')
+                                                            <a href="{{ $info->url }}" target="_blank"
+                                                                class="inline-block p-2 text-indigo-500 hover:bg-indigo-50 rounded-lg transition-colors mr-1"
+                                                                title="Buka Tautan">
+                                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                                                    </path>
+                                                                </svg>
+                                                            </a>
+                                                        @elseif($info->info_type === 'video')
+                                                            <button @click="openVideo('{{ base64_encode($info->video_embed ?? '') }}')"
+                                                                class="inline-block p-2 text-indigo-500 hover:bg-indigo-50 rounded-lg transition-colors mr-1"
+                                                                title="Putar Video">
+                                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
+                                                                    </path>
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                                </svg>
+                                                            </button>
+                                                        @endif
+                                                        <button data-info="{{ json_encode([
+                                'id' => $info->id,
+                                'title' => $info->title,
+                                'description' => $info->description,
+                                'visibility' => $info->visibility,
+                                'info_type' => $info->info_type ?? 'file',
+                                'url' => $info->url,
+                                'video_embed' => $info->video_embed
+                            ]) }}" @click="let d = JSON.parse($event.currentTarget.dataset.info); openEdit(d.id, d.title, d.description, d.visibility, d.info_type, d.url, d.video_embed, d.published_year)"
+                                                            class="inline-block p-2 text-amber-500 hover:bg-amber-50 rounded-lg transition-colors mr-1"
+                                                            title="Edit Dokumen">
+                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                                                </path>
+                                                            </svg>
+                                                        </button>
+                                                        <form action="{{ route('admin.public-info.destroy', $info->id) }}" method="POST"
+                                                            class="inline-block form-delete">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
+                                                                title="Hapus Dokumen">
+                                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                                    </path>
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
                         @empty
                             <tr>
                                 <td colspan="5" class="px-6 py-12 text-center">
@@ -152,6 +187,31 @@
                 </div>
                 <div class="flex-1 bg-slate-100 p-0 overflow-hidden rounded-b-2xl">
                     <iframe :src="currentPdfUrl" class="w-full h-full border-0"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Viewer Modal -->
+        <div x-show="showVideoModal"
+            class="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-slate-900/80 backdrop-blur-sm"
+            x-cloak style="display: none;">
+            <div x-show="showVideoModal" @click.away="showVideoModal = false"
+                x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl mx-4 sm:mx-auto">
+                <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                    <h3 class="text-lg font-bold text-slate-800 brand-font">Putar Video</h3>
+                    <button @click="showVideoModal = false; currentVideoContent = ''"
+                        class="text-slate-400 hover:text-slate-600 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-4 bg-slate-900 rounded-b-2xl aspect-video w-full flex items-center justify-center"
+                    x-html="currentVideoContent">
                 </div>
             </div>
         </div>
@@ -206,20 +266,43 @@
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Hak Akses Publikasi</label>
                             <select name="visibility" x-model="editData.visibility"
                                 class="w-full border border-slate-300 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-slate-50 transition-all font-medium">
-                                <option value="public">Publik (Dokumen Bisa Diunduh Langsung)</option>
+                                <option value="public">Publik (Bisa Diakses Langsung)</option>
                                 <option value="restricted">Tertutup / Dikecualikan (Harus Mengajukan Permohonan)
                                 </option>
                             </select>
                         </div>
                         <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Tipe Informasi</label>
+                            <select name="info_type" x-model="editData.info_type"
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white transition-all font-medium">
+                                <option value="file">Dokumen / File Upload</option>
+                                <option value="url">Link URL / Tautan Eksternal</option>
+                                <option value="video"> Video Embed</option>
+                            </select>
+                        </div>
+                        <div x-show="editData.info_type === 'file'" x-cloak>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">
                                 Dokumen PDF/File
                                 <span class="text-slate-400 text-xs font-normal" x-show="isEditMode">(Biarkan kosong
                                     jika tidak ingin mengubah)</span>
                             </label>
                             <input type="file" name="info_file" accept=".pdf,.doc,.docx,.xls,.xlsx"
-                                :required="!isEditMode"
+                                :required="!isEditMode && editData.info_type === 'file'"
                                 class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 transition-all">
+                        </div>
+                        <div x-show="editData.info_type === 'url'" x-cloak>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Link URL Tujuan</label>
+                            <input type="url" name="url" x-model="editData.url" :required="editData.info_type === 'url'"
+                                placeholder="https://..."
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
+                        </div>
+                        <div x-show="editData.info_type === 'video'" x-cloak>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Kode Embed Video YT /
+                                Link</label>
+                            <textarea name="video_embed" x-model="editData.video_embed" rows="3"
+                                :required="editData.info_type === 'video'"
+                                placeholder='<iframe src="..."></iframe> atau cukup link youtube...'
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all resize-none"></textarea>
                         </div>
                     </div>
                     <div class="mt-8 flex justify-end gap-3">
@@ -270,6 +353,27 @@
                     this.showPdfModal = true;
                 },
 
+                showVideoModal: false,
+                currentVideoContent: '',
+                openVideo(base64Content) {
+                    let content = atob(base64Content);
+                    // Jika isinya cuma URL youtube, ubah jadi iframe
+                    if (content.includes('youtube.com/watch') || content.includes('youtu.be/')) {
+                        let videoId = '';
+                        if (content.includes('youtube.com/watch')) {
+                            videoId = content.split('v=')[1].split('&')[0];
+                        } else {
+                            videoId = content.split('youtu.be/')[1].split('?')[0];
+                        }
+                        content = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                    }
+                    else if (!content.includes('<iframe')) {
+                        content = `<iframe class="w-full h-full" src="${content}" frameborder="0" allowfullscreen></iframe>`;
+                    }
+                    this.currentVideoContent = content;
+                    this.showVideoModal = true;
+                },
+
                 showEditModal: false,
                 isEditMode: false,
                 editFormAction: '',
@@ -277,7 +381,10 @@
                     id: '',
                     title: '',
                     description: '',
-                    visibility: 'public'
+                    visibility: 'public',
+                    info_type: 'file',
+                    url: '',
+                    video_embed: ''
                 },
                 openCreate() {
                     this.isEditMode = false;
@@ -285,15 +392,22 @@
                     this.editData.title = '';
                     this.editData.description = '';
                     this.editData.visibility = 'public';
+                    this.editData.info_type = 'file';
+                    this.editData.url = '';
+                    this.editData.video_embed = '';
                     this.editFormAction = '{{ route('admin.public-info.store') }}';
                     this.showEditModal = true;
                 },
-                openEdit(id, title, description, visibility) {
+                openEdit(id, title, description, visibility, info_type = 'file', url = '', video_embed = '', published_year = '') {
                     this.isEditMode = true;
                     this.editData.id = id;
                     this.editData.title = title;
                     this.editData.description = description;
                     this.editData.visibility = visibility;
+                    this.editData.info_type = info_type;
+                    this.editData.url = url;
+                    this.editData.video_embed = video_embed;
+                    this.editData.published_year = published_year;
                     this.editFormAction = `{{ url('admin/public-info') }}/${id}`;
                     this.showEditModal = true;
                 }

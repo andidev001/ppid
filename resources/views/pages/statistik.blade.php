@@ -92,137 +92,357 @@
             </div>
         </div>
 
-        <!-- Chart Configuration -->
+        <!-- Rata-rata penyelesaian permohonan -->
         <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden mb-8">
-            <div class="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                <div>
-                    <h2 class="text-xl font-bold text-slate-800 brand-font">Tren Permohonan (6 Bulan Terakhir)</h2>
-                    <p class="text-sm text-slate-500 mt-1">Laporan grafik volume permintaan informasi publik yang masuk ke
-                        sistem.</p>
-                </div>
+            <div class="px-8 py-6 border-b border-slate-100">
+                <h2 class="text-xl font-bold text-slate-800 brand-font">Rata-rata penyelesaian permohonan</h2>
+                <p class="text-sm text-slate-500 mt-1">Perbandingan rata-rata hari kerja menurut periode</p>
             </div>
             <div class="p-8">
-                <div class="relative h-72 sm:h-96 w-full">
-                    <canvas id="statistikChart"></canvas>
+                <div class="relative h-96 w-full">
+                    <canvas id="avgDaysChart"></canvas>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
             <!-- Pie Chart: Status Permohonan -->
-            <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
-                <div class="px-8 py-5 border-b border-slate-100 bg-slate-50/50">
-                    <h2 class="text-lg font-bold text-slate-800 brand-font">Proporsi Status Permohonan</h2>
+            <div class="bg-white rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-slate-100 overflow-hidden flex flex-col pt-1">
+                <div class="w-full h-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 mb-5 mx-6 w-auto block"></div>
+                <div class="px-6 pb-2">
+                    <h2 class="text-[15px] font-bold text-slate-800 brand-font">Persentase permohonan selesai</h2>
                 </div>
-                <div class="p-6">
-                    <div class="relative h-64 w-full">
+                <div class="px-6 py-4 flex-grow flex items-center justify-center">
+                    <div class="relative h-64 w-full flex items-center justify-center">
                         <canvas id="permohonanPie"></canvas>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-2">
+                            <span class="text-2xl font-bold text-slate-800 brand-font" id="persentaseSelesaiText">0%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-6 py-5 bg-slate-50/50 border-t border-slate-100 text-sm space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded bg-[#16a34a]"></span>
+                        <span class="text-slate-500">Selesai ({{ $selesai }})</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded bg-[#94a3b8]"></span>
+                        <span class="text-slate-500">Dalam proses ({{ $proses + $pending }})</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Pie Chart: Status Keberatan -->
-            <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
-                <div class="px-8 py-5 border-b border-slate-100 bg-slate-50/50">
-                    <h2 class="text-lg font-bold text-slate-800 brand-font">Statistik Jumlah Keberatan</h2>
+            <!-- Pie Chart: Informasi Kategori -->
+            <div class="bg-white rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-slate-100 overflow-hidden flex flex-col pt-1">
+                <div class="w-full h-0.5 bg-gradient-to-r from-orange-500 to-orange-400 mb-5 mx-6 w-auto block"></div>
+                <div class="px-6 pb-2">
+                    <h2 class="text-[15px] font-bold text-slate-800 brand-font">Informasi publik berdasarkan kategori</h2>
                 </div>
-                <div class="p-6">
-                    <div class="relative h-64 w-full">
+                <div class="px-6 py-4 flex-grow flex items-center justify-center">
+                    <div class="relative h-64 w-full flex items-center justify-center">
+                        <canvas id="kategoriPie"></canvas>
+                    </div>
+                </div>
+                <div class="px-6 py-5 bg-slate-50/50 border-t border-slate-100 text-sm space-y-2">
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-[#1e293b]"></span> <span class="text-slate-500">Tersedia setiap saat</span></div>
+                        <span class="text-slate-400">({{ $cat_setiap_saat }})</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-[#253b70]"></span> <span class="text-slate-500">Berkala</span></div>
+                        <span class="text-slate-400">({{ $cat_berkala }})</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-[#f59e0b]"></span> <span class="text-slate-500">Serta merta</span></div>
+                        <span class="text-slate-400">({{ $cat_serta_merta }})</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-[#ef4444]"></span> <span class="text-slate-500">Dikecualikan</span></div>
+                        <span class="text-slate-400">({{ $cat_dikecualikan }})</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pie Chart: Alasan Keberatan -->
+            <div class="bg-white rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-slate-100 overflow-hidden flex flex-col pt-1">
+                <div class="w-full h-0.5 bg-gradient-to-r from-orange-400 to-amber-400 mb-5 mx-6 w-auto block"></div>
+                <div class="px-6 pb-2">
+                    <h2 class="text-[15px] font-bold text-slate-800 brand-font">Alasan permohonan keberatan</h2>
+                </div>
+                <div class="px-6 py-4 flex-grow flex items-center justify-center">
+                    <div class="relative h-64 w-full flex items-center justify-center">
                         <canvas id="keberatanPie"></canvas>
+                    </div>
+                </div>
+                <div class="px-6 py-5 bg-slate-50/50 border-t border-slate-100 text-[11px] space-y-1.5 h-40 overflow-y-auto w-full custom-scroll">
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded shrink-0 bg-[#0f172a]"></span> <span class="text-slate-500 truncate">Pengecualian</span></div>
+                        <span class="text-slate-400">({{ $obj_reasons['pengecualian'] }})</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded shrink-0 bg-[#1e293b]"></span> <span class="text-slate-500 truncate">Tidak disediakannya informasi berkala</span></div>
+                        <span class="text-slate-400">({{ $obj_reasons['tidak_disediakan'] }})</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded shrink-0 bg-[#253b70]"></span> <span class="text-slate-500 truncate">Tidak ditanggapi</span></div>
+                        <span class="text-slate-400">({{ $obj_reasons['tidak_ditanggapi'] }})</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded shrink-0 bg-[#f59e0b]"></span> <span class="text-slate-500 truncate text-wrap leading-tight">Tidak ditanggapi sebagaimana yang diminta</span></div>
+                        <span class="text-slate-400 shrink-0">({{ $obj_reasons['tidak_sesuai'] }})</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded shrink-0 bg-[#fbcfe8]"></span> <span class="text-slate-500 truncate">Tidak dipenuhi</span></div>
+                        <span class="text-slate-400">({{ $obj_reasons['tidak_dipenuhi'] }})</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded shrink-0 bg-[#cbd5e1]"></span> <span class="text-slate-500 truncate">Pengenaan biaya yang tidak wajar</span></div>
+                        <span class="text-slate-400">({{ $obj_reasons['biaya_tidak_wajar'] }})</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded shrink-0 bg-[#e2e8f0]"></span> <span class="text-slate-500 truncate">Melebihi jangka waktu</span></div>
+                        <span class="text-slate-400">({{ $obj_reasons['melebihi_waktu'] }})</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+        <!-- Tren Permohonan Selesai - 7 Bulan Terakhir -->
+        <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden mb-8 mt-5">
+            <div class="px-8 py-6 border-b border-slate-100 bg-white">
+                <h2 class="text-[16px] font-bold text-slate-800 brand-font">Permohonan selesai — Tahun {{ $currentYear ?? date('Y') }}</h2>
+                <p class="text-[13px] text-slate-400 mt-1">Grafik garis menunjukkan volume permohonan yang telah diselesaikan per bulan sepanjang tahun ini.</p>
+            </div>
+            <div class="p-8">
+                <div class="relative h-80 sm:h-96 w-full">
+                    <canvas id="trend7BulanChart"></canvas>
+                </div>
+            </div>
+        </div>
 
-    <!-- Chart.js Library -->
+    </div>
+
+<!-- Chart.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
+        <style>
+.custom-scroll::-webkit-scrollbar { width: 4px; }
+.custom-scroll::-webkit-scrollbar-track { background: transparent; }
+.custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+</style>
+<script>
         (function () {
             const initCharts = () => {
-                const canvasStat = document.getElementById('statistikChart');
-                if (!canvasStat) return;
+                
+                // Set Global Font
+                Chart.defaults.font.family = "'Inter', 'Plus Jakarta Sans', sans-serif";
 
-                /* Destroy existing instances */
+                /* Wiping old charts */
                 if (window.chartSatu) window.chartSatu.destroy();
                 if (window.chartDua) window.chartDua.destroy();
                 if (window.chartTiga) window.chartTiga.destroy();
+                if (window.chartEmpat) window.chartEmpat.destroy();
+                if (window.chartLima) window.chartLima.destroy();
 
-                const ctx = canvasStat.getContext('2d');
-
-                /* Parsing data from Controller */
-                const labels = {!! $chartMonths !!};
-                const data = {!! $chartCounts !!};
-
-                /* Gradient */
-                let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                gradient.addColorStop(0, 'rgba(99, 102, 241, 0.4)');
-                gradient.addColorStop(1, 'rgba(99, 102, 241, 0.0)');
-
-                window.chartSatu = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Jumlah Permohonan',
-                            data: data,
-                            borderColor: '#6366f1',
-                            backgroundColor: gradient,
-                            borderWidth: 3,
-                            pointBackgroundColor: '#ffffff',
-                            pointBorderColor: '#6366f1',
-                            pointBorderWidth: 2,
-                            pointRadius: 6,
-                            pointHoverRadius: 8,
-                            fill: true,
-                            tension: 0.4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false },
+                /* Horizontal Bar Chart: Rata-rata penyelesaian */
+                const canvasBar = document.getElementById('avgDaysChart');
+                if (canvasBar) {
+                    const ctxBar = canvasBar.getContext('2d');
+                    window.chartSatu = new Chart(ctxBar, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Tahun 2026', 'Tahun 2025', 'Tahun 2024', 'Tahun 2021 s/d 2026'],
+                            datasets: [{
+                                data: [{{ $avgDays['2026'] }}, {{ $avgDays['2025'] }}, {{ $avgDays['2024'] }}, {{ $avgDays['2021_2026'] }}],
+                                backgroundColor: ['#1e40af', '#312e81', '#8b5cf6', '#c2410c'],
+                                barThickness: 50,
+                                borderRadius: 0
+                            }]
                         },
-                        scales: {
-                            y: { beginAtZero: true, border: { display: false }, grid: { color: '#f1f5f9', drawBorder: false } },
-                            x: { border: { display: false }, grid: { display: false, drawBorder: false } }
+                        options: {
+                            indexAxis: 'y', // Makes it horizontal
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: { label: function(c) { return c.raw + ' Hari Kerja'; } }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    grid: { color: '#f1f5f9' },
+                                    ticks: {
+                                        stepSize: 1,
+                                        callback: function(value) { return value + ' Hari Kerja'; }
+                                    }
+                                },
+                                y: {
+                                    grid: { display: false }
+                                }
+                            }
                         }
-                    }
-                });
+                    });
+                }
 
-                /* Pie Chart 1 */
-                const ctxPie1 = document.getElementById('permohonanPie').getContext('2d');
-                window.chartDua = new Chart(ctxPie1, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Menunggu', 'Diproses', 'Selesai', 'Ditolak'],
-                        datasets: [{
-                            data: [{{ $pending }}, {{ $proses }}, {{ $selesai }}, {{ $ditolak }}],
-                            backgroundColor: ['#fbbf24', '#60a5fa', '#34d399', '#fb7185'],
-                            borderWidth: 0,
-                            hoverOffset: 4
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
+                /* Donut Chart: Persentase permohonan selesai */
+                const totalPermohonan = {{ $selesai }} + {{ $proses + $pending }};
+                const percentage = totalPermohonan > 0 ? ({{ $selesai }} / totalPermohonan * 100).toFixed(1) : 0;
+                
+                const pt = document.getElementById('persentaseSelesaiText');
+                if(pt) pt.innerText = `${percentage}%`;
 
-                /* Pie Chart 2 */
-                const ctxPie2 = document.getElementById('keberatanPie').getContext('2d');
-                window.chartTiga = new Chart(ctxPie2, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Menunggu', 'Direview', 'Diselesaikan'],
-                        datasets: [{
-                            data: [{{ $obj_pending }}, {{ $obj_reviewed }}, {{ $obj_resolved }}],
-                            backgroundColor: ['#fbbf24', '#a78bfa', '#34d399'],
-                            borderWidth: 0,
-                            hoverOffset: 4
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
+                const ctxPie1 = document.getElementById('permohonanPie');
+                if (ctxPie1) {
+                    window.chartDua = new Chart(ctxPie1.getContext('2d'), {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Selesai', 'Dalam Proses'],
+                            datasets: [{
+                                data: [{{ $selesai }}, {{ $proses + $pending }}],
+                                backgroundColor: ['#16a34a', '#94a3b8'],
+                                borderWidth: 0,
+                                cutout: '65%',
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: { 
+                            responsive: true, maintainAspectRatio: false,
+                            plugins: { legend: { display: false } }
+                        }
+                    });
+                }
+
+                /* Pie Chart: Informasi publik berdasarkan kategori */
+                const ctxPie2 = document.getElementById('kategoriPie');
+                if (ctxPie2) {
+                    window.chartTiga = new Chart(ctxPie2.getContext('2d'), {
+                        type: 'pie',
+                        data: {
+                            labels: ['Tersedia setiap saat', 'Berkala', 'Serta merta', 'Dikecualikan'],
+                            datasets: [{
+                                data: [{{ $cat_setiap_saat }}, {{ $cat_berkala }}, {{ $cat_serta_merta }}, {{ $cat_dikecualikan }}],
+                                backgroundColor: ['#1e293b', '#253b70', '#f59e0b', '#ef4444'],
+                                borderWidth: 1,
+                                borderColor: '#ffffff',
+                                hoverOffset: 5
+                            }]
+                        },
+                        options: { 
+                            responsive: true, maintainAspectRatio: false,
+                            plugins: { 
+                                legend: { display: false },
+                                tooltip: { callbacks: { label: function(context) {
+                                    let sum = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    let percentage = sum > 0 ? (context.raw * 100 / sum).toFixed(2) + "%" : "0%";
+                                    return context.label + ': ' + percentage;
+                                }}}
+                            }
+                        }
+                    });
+                }
+
+                /* Pie Chart: Alasan permohonan keberatan */
+                const ctxPie3 = document.getElementById('keberatanPie');
+                if (ctxPie3) {
+                    window.chartEmpat = new Chart(ctxPie3.getContext('2d'), {
+                        type: 'pie',
+                        data: {
+                            labels: ['Pengecualian', 'Tidak disediakannya informasi berkala', 'Tidak ditanggapi', 'Tidak ditanggapi sebagaimana...', 'Tidak dipenuhi', 'Biaya tidak wajar', 'Melebihi waktu'],
+                            datasets: [{
+                                data: [{{ $obj_reasons['pengecualian'] }}, {{ $obj_reasons['tidak_disediakan'] }}, {{ $obj_reasons['tidak_ditanggapi'] }}, {{ $obj_reasons['tidak_sesuai'] }}, {{ $obj_reasons['tidak_dipenuhi'] }}, {{ $obj_reasons['biaya_tidak_wajar'] }}, {{ $obj_reasons['melebihi_waktu'] }}],
+                                backgroundColor: ['#0f172a', '#1e293b', '#253b70', '#f59e0b', '#fbcfe8', '#cbd5e1', '#e2e8f0'],
+                                borderWidth: 1,
+                                borderColor: '#ffffff',
+                                hoverOffset: 5
+                            }]
+                        },
+                        options: { 
+                            responsive: true, maintainAspectRatio: false,
+                            plugins: { 
+                                legend: { display: false },
+                                tooltip: { callbacks: { label: function(context) {
+                                    let sum = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    let percentage = sum > 0 ? (context.raw * 100 / sum).toFixed(2) + "%" : "0%";
+                                    return percentage;
+                                }}}
+                            }
+                        }
+                    });
+                }
             };
+
+                /* Line Chart: Tren Permohonan Selesai 7 Bulan */
+                const canvasTrend = document.getElementById('trend7BulanChart');
+                if (canvasTrend) {
+                    const ctxTrend = canvasTrend.getContext('2d');
+                    
+                    let gradientTrend = ctxTrend.createLinearGradient(0, 0, 0, 400);
+                    gradientTrend.addColorStop(0, 'rgba(56, 94, 189, 0.2)');
+                    gradientTrend.addColorStop(1, 'rgba(56, 94, 189, 0.0)');
+
+                    const dataCounts7 = {!! $trend7Counts !!};
+                    const labels7 = {!! $trend7Months !!};
+
+                    window.chartLima = new Chart(ctxTrend, {
+                        type: 'line',
+                        data: {
+                            labels: labels7,
+                            datasets: [{
+                                label: 'Jumlah Permohonan Selesai',
+                                data: dataCounts7,
+                                borderColor: '#2f5bbb', // dark blue line
+                                backgroundColor: gradientTrend,
+                                borderWidth: 2,
+                                pointBackgroundColor: '#f59e0b', // orange dots
+                                pointBorderColor: '#ffffff',
+                                pointBorderWidth: 2,
+                                pointRadius: 5,
+                                pointHoverRadius: 7,
+                                fill: true,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { 
+                                    display: true,
+                                    position: 'top',
+                                    labels: {
+                                        usePointStyle: false,
+                                        boxWidth: 40,
+                                        boxHeight: 12,
+                                        color: '#64748b',
+                                        font: { size: 12 }
+                                    }
+                                },
+                            },
+                            scales: {
+                                y: { 
+                                    beginAtZero: false, 
+                                    border: { display: false }, 
+                                    grid: { color: '#f1f5f9', drawBorder: false },
+                                    title: {
+                                        display: true,
+                                        text: 'Permohonan Selesai',
+                                        color: '#64748b'
+                                    }
+                                },
+                                x: { 
+                                    border: { display: false }, 
+                                    grid: { color: '#f1f5f9', drawBorder: false },
+                                    title: {
+                                        display: true,
+                                        text: 'Bulan',
+                                        color: '#64748b'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
 
             setTimeout(initCharts, 100);
 
@@ -233,5 +453,6 @@
                 window.chartTurboInterceptor = true;
             }
             window.chartInitActive = initCharts;
-        })();</script>
+        })();
+</script>
 @endsection

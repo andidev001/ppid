@@ -18,7 +18,7 @@
         </div>
 
         <form action="{{ route('admin.pages.update') }}" method="POST" data-turbo="false"
-            onsubmit="tinymce.triggerSave();">
+            enctype="multipart/form-data" onsubmit="tinymce.triggerSave();">
             @csrf
 
             <div x-data="{ activeTab: localStorage.getItem('pagesActiveTab') || 'ppid' }"
@@ -128,11 +128,55 @@
                         </div>
                     </div>
 
-                    <div class="flex-1 flex flex-col h-full w-full"
+                    <div class="flex-1 flex flex-col h-full w-full overflow-y-auto"
                         x-bind:style="activeTab === 'sop' ? 'position: relative; display: flex;' : 'position: absolute; transform: translateX(-9999px); visibility: hidden; opacity: 0;'">
                         <label class="block text-sm font-semibold text-slate-700 mb-2">Konten SOP Layanan</label>
-                        <div class="flex-1 relative">
+                        <div class="relative w-full mb-6">
                             <textarea name="page_sop" class="tinymce">{!! $settings['page_sop'] ?? '' !!}</textarea>
+                        </div>
+                        
+                        <div class="mt-6 border-t border-slate-200 pt-6">
+                            <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
+                                Lampiran File SOP (Maksimal 7 File)
+                            </h3>
+                            <p class="text-xs text-slate-500 mb-6">Anda dapat menambahkan hingga 7 file PDF/Dokumen sebagai lampiran pendukung SOP Layanan.</p>
+
+                            @php
+                                $sopAttachments = json_decode($settings['sop_attachments'] ?? '[]', true);
+                            @endphp
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                @for($i = 1; $i <= 7; $i++)
+                                    @php $file = $sopAttachments[$i] ?? null; @endphp
+                                    <div class="p-4 rounded-xl border {{ $file ? 'border-indigo-200 bg-indigo-50/30' : 'border-slate-200 bg-slate-50' }} flex flex-col gap-3">
+                                        <div class="font-bold text-sm text-slate-700 border-b border-slate-200 pb-2">File {{ $i }}</div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-semibold text-slate-600 mb-1">Keterangan File</label>
+                                            <input type="text" name="sop_file_titles[{{ $i }}]" value="{{ $file['title'] ?? '' }}" placeholder="Contoh: SOP Permohonan" class="w-full text-sm border-slate-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-xs font-semibold text-slate-600 mb-1">Upload File (PDF/Docx)</label>
+                                            <input type="file" name="sop_files[{{ $i }}]" accept=".pdf,.doc,.docx" class="w-full text-sm text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-indigo-100 file:text-indigo-700 hover:file:bg-indigo-200 transition-colors">
+                                        </div>
+
+                                        @if($file)
+                                        <div class="mt-2 text-xs flex items-center justify-between bg-white px-3 py-2 rounded-lg border border-indigo-100">
+                                            <a href="{{ asset('storage/' . $file['path']) }}" target="_blank" class="text-indigo-600 hover:underline flex items-center gap-1 font-medium truncate max-w-[150px]">
+                                                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                                Lihat File
+                                            </a>
+                                            <label class="inline-flex items-center gap-1.5 text-rose-500 cursor-pointer hover:text-rose-600">
+                                                <input type="checkbox" name="remove_sop_files[{{ $i }}]" value="1" class="rounded text-rose-500 border-rose-300 focus:ring-rose-500 w-3.5 h-3.5">
+                                                <span class="font-medium">Hapus</span>
+                                            </label>
+                                        </div>
+                                        @endif
+                                    </div>
+                                @endfor
+                            </div>
                         </div>
                     </div>
 

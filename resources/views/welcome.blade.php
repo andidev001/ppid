@@ -59,7 +59,7 @@
                         </div>
                     @endif
                     <span
-                        class="text-lg sm:text-xl font-bold brand-font bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-indigo-800 tracking-tight">
+                        class="text-base sm:text-lg font-bold brand-font bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-indigo-800 tracking-tight">
                         Portal PPID
                     </span>
                 </div>
@@ -178,16 +178,51 @@
                             <a href="{{ route('publikasi.index', 'pengumuman') }}"
                                 class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Pengumuman</a>
                             <a href="{{ route('publikasi.index', 'agenda') }}"
-                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Agenda</a>
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors border-b border-slate-100 pb-3 mb-2">Agenda</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'semua']) }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Daftar Informasi</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'berkala']) }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Informasi Berkala</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'serta_merta']) }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Informasi Serta Merta</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'setiap_saat']) }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Informasi Setiap Saat</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'pengadaan']) }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Pengadaan Barang dan Jasa</a>
                         </div>
                     </div>
 
 
 
-                    <a href="{{ route('statistik') }}"
-                        class="px-4 py-2 text-slate-600 font-medium hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-colors text-sm">
-                        Statistik
-                    </a>
+                    <div class="relative group" x-data="{ open: false }" @mouseleave="open = false"
+                        @mouseover="open = true">
+                        <button
+                            class="px-4 py-2 text-slate-600 font-medium hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-colors flex items-center gap-1 text-sm outline-none">
+                            <span>Laporan</span>
+                            <svg class="w-4 h-4 transition-transform duration-200" :class="{'rotate-180': open}"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-1"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-1"
+                            class="absolute top-full left-0 mt-1 w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden py-2"
+                            style="display: none;" @click.away="open = false">
+                            <a href="{{ route('laporan.ppid') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Laporan
+                                PPID</a>
+                            <a href="{{ route('laporan.survey') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Laporan Hasil Survey</a>
+                            <a href="{{ route('statistik') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Statistik</a>
+
+                        </div>
+                    </div>
 
                     <a href="{{ route('cek_status') }}"
                         class="px-4 py-2 text-indigo-600 font-semibold hover:bg-indigo-50 rounded-lg transition-colors text-sm ml-2">
@@ -238,12 +273,12 @@
 
                 <div class="px-4 pt-2 pb-6 space-y-1">
                     <a href="{{ url('/') }}"
-                        class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Beranda</a>
+                        class="block px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Beranda</a>
 
                     <!-- Profil Dropdown (Mobile) -->
                     <div x-data="{ openProfil: false }" class="space-y-1">
                         <button @click="openProfil = !openProfil"
-                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
+                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
                             <span>Profil PPID</span>
                             <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openProfil}"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -279,7 +314,7 @@
                     <!-- Standar Pelayanan Dropdown (Mobile) -->
                     <div x-data="{ openStandar: false }" class="space-y-1">
                         <button @click="openStandar = !openStandar"
-                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
+                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
                             <span>Standar Pelayanan</span>
                             <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openStandar}"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -317,7 +352,7 @@
                     <!-- Publikasi Dropdown (Mobile) -->
                     <div x-data="{ openPublikasi: false }" class="space-y-1">
                         <button @click="openPublikasi = !openPublikasi"
-                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
+                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
                             <span>Publikasi</span>
                             <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openPublikasi}"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -333,17 +368,49 @@
                             <a href="{{ route('publikasi.index', 'pengumuman') }}"
                                 class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Pengumuman</a>
                             <a href="{{ route('publikasi.index', 'agenda') }}"
-                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Agenda</a>
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors border-b border-slate-100 pb-3 mb-2">Agenda</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'semua']) }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Daftar Informasi</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'berkala']) }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Informasi Berkala</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'serta_merta']) }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Informasi Serta Merta</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'setiap_saat']) }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Informasi Setiap Saat</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'pengadaan']) }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Pengadaan Barang dan Jasa</a>
                         </div>
                     </div>
 
                     <a href="{{ route('guestbook.create') }}"
-                        class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Buku
+                        class="block px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Buku
                         Tamu</a>
-                    <a href="{{ route('statistik') }}"
-                        class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Statistik</a>
+                    <!-- Laporan Dropdown (Mobile) -->
+                    <div x-data="{ openLaporan: false }" class="space-y-1">
+                        <button @click="openLaporan = !openLaporan"
+                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
+                            <span>Laporan</span>
+                            <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openLaporan}"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div x-show="openLaporan" class="pl-4 pr-2 space-y-1" style="display: none;">
+                            <a href="{{ route('laporan.ppid') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Laporan
+                                PPID</a>
+                            <a href="{{ route('statistik') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Statistik</a>
+                            <a href="{{ route('survey.index') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Survey
+                                Layanan</a>
+                        </div>
+                    </div>
                     <a href="{{ route('cek_status') }}"
-                        class="block px-3 py-2.5 rounded-lg text-base font-medium text-indigo-600 hover:bg-indigo-50 transition-colors">Cek
+                        class="block px-3 py-2.5 rounded-lg text-sm font-medium text-indigo-600 hover:bg-indigo-50 transition-colors">Cek
                         Status</a>
 
                 </div>
@@ -392,13 +459,13 @@
                     </div>
 
                     <h1
-                        class="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
-                        Keterbukaan Informasi <br class="hidden sm:block" />
-                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-300">Untuk
-                            Masyarakat</span>
+                        class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
+                        {{ $settings['hero_title_1'] ?? 'Keterbukaan Informasi' }} <br class="hidden sm:block" />
+                        <span
+                            class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-300">{{ $settings['hero_title_2'] ?? 'Untuk Masyarakat' }}</span>
                     </h1>
 
-                    <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+                    <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
                         Wujudkan tata kelola yang transparan dan akuntabel. Temukan informasi publik yang Anda butuhkan
                         atau ajukan permohonan secara online.
                     </p>
@@ -438,7 +505,7 @@
         <!-- Content -->
         <div id="informasi" class="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight inline-block relative">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight inline-block relative">
                     Daftar Informasi Publik
                     <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-12 h-1 bg-indigo-600 rounded-full"></div>
                 </h2>
@@ -446,7 +513,29 @@
                     ini. Kami memperbarui data secara berkala untuk transparansi maksimal.</p>
             </div>
 
-            <div x-data="{ activeCategory: 'berkala', showPreview: false, previewUrl: '' }" class="mt-10 relative">
+            <div x-data="{ 
+    activeCategory: 'berkala', 
+    showPreview: false, 
+    previewUrl: '',
+    showVideo: false, 
+    currentVideo: '',
+    openVideo(base64Content) {
+        let content = atob(base64Content);
+        if (content.includes('youtube.com/watch') || content.includes('youtu.be/')) {
+            let videoId = '';
+            if (content.includes('youtube.com/watch')) {
+                videoId = content.split('v=')[1].split('&')[0];
+            } else {
+                videoId = content.split('youtu.be/')[1].split('?')[0];
+            }
+            content = `<iframe class='w-full h-full rounded-b-lg' src='https://www.youtube.com/embed/${videoId}' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>`;
+        } else if (!content.includes('<iframe')) {
+            content = `<iframe class='w-full h-full rounded-b-lg' src='${content}' frameborder='0' allowfullscreen></iframe>`;
+        }
+        this.currentVideo = content;
+        this.showVideo = true;
+    }
+}" class="mt-10 relative">
                 <!-- Tabs -->
                 <div class="flex flex-wrap justify-center gap-2 mb-10 border-b border-slate-200 pb-4">
                     <button @click="activeCategory = 'berkala'"
@@ -512,11 +601,19 @@
                                                             </path>
                                                         </svg>
                                                     </div>
-                                                    <span
-                                                        class="px-3 py-1 bg-slate-100 text-slate-500 rounded-full text-xs font-semibold uppercase tracking-wider">{{ $catLabel }}</span>
+                                                    <div class="flex flex-col items-end gap-1">
+                                                        <span
+                                                            class="px-3 py-1 bg-slate-100 text-slate-500 rounded-full text-xs font-semibold uppercase tracking-wider">{{ $catLabel }}</span>
+                                                        @if($info->published_year)
+                                                            <span
+                                                                class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-semibold uppercase tracking-wider">
+                                                                Tahun {{ $info->published_year }}
+                                                            </span>
+                                                        @endif
+                                                    </div>
                                                 </div>
 
-                                                <h3 class="text-xl font-bold text-slate-900 mb-3 brand-font leading-tight">
+                                                <h3 class="text-lg font-bold text-slate-900 mb-3 brand-font leading-tight">
                                                     {{ $info->title }}
                                                 </h3>
                                                 <p class="text-slate-500 mb-6 text-sm flex-grow leading-relaxed">
@@ -547,7 +644,7 @@
                                                             </svg>
                                                         </div>
                                                     @else
-                                                        @if($isPdf)
+                                                        @if(($info->info_type ?? 'file') === 'file')
                                                             <button
                                                                 @click.prevent="showPreview = true; loadPdfViewer('{{ asset('storage/' . $info->file_path) }}')"
                                                                 class="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors group/link brand-font">
@@ -561,18 +658,28 @@
                                                                     </path>
                                                                 </svg>
                                                             </button>
-                                                        @else
-                                                            <button
-                                                                @click.prevent="showPreview = true; loadPdfViewer('{{ asset('storage/' . $info->file_path) }}')"
+                                                        @elseif($info->info_type === 'url')
+                                                            <a href="{{ $info->url }}" target="_blank"
                                                                 class="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors group/link brand-font">
-                                                                Lihat Dokumen
+                                                                Buka Tautan
                                                                 <svg class="w-4 h-4 ml-1.5 group-hover/link:translate-x-0.5 transition-transform"
                                                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
                                                                     </path>
+                                                                </svg>
+                                                            </a>
+                                                        @elseif($info->info_type === 'video')
+                                                            <button @click.prevent="openVideo('{{ base64_encode($info->video_embed ?? '') }}')"
+                                                                class="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors group/link brand-font">
+                                                                Putar Video
+                                                                <svg class="w-4 h-4 ml-1.5 group-hover/link:translate-x-0.5 transition-transform"
+                                                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                                                        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
+                                                                    </path>
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                                                        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                                                 </svg>
                                                             </button>
                                                         @endif
@@ -607,7 +714,7 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <h3 class="text-lg font-bold text-slate-800 brand-font mb-2">Belum Tersedia</h3>
+                                <h3 class="text-base font-bold text-slate-800 brand-font mb-2">Belum Tersedia</h3>
                                 <p class="text-slate-500 max-w-sm mx-auto text-sm">Belum ada dokumen publik yang diunggah untuk
                                     kategori {{ $catLabel }}.</p>
                             </div>
@@ -617,6 +724,7 @@
 
                 <!-- PDF Preview Modal -->
                 @include('components.pdf-viewer-modal')
+                @include('components.video-viewer-modal')
             </div>
 
             <div class="mt-24 relative rounded-3xl shadow-2xl overflow-hidden bg-slate-900">
@@ -636,9 +744,10 @@
                                 </path>
                             </svg>
                         </div>
-                        <h3 class="text-3xl font-extrabold mb-4 brand-font leading-tight">Tidak Menemukan<br>Informasi?
+                        <h3 class="text-2xl font-extrabold mb-4 brand-font leading-tight">Tidak Menemukan<br>Informasi?
                         </h3>
-                        <p class="text-indigo-100 text-lg">Berdasarkan UU KIP No. 14 Tahun 2008, Anda berhak mengajukan
+                        <p class="text-indigo-100 text-base">Berdasarkan UU KIP No. 14 Tahun 2008, Anda berhak
+                            mengajukan
                             permohonan informasi publik ke PPID.</p>
                     </div>
                     <div
@@ -646,20 +755,20 @@
                         <div class="flex items-start gap-4 mb-8">
                             <div
                                 class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-                                <span class="text-blue-400 font-bold brand-font text-xl">1</span>
+                                <span class="text-blue-400 font-bold brand-font text-lg">1</span>
                             </div>
                             <div>
-                                <h4 class="text-white font-bold text-lg brand-font mb-1">Masuk ke Akun</h4>
+                                <h4 class="text-white font-bold text-base brand-font mb-1">Masuk ke Akun</h4>
                                 <p class="text-slate-400 text-sm">Login atau buat akun baru untuk mulai.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4 mb-10">
                             <div
                                 class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-                                <span class="text-blue-400 font-bold brand-font text-xl">2</span>
+                                <span class="text-blue-400 font-bold brand-font text-lg">2</span>
                             </div>
                             <div>
-                                <h4 class="text-white font-bold text-lg brand-font mb-1">Isi Formulir</h4>
+                                <h4 class="text-white font-bold text-base brand-font mb-1">Isi Formulir</h4>
                                 <p class="text-slate-400 text-sm">Lengkapi formulir permohonan dengan jelas.</p>
                             </div>
                         </div>
@@ -681,7 +790,7 @@
                 <div class="mt-24">
                     <div class="text-center mb-12">
                         <h2
-                            class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight inline-block relative brand-font">
+                            class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight inline-block relative brand-font">
                             Berita & Publikasi Terkini
                             <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-12 h-1 bg-indigo-600 rounded-full">
                             </div>
@@ -726,7 +835,7 @@
                                         {{ $item->created_at->format('d M Y') }}
                                     </div>
                                     <h3
-                                        class="text-lg font-bold text-slate-800 brand-font mb-3 leading-snug group-hover:text-indigo-600 transition-colors line-clamp-2">
+                                        class="text-base font-bold text-slate-800 brand-font mb-3 leading-snug group-hover:text-indigo-600 transition-colors line-clamp-2">
                                         {{ $item->title }}
                                     </h3>
                                     <p class="text-slate-500 text-sm line-clamp-3 mb-6 flex-grow">
@@ -776,12 +885,12 @@
                             </svg>
                         </div>
                         <h3
-                            class="relative z-10 text-2xl sm:text-3xl font-extrabold text-slate-800 brand-font mb-3 tracking-tight">
+                            class="relative z-10 text-xl sm:text-2xl font-extrabold text-slate-800 brand-font mb-3 tracking-tight">
                             Buku Tamu</h3>
-                        <p class="relative z-10 text-slate-600 text-base mb-8 max-w-xs mx-auto leading-relaxed">
+                        <p class="relative z-10 text-slate-600 text-sm mb-8 max-w-xs mx-auto leading-relaxed">
                             Tinggalkan pesan, masukan, atau saran Anda kepada kami melalui buku tamu digital.</p>
                         <span
-                            class="relative z-10 inline-flex items-center justify-center px-8 py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-base hover:bg-emerald-700 shadow-lg shadow-emerald-600/30 group-hover:shadow-xl group-hover:shadow-emerald-600/50 brand-font">
+                            class="relative z-10 inline-flex items-center justify-center px-8 py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-sm hover:bg-emerald-700 shadow-lg shadow-emerald-600/30 group-hover:shadow-xl group-hover:shadow-emerald-600/50 brand-font">
                             Isi Buku Tamu
                             <svg class="w-5 h-5 ml-2 group-hover:translate-x-1.5 transition-transform" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
@@ -816,12 +925,12 @@
                             </svg>
                         </div>
                         <h3
-                            class="relative z-10 text-2xl sm:text-3xl font-extrabold text-slate-800 brand-font mb-3 tracking-tight">
+                            class="relative z-10 text-xl sm:text-2xl font-extrabold text-slate-800 brand-font mb-3 tracking-tight">
                             Survei Kepuasan</h3>
-                        <p class="relative z-10 text-slate-600 text-base mb-8 max-w-xs mx-auto leading-relaxed">Bantu
+                        <p class="relative z-10 text-slate-600 text-sm mb-8 max-w-xs mx-auto leading-relaxed">Bantu
                             kami meningkatkan kualitas layanan publik dengan mengisi survei singkat.</p>
                         <span
-                            class="relative z-10 inline-flex items-center justify-center px-8 py-3.5 bg-indigo-600 text-white rounded-xl font-bold text-base shadow-lg shadow-indigo-600/30 group-hover:shadow-xl group-hover:shadow-indigo-600/50 brand-font">
+                            class="relative z-10 inline-flex items-center justify-center px-8 py-3.5 bg-indigo-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-indigo-600/30 group-hover:shadow-xl group-hover:shadow-indigo-600/50 brand-font">
                             Mulai Isi Survei
                             <svg class="w-5 h-5 ml-2 group-hover:translate-x-1.5 transition-transform" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">

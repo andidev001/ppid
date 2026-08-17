@@ -17,6 +17,8 @@ Route::get('/profil/sop', [\App\Http\Controllers\PageController::class, 'sop'])-
 Route::get('/profil/maklumat', [\App\Http\Controllers\PageController::class, 'maklumat'])->name('profil.maklumat');
 Route::get('/profil/dasar-hukum', [\App\Http\Controllers\PageController::class, 'dasarHukum'])->name('profil.dasar_hukum');
 Route::get('/statistik', [\App\Http\Controllers\PageController::class, 'statistik'])->name('statistik');
+Route::get('/laporan-ppid', [\App\Http\Controllers\PageController::class, 'laporanPpid'])->name('laporan.ppid');
+Route::get('/laporan-survey', [\App\Http\Controllers\PageController::class, 'laporanSurvey'])->name('laporan.survey');
 Route::get('/pilih-permohonan', [\App\Http\Controllers\PageController::class, 'pilihPermohonan'])->name('pilih_permohonan');
 Route::get('/informasi/{kategori}', [\App\Http\Controllers\PageController::class, 'informasi'])->name('informasi.kategori');
 Route::get('/cek-status', [\App\Http\Controllers\PageController::class, 'cekStatus'])->name('cek_status');

@@ -16,10 +16,10 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-white brand-font tracking-tight mb-4">
+            <h1 class="text-2xl md:text-4xl font-extrabold text-white brand-font tracking-tight mb-4">
                 Publikasi {{ ucfirst($type) }}
             </h1>
-            <p class="text-indigo-100 max-w-2xl mx-auto text-lg">Kumpulan informasi dan publikasi terkini seputar
+            <p class="text-indigo-100 max-w-2xl mx-auto text-base">Kumpulan informasi dan publikasi terkini seputar
                 {{ $type }} dari PPID.
             </p>
         </div>
@@ -71,7 +71,7 @@
                                     {{ $item->views }} views</span>
                             </div>
                             <h3
-                                class="text-xl font-bold text-slate-800 brand-font mb-3 leading-snug group-hover:text-indigo-600 transition-colors line-clamp-2">
+                                class="text-lg font-bold text-slate-800 brand-font mb-3 leading-snug group-hover:text-indigo-600 transition-colors line-clamp-2">
                                 {{ $item->title }}
                             </h3>
                             <p class="text-slate-500 text-sm line-clamp-3 mb-6 flex-grow">
@@ -103,7 +103,7 @@
                         </path>
                     </svg>
                 </div>
-                <h3 class="text-lg font-bold text-slate-800 brand-font mb-2">Belum Ada {{ ucfirst($type) }}</h3>
+                <h3 class="text-base font-bold text-slate-800 brand-font mb-2">Belum Ada {{ ucfirst($type) }}</h3>
                 <p class="text-slate-500 max-w-sm mx-auto text-sm">Saat ini belum ada publikasi {{ $type }} yang ditayangkan ke
                     publik.</p>
             </div>

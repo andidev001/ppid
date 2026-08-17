@@ -79,6 +79,20 @@ class PageController extends Controller
         return view('pages.waktu_biaya', $this->getCommonData());
     }
 
+    public function laporanPpid()
+    {
+        $data = $this->getCommonData();
+        $data['laporans'] = \App\Models\PublicInformation::where('category', 'laporan')->latest()->get();
+        return view('pages.laporan_ppid', $data);
+    }
+
+    public function laporanSurvey()
+    {
+        $data = $this->getCommonData();
+        $data['laporans'] = \App\Models\PublicInformation::where('category', 'laporan_survey')->latest()->get();
+        return view('pages.laporan_survey', $data);
+    }
+
     public function statistik()
     {
         $data = $this->getCommonData();
@@ -105,6 +119,82 @@ class PageController extends Controller
 
         $data['chartMonths'] = json_encode($months);
         $data['chartCounts'] = json_encode($counts);
+
+        $trend7Months = [];
+        $trend7Counts = [];
+        $currentYear = now()->year;
+        $data['currentYear'] = $currentYear;
+        // Generate Januari sampai Desember
+        for ($i = 1; $i <= 12; $i++) {
+            $date = \Carbon\Carbon::createFromDate($currentYear, $i, 1);
+            $trend7Months[] = $date->translatedFormat('F');
+            $trend7Counts[] = \App\Models\InformationRequest::where('status', 'completed')
+                ->whereYear('created_at', $currentYear)
+                ->whereMonth('created_at', $i)
+                ->count();
+        }
+        $data['trend7Months'] = json_encode($trend7Months);
+        $data['trend7Counts'] = json_encode($trend7Counts);
+
+        // Kategori Informasi Publik
+        $data['cat_berkala'] = \App\Models\PublicInformation::where('category', 'berkala')->count();
+        $data['cat_setiap_saat'] = \App\Models\PublicInformation::where('category', 'setiap_saat')->count();
+        $data['cat_serta_merta'] = \App\Models\PublicInformation::where('category', 'serta_merta')->count();
+        $data['cat_dikecualikan'] = \App\Models\PublicInformation::where('category', 'dikecualikan')->count();
+
+        // Alasan Keberatan
+        $reasons = \App\Models\Objection::select('reason', \DB::raw('count(*) as total'))->groupBy('reason')->pluck('total', 'reason')->toArray();
+        $data['obj_reasons'] = [
+            'pengecualian' => $reasons['Penolakan atas permintaan informasi berdasarkan alasan pengecualian'] ?? 0,
+            'tidak_disediakan' => $reasons['Tidak disediakannya informasi berkala'] ?? 0,
+            'tidak_ditanggapi' => $reasons['Permintaan informasi tidak ditanggapi'] ?? 0,
+            'tidak_sesuai' => $reasons['Permintaan informasi ditanggapi tidak sebagaimana yang diminta'] ?? 0,
+            'tidak_dipenuhi' => $reasons['Permintaan informasi tidak dipenuhi'] ?? 0,
+            'biaya_tidak_wajar' => $reasons['Pengenaan biaya yang tidak wajar'] ?? 0,
+            'melebihi_waktu' => $reasons['Penyampaian informasi yang melebihi waktu'] ?? 0,
+        ];
+
+        // Rata-rata penyelesaian hari murni dari perhitungan DB
+        $completedReqs = \App\Models\InformationRequest::where('status', 'completed')->get();
+        $avgDays = [
+            '2026' => 0,
+            '2025' => 0,
+            '2024' => 0,
+            '2021_2026' => 0
+        ];
+
+        if ($completedReqs->count() > 0) {
+            $sums = ['2026' => 0, '2025' => 0, '2024' => 0, '2021_2026' => 0];
+            $counts = ['2026' => 0, '2025' => 0, '2024' => 0, '2021_2026' => 0];
+
+            foreach ($completedReqs as $r) {
+                if ($r->created_at && $r->updated_at) {
+                    $diff = $r->created_at->diffInDays($r->updated_at);
+                    if ($diff == 0) $diff = 1;
+
+                    $year = $r->created_at->format('Y');
+
+                    if ($year == '2026') {
+                        $sums['2026'] += $diff; $counts['2026']++;
+                    } elseif ($year == '2025') {
+                        $sums['2025'] += $diff; $counts['2025']++;
+                    } elseif ($year == '2024') {
+                        $sums['2024'] += $diff; $counts['2024']++;
+                    }
+
+                    if ($year >= 2021 && $year <= 2026) {
+                        $sums['2021_2026'] += $diff; $counts['2021_2026']++;
+                    }
+                }
+            }
+
+            foreach (['2026', '2025', '2024', '2021_2026'] as $k) {
+                if ($counts[$k] > 0) {
+                    $avgDays[$k] = round($sums[$k] / $counts[$k], 1);
+                }
+            }
+        }
+        $data['avgDays'] = $avgDays;
 
         return view('pages.statistik', $data);
     }
@@ -133,10 +223,12 @@ class PageController extends Controller
         $data = $this->getCommonData();
 
         $categories = [
+            'semua' => 'Daftar Informasi Publik',
             'berkala' => 'Informasi Berkala',
             'serta_merta' => 'Informasi Serta Merta',
             'setiap_saat' => 'Informasi Setiap Saat',
             'dikecualikan' => 'Informasi Dikecualikan',
+            'pengadaan' => 'Informasi Pengadaan Barang dan Jasa',
             'arsip' => 'Arsip Dokumen'
         ];
 
@@ -147,7 +239,11 @@ class PageController extends Controller
         $data['kategoriLabel'] = $categories[$kategori];
         $data['kategori'] = $kategori;
 
-        $query = \App\Models\PublicInformation::where('category', $kategori);
+        if ($kategori === 'semua') {
+            $query = \App\Models\PublicInformation::query();
+        } else {
+            $query = \App\Models\PublicInformation::where('category', $kategori);
+        }
 
         if ($request->has('search') && !empty($request->search)) {
             $query->where(function ($q) use ($request) {

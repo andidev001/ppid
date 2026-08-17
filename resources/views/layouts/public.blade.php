@@ -195,16 +195,52 @@
                             <a href="{{ route('publikasi.index', 'pengumuman') }}"
                                 class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Pengumuman</a>
                             <a href="{{ route('publikasi.index', 'agenda') }}"
-                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Agenda</a>
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors border-b border-slate-100 pb-3 mb-2">Agenda</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'semua']) }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Daftar Informasi</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'berkala']) }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Informasi Berkala</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'serta_merta']) }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Informasi Serta Merta</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'setiap_saat']) }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Informasi Setiap Saat</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'pengadaan']) }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Pengadaan Barang dan Jasa</a>
                         </div>
                     </div>
 
 
 
-                    <a href="{{ route('statistik') }}"
-                        class="px-4 py-2 text-slate-600 font-medium hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-colors text-sm">
-                        Statistik
-                    </a>
+                    <div class="relative group" x-data="{ open: false }" @mouseleave="open = false"
+                        @mouseover="open = true">
+                        <button
+                            class="px-4 py-2 text-slate-600 font-medium hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-colors flex items-center gap-1 text-sm outline-none">
+                            <span>Laporan</span>
+                            <svg class="w-4 h-4 transition-transform duration-200" :class="{'rotate-180': open}"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-1"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-1"
+                            class="absolute top-full left-0 mt-1 w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden py-2"
+                            style="display: none;" @click.away="open = false">
+                            <a href="{{ route('laporan.ppid') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Laporan
+                                PPID</a>
+                            <a href="{{ route('laporan.survey') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Laporan
+                                Hasil Survey</a>
+                            <a href="{{ route('statistik') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Statistik</a>
+
+                        </div>
+                    </div>
 
                     <a href="{{ route('cek_status') }}"
                         class="px-4 py-2 text-indigo-600 font-semibold hover:bg-indigo-50 rounded-lg transition-colors text-sm ml-2">
@@ -350,15 +386,46 @@
                             <a href="{{ route('publikasi.index', 'pengumuman') }}"
                                 class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Pengumuman</a>
                             <a href="{{ route('publikasi.index', 'agenda') }}"
-                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Agenda</a>
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors border-b border-slate-100 pb-3 mb-2">Agenda</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'semua']) }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Daftar Informasi</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'berkala']) }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Informasi Berkala</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'serta_merta']) }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Informasi Serta Merta</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'setiap_saat']) }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Informasi Setiap Saat</a>
+                            <a href="{{ route('informasi.kategori', ['kategori' => 'pengadaan']) }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Pengadaan Barang dan Jasa</a>
                         </div>
                     </div>
 
                     <a href="{{ route('guestbook.create') }}"
                         class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Buku
                         Tamu</a>
-                    <a href="{{ route('statistik') }}"
-                        class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Statistik</a>
+                    <!-- Laporan Dropdown (Mobile) -->
+                    <div x-data="{ openLaporan: false }" class="space-y-1">
+                        <button @click="openLaporan = !openLaporan"
+                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
+                            <span>Laporan</span>
+                            <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openLaporan}"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div x-show="openLaporan" class="pl-4 pr-2 space-y-1" style="display: none;">
+                            <a href="{{ route('laporan.ppid') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Laporan PPID</a>
+                            <a href="{{ route('laporan.survey') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Laporan Hasil Survey</a>
+                            <a href="{{ route('statistik') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Statistik</a>
+
+                        </div>
+                    </div>
                     <a href="{{ route('cek_status') }}"
                         class="block px-3 py-2.5 rounded-lg text-base font-medium text-indigo-600 hover:bg-indigo-50 transition-colors">Cek
                         Status</a>

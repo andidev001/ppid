@@ -301,19 +301,30 @@ class AdminController extends Controller
         $req->validate([
             'title' => 'required|string',
             'category' => 'required|string',
+            'published_year' => 'nullable|integer',
             'description' => 'nullable|string',
             'visibility' => 'required|in:public,restricted',
-            'info_file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx|max:10240'
+            'info_type' => 'required|in:file,url,video',
+            'info_file' => 'nullable|required_if:info_type,file|file|mimes:pdf,doc,docx,xls,xlsx|max:10240',
+            'url' => 'nullable|required_if:info_type,url|url',
+            'video_embed' => 'nullable|required_if:info_type,video|string',
         ]);
 
-        $path = $req->file('info_file')->store('public_info', 'public');
+        $path = null;
+        if ($req->info_type === 'file' && $req->hasFile('info_file')) {
+            $path = $req->file('info_file')->store('public_info', 'public');
+        }
 
         PublicInformation::create([
             'title' => $req->title,
             'category' => $req->category,
+            'published_year' => $req->published_year,
             'description' => $req->description,
             'visibility' => $req->visibility,
-            'file_path' => $path
+            'info_type' => $req->info_type,
+            'file_path' => $path,
+            'url' => $req->url,
+            'video_embed' => $req->video_embed,
         ]);
 
         return back()->with('success', 'Informasi publik ditambahkan.');
@@ -342,21 +353,36 @@ class AdminController extends Controller
 
         $req->validate([
             'title' => 'required|string',
+            'published_year' => 'nullable|integer',
             'description' => 'nullable|string',
             'visibility' => 'required|in:public,restricted',
-            'info_file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:10240'
+            'info_type' => 'required|in:file,url,video',
+            'info_file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:10240',
+            'url' => 'nullable|required_if:info_type,url|url',
+            'video_embed' => 'nullable|required_if:info_type,video|string',
         ]);
 
-        if ($req->hasFile('info_file')) {
-            if ($info->file_path && Storage::disk('public')->exists($info->file_path)) {
-                Storage::disk('public')->delete($info->file_path);
+        if ($req->info_type === 'file') {
+            if ($req->hasFile('info_file')) {
+                if ($info->file_path && Storage::disk('public')->exists($info->file_path)) {
+                    Storage::disk('public')->delete($info->file_path);
+                }
+                $info->file_path = $req->file('info_file')->store('public_info', 'public');
             }
-            $info->file_path = $req->file('info_file')->store('public_info', 'public');
+        } else {
+            // Jika tipe informasinya berubah jadi url atau video, hapus file lama jika ada (opsional)
+            // if ($info->file_path && Storage::disk('public')->exists($info->file_path)) {
+            //     Storage::disk('public')->delete($info->file_path);
+            //     $info->file_path = null;
+            // }
         }
 
         $info->title = $req->title;
         $info->description = $req->description;
         $info->visibility = $req->visibility;
+        $info->info_type = $req->info_type;
+        $info->url = $req->url;
+        $info->video_embed = $req->video_embed;
         $info->save();
 
         return back()->with('success', 'Dokumen informasi publik berhasil diperbarui.');
@@ -451,7 +477,40 @@ class AdminController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Konten profil PPID berhasil diperbarui.')->with('active_tab', 'surat');
+        // Handle SOP Files
+        $sopAttachments = json_decode(Setting::where('key', 'sop_attachments')->value('value') ?? '[]', true);
+        if (!is_array($sopAttachments)) $sopAttachments = [];
+        
+        $fileTitles = $request->input('sop_file_titles', []);
+        $removes = $request->input('remove_sop_files', []);
+        $uploadedFiles = $request->file('sop_files', []);
+
+        for ($i = 1; $i <= 7; $i++) {
+            // Remove file if checked
+            if (isset($removes[$i]) && $removes[$i] == 1) {
+                if (isset($sopAttachments[$i])) unset($sopAttachments[$i]);
+                continue;
+            }
+
+            // Update title if exists
+            if (isset($sopAttachments[$i]) && isset($fileTitles[$i])) {
+                $sopAttachments[$i]['title'] = $fileTitles[$i];
+            }
+
+            // Upload new file
+            if (isset($uploadedFiles[$i])) {
+                $path = $uploadedFiles[$i]->store('sop_files', 'public');
+                $title = isset($fileTitles[$i]) && !empty($fileTitles[$i]) ? $fileTitles[$i] : 'SOP Layanan ' . $i;
+                $sopAttachments[$i] = [
+                    'title' => $title,
+                    'path' => $path
+                ];
+            }
+        }
+
+        Setting::updateOrCreate(['key' => 'sop_attachments'], ['value' => json_encode($sopAttachments)]);
+
+        return redirect()->back()->with('success', 'SOP dan Halaman PPID berhasil disimpan!');
     }
 
     public function users(Request $request)

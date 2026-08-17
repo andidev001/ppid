@@ -90,6 +90,22 @@
                                 class="w-full rounded-lg border-slate-200 focus:ring-indigo-500 focus:border-indigo-500 text-[13px] py-2 px-3"
                                 value="{{ $settings['app_name'] ?? 'PPID Pemerintah Daerah' }}">
                         </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[13px] font-semibold text-slate-700 mb-1">Teks Utama Beranda
+                                    1</label>
+                                <input type="text" name="hero_title_1"
+                                    class="w-full rounded-lg border-slate-200 focus:ring-indigo-500 focus:border-indigo-500 text-[13px] py-2 px-3"
+                                    value="{{ $settings['hero_title_1'] ?? 'Keterbukaan Informasi' }}">
+                            </div>
+                            <div>
+                                <label class="block text-[13px] font-semibold text-slate-700 mb-1">Teks Utama Beranda 2
+                                    (Gradient)</label>
+                                <input type="text" name="hero_title_2"
+                                    class="w-full rounded-lg border-slate-200 focus:ring-indigo-500 focus:border-indigo-500 text-[13px] py-2 px-3"
+                                    value="{{ $settings['hero_title_2'] ?? 'Untuk Masyarakat' }}">
+                            </div>
+                        </div>
                         <div>
                             <label class="block text-[13px] font-semibold text-slate-700 mb-1">Deskripsi & Motto</label>
                             <textarea name="app_description" rows="3"

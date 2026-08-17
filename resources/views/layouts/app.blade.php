@@ -140,9 +140,16 @@
                             <a href="{{ route('admin.public-info.index', ['category' => 'dikecualikan']) }}"
                                 class="block text-xs font-medium {{ request('category') == 'dikecualikan' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Informasi
                                 Dikecualikan</a>
+                            <a href="{{ route('admin.public-info.index', ['category' => 'pengadaan']) }}"
+                                class="block text-xs font-medium {{ request('category') == 'pengadaan' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Pengadaan Barang dan Jasa</a>
                             <a href="{{ route('admin.public-info.index', ['category' => 'arsip']) }}"
                                 class="block text-xs font-medium {{ request('category') == 'arsip' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Arsip
                                 Dokumen</a>
+                            <a href="{{ route('admin.public-info.index', ['category' => 'laporan']) }}"
+                                class="block text-xs font-medium {{ request('category') == 'laporan' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Laporan
+                                PPID</a>
+                            <a href="{{ route('admin.public-info.index', ['category' => 'laporan_survey']) }}"
+                                class="block text-xs font-medium {{ request('category') == 'laporan_survey' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Laporan Survey</a>
                         </div>
                     </div>
 

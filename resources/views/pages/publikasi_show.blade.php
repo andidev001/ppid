@@ -16,10 +16,10 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-white brand-font tracking-tight mb-4">
+            <h1 class="text-2xl md:text-4xl font-extrabold text-white brand-font tracking-tight mb-4">
                 Detail Publikasi
             </h1>
-            <p class="text-indigo-100 max-w-2xl mx-auto text-lg">Membaca arsip berita dan dokumentasi terperinci.</p>
+            <p class="text-indigo-100 max-w-2xl mx-auto text-base">Membaca arsip berita dan dokumentasi terperinci.</p>
         </div>
     </div>
 
@@ -64,11 +64,11 @@
                         </span>
                     </div>
 
-                    <h1 class="text-2xl sm:text-3xl font-semibold text-slate-800 brand-font mb-6 leading-relaxed">
+                    <h1 class="text-xl sm:text-2xl font-semibold text-slate-800 brand-font mb-6 leading-relaxed">
                         {{ $publication->title }}
                     </h1>
 
-                    <div class="prose max-w-none text-base text-slate-600 leading-loose">
+                    <div class="prose max-w-none text-sm text-slate-600 leading-loose">
                         {!! $publication->content !!}
                     </div>
 
@@ -145,7 +145,7 @@
 
                 {{-- Comment list --}}
                 <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 sm:p-10 mb-6">
-                    <h2 class="text-xl font-bold text-slate-800 brand-font mb-6 flex items-center gap-3">
+                    <h2 class="text-lg font-bold text-slate-800 brand-font mb-6 flex items-center gap-3">
                         <span
                             class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -184,7 +184,7 @@
 
                 {{-- Comment Form --}}
                 <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 sm:p-10">
-                    <h3 class="text-lg font-bold text-slate-800 brand-font mb-6">Tinggalkan Komentar</h3>
+                    <h3 class="text-base font-bold text-slate-800 brand-font mb-6">Tinggalkan Komentar</h3>
 
                     @if($errors->any())
                         <div class="mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-200">
@@ -248,7 +248,7 @@
                             </path>
                         </svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 brand-font text-lg">Artikel Lainnya</h3>
+                    <h3 class="font-bold text-slate-900 brand-font text-base">Artikel Lainnya</h3>
                 </div>
 
                 <div class="space-y-5">

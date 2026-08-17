@@ -10,6 +10,26 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            // Only admin can access these specific routes/methods
+            $adminOnly = ['settings', 'updateSettings', 'uploadLogo', 'users', 'usersData', 'storeUser', 'deleteUser', 'userDestroy'];
+            
+            if (in_array($request->route()->getActionMethod(), $adminOnly)) {
+                if (auth()->user()->role !== 'admin') {
+                    abort(403, 'Unauthorized action.');
+                }
+            }
+
+            // Also ensure regular users cannot access ANY admin routes
+            if (auth()->user()->role === 'user') {
+                abort(403, 'Unauthorized access.');
+            }
+
+            return $next($request);
+        });
+    }
     public function index()
     {
         if (auth()->user()->role === 'supervisor') {
@@ -518,9 +538,29 @@ class AdminController extends Controller
         return view('admin.users');
     }
 
+    public function storeUser(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'role' => 'required|string|in:user,kurikulum,kesiswaan,sarpras,humas,tata_usaha',
+        ]);
+
+        \App\Models\User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+            'role' => $request->role,
+            'user_type' => 'perorangan',
+        ]);
+
+        return redirect()->back()->with('success', 'Akun pengguna berhasil ditambahkan.');
+    }
+
     public function usersData(Request $request)
     {
-        $users = User::where('role', 'user')->latest();
+        $users = User::where('role', '!=', 'admin')->latest();
 
         return \Yajra\DataTables\Facades\DataTables::of($users)
             ->addIndexColumn()

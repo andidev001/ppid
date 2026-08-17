@@ -5,8 +5,12 @@
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
                 <h1 class="text-2xl font-bold text-slate-800 brand-font">Manajemen Pengguna</h1>
-                <p class="text-slate-500 text-sm mt-1">Daftar akun yang telah mendaftar sebagai pemohon informasi.</p>
+                <p class="text-slate-500 text-sm mt-1">Daftar akun pemohon dan staf manajemen informasi.</p>
             </div>
+            <button type="button" @click="showAddModal = true" class="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl shadow-sm hover:bg-indigo-700 hover:shadow-indigo-200 transition-all focus:ring-2 focus:ring-indigo-100 flex items-center gap-2 outline-none relative z-50">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Tambah Pengguna
+            </button>
         </div>
 
         <!-- Custom Search Bar -->
@@ -299,6 +303,65 @@
                 </div>
             </div>
         </div>
+
+        <!-- Create User Modal -->
+        <div x-show="showAddModal" style="display: none;" class="relative z-[100]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div x-show="showAddModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+            
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div x-show="showAddModal" @click.away="showAddModal = false" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                        
+                        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 border-b border-slate-100">
+                            <div class="flex items-center justify-between mb-5">
+                                <h3 class="text-lg font-bold text-slate-800 brand-font" id="modal-title">Tambah Akun Pengguna</h3>
+                                <button type="button" @click="showAddModal = false" class="text-slate-400 hover:bg-slate-100 hover:text-slate-600 rounded-lg p-1.5 transition-colors">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                                </button>
+                            </div>
+
+                            <form action="{{ route('admin.users.store') }}" method="POST" id="createUserForm">
+                                @csrf
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-slate-700 mb-1">Nama Lengkap</label>
+                                        <input type="text" name="name" required class="w-full rounded-xl border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm px-4 py-2.5 shadow-sm" placeholder="Masukkan nama pengguna">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-semibold text-slate-700 mb-1">Email</label>
+                                        <input type="email" name="email" required class="w-full rounded-xl border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm px-4 py-2.5 shadow-sm" placeholder="email@contoh.com">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-semibold text-slate-700 mb-1">Password</label>
+                                        <input type="password" name="password" required minlength="8" class="w-full rounded-xl border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm px-4 py-2.5 shadow-sm" placeholder="Minimal 8 karakter">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-semibold text-slate-700 mb-1">Peran Akses (Role)</label>
+                                        <select name="role" required class="w-full rounded-xl border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm px-4 py-2.5 shadow-sm">
+                                            <option value="user">User Biasa / Pemohon</option>
+                                            <option value="kurikulum">Kurikulum</option>
+                                            <option value="kesiswaan">Kesiswaan</option>
+                                            <option value="sarpras">Sarpras</option>
+                                            <option value="humas">Humas</option>
+                                            <option value="tata_usaha">Tata Usaha</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="bg-slate-50 px-4 py-4 sm:flex sm:flex-row-reverse sm:px-6">
+                            <button type="submit" form="createUserForm" class="inline-flex w-full justify-center rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 sm:ml-3 sm:w-auto transition-colors">
+                                Simpan Akun
+                            </button>
+                            <button type="button" @click="showAddModal = false" class="mt-3 inline-flex w-full justify-center rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 sm:mt-0 sm:w-auto transition-colors">
+                                Batal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <!-- SweetAlert2 Plugin -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -466,6 +529,7 @@
         function userManagement() {
             return {
                 showDetail: false,
+                showAddModal: false,
                 activeUser: null,
                 init() {
                     // Listen from global datatables row element

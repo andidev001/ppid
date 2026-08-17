@@ -42,7 +42,7 @@ Route::post('/survei-kepuasan', [\App\Http\Controllers\SurveyController::class, 
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
-        if (auth()->user()->role === 'admin' || auth()->user()->role === 'supervisor') {
+        if (auth()->user()->role !== 'user') {
             return redirect()->route('admin.dashboard');
         }
         return redirect()->route('requests.index');
@@ -79,6 +79,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
     Route::get('/admin/users/data', [AdminController::class, 'usersData'])->name('admin.users.data');
+    Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('admin.users.store');
     Route::delete('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
 
     Route::get('/admin/guestbooks', [\App\Http\Controllers\GuestbookController::class, 'index'])->name('admin.guestbooks.index');

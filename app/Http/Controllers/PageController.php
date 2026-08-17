@@ -9,7 +9,8 @@ class PageController extends Controller
     private function getCommonData()
     {
         return [
-            'settings' => \App\Models\Setting::pluck('value', 'key')->toArray()
+            'settings' => \App\Models\Setting::pluck('value', 'key')->toArray(),
+            'publications' => \App\Models\Publication::where('is_published', true)->latest()->take(4)->get()
         ];
     }
 
@@ -46,6 +47,36 @@ class PageController extends Controller
     public function dasarHukum()
     {
         return view('pages.dasar_hukum', $this->getCommonData());
+    }
+
+    public function prosedurPelayanan()
+    {
+        return view('pages.prosedur_pelayanan', $this->getCommonData());
+    }
+
+    public function prosedurKeberatan()
+    {
+        return view('pages.prosedur_keberatan', $this->getCommonData());
+    }
+
+    public function prosedurSengketa()
+    {
+        return view('pages.prosedur_sengketa', $this->getCommonData());
+    }
+
+    public function penangananSengketa()
+    {
+        return view('pages.penanganan_sengketa', $this->getCommonData());
+    }
+
+    public function kanalLayanan()
+    {
+        return view('pages.kanal_layanan', $this->getCommonData());
+    }
+
+    public function waktuBiaya()
+    {
+        return view('pages.waktu_biaya', $this->getCommonData());
     }
 
     public function statistik()

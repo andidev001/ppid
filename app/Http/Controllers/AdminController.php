@@ -434,6 +434,12 @@ class AdminController extends Controller
             'page_sop',
             'page_maklumat',
             'page_dasar_hukum',
+            'page_prosedur_pelayanan',
+            'page_prosedur_keberatan',
+            'page_prosedur_sengketa',
+            'page_penanganan_sengketa',
+            'page_kanal_layanan',
+            'page_waktu_biaya',
         ];
 
         foreach ($keys as $key) {

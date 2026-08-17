@@ -65,6 +65,41 @@
                             class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
                             Visi Misi
                         </button>
+
+                        <div class="mt-3 pt-3 border-t border-slate-200">
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 px-1">Standar
+                                Pelayanan</p>
+                        </div>
+                        <button type="button" @click="activeTab = 'prosedur_pelayanan'"
+                            :class="activeTab === 'prosedur_pelayanan' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                            class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
+                            Prosedur Pelayanan
+                        </button>
+                        <button type="button" @click="activeTab = 'prosedur_keberatan'"
+                            :class="activeTab === 'prosedur_keberatan' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                            class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
+                            Prosedur Keberatan
+                        </button>
+                        <button type="button" @click="activeTab = 'prosedur_sengketa'"
+                            :class="activeTab === 'prosedur_sengketa' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                            class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
+                            Prosedur Sengketa
+                        </button>
+                        <button type="button" @click="activeTab = 'penanganan_sengketa'"
+                            :class="activeTab === 'penanganan_sengketa' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                            class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
+                            Penanganan Sengketa
+                        </button>
+                        <button type="button" @click="activeTab = 'kanal_layanan'"
+                            :class="activeTab === 'kanal_layanan' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                            class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
+                            Kanal Layanan
+                        </button>
+                        <button type="button" @click="activeTab = 'waktu_biaya'"
+                            :class="activeTab === 'waktu_biaya' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                            class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
+                            Waktu &amp; Biaya
+                        </button>
                     </nav>
                 </div>
 
@@ -133,6 +168,65 @@
                         <div class="flex-1 relative">
                             <textarea name="page_visi_misi"
                                 class="tinymce">{!! $settings['page_visi_misi'] ?? '' !!}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 flex flex-col h-full w-full"
+                        x-bind:style="activeTab === 'prosedur_pelayanan' ? 'position: relative; display: flex;' : 'position: absolute; transform: translateX(-9999px); visibility: hidden; opacity: 0;'">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Konten Prosedur Pelayanan
+                            Publik</label>
+                        <div class="flex-1 relative">
+                            <textarea name="page_prosedur_pelayanan"
+                                class="tinymce">{!! $settings['page_prosedur_pelayanan'] ?? '' !!}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 flex flex-col h-full w-full"
+                        x-bind:style="activeTab === 'prosedur_keberatan' ? 'position: relative; display: flex;' : 'position: absolute; transform: translateX(-9999px); visibility: hidden; opacity: 0;'">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Konten Prosedur Pengajuan
+                            Keberatan</label>
+                        <div class="flex-1 relative">
+                            <textarea name="page_prosedur_keberatan"
+                                class="tinymce">{!! $settings['page_prosedur_keberatan'] ?? '' !!}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 flex flex-col h-full w-full"
+                        x-bind:style="activeTab === 'prosedur_sengketa' ? 'position: relative; display: flex;' : 'position: absolute; transform: translateX(-9999px); visibility: hidden; opacity: 0;'">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Konten Prosedur Permohonan
+                            Sengketa</label>
+                        <div class="flex-1 relative">
+                            <textarea name="page_prosedur_sengketa"
+                                class="tinymce">{!! $settings['page_prosedur_sengketa'] ?? '' !!}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 flex flex-col h-full w-full"
+                        x-bind:style="activeTab === 'penanganan_sengketa' ? 'position: relative; display: flex;' : 'position: absolute; transform: translateX(-9999px); visibility: hidden; opacity: 0;'">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Konten Prosedur Penanganan
+                            Sengketa</label>
+                        <div class="flex-1 relative">
+                            <textarea name="page_penanganan_sengketa"
+                                class="tinymce">{!! $settings['page_penanganan_sengketa'] ?? '' !!}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 flex flex-col h-full w-full"
+                        x-bind:style="activeTab === 'kanal_layanan' ? 'position: relative; display: flex;' : 'position: absolute; transform: translateX(-9999px); visibility: hidden; opacity: 0;'">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Konten Kanal Layanan PPID</label>
+                        <div class="flex-1 relative">
+                            <textarea name="page_kanal_layanan"
+                                class="tinymce">{!! $settings['page_kanal_layanan'] ?? '' !!}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 flex flex-col h-full w-full"
+                        x-bind:style="activeTab === 'waktu_biaya' ? 'position: relative; display: flex;' : 'position: absolute; transform: translateX(-9999px); visibility: hidden; opacity: 0;'">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Konten Waktu dan Biaya
+                            Layanan</label>
+                        <div class="flex-1 relative">
+                            <textarea name="page_waktu_biaya"
+                                class="tinymce">{!! $settings['page_waktu_biaya'] ?? '' !!}</textarea>
                         </div>
                     </div>
 

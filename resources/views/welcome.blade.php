@@ -116,6 +116,35 @@
                         @mouseover="open = true">
                         <button
                             class="px-4 py-2 text-slate-600 font-medium hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-colors flex items-center gap-1 text-sm outline-none">
+                            <span>Standar Pelayanan</span>
+                            <svg class="w-4 h-4 transition-transform duration-200" :class="{'rotate-180': open}"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-1"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-1"
+                            class="absolute top-full left-0 mt-1 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden py-2"
+                            style="display: none;" @click.away="open = false">
+                            <a href="{{ route('standar.prosedur_pelayanan') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Prosedur Pelayanan Publik</a>
+                            <a href="{{ route('standar.prosedur_keberatan') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Prosedur Pengajuan Keberatan</a>
+                            <a href="{{ route('standar.prosedur_sengketa') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Prosedur Permohonan Sengketa</a>
+                            <a href="{{ route('standar.penanganan_sengketa') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Prosedur Penanganan Sengketa</a>
+                            <a href="{{ route('profil.sop') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">SOP PPID</a>
+                            <a href="{{ route('standar.kanal_layanan') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Kanal Layanan PPID</a>
+                            <a href="{{ route('standar.waktu_biaya') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Waktu dan Biaya Layanan</a>
+                        </div>
+                    </div>
+
+                    <div class="relative group" x-data="{ open: false }" @mouseleave="open = false"
+                        @mouseover="open = true">
+                        <button
+                            class="px-4 py-2 text-slate-600 font-medium hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-colors flex items-center gap-1 text-sm outline-none">
                             <span>Publikasi</span>
                             <svg class="w-4 h-4 transition-transform duration-200" :class="{'rotate-180': open}"
                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -215,6 +244,25 @@
                             <a href="{{ route('profil.sop') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">SOP Layanan</a>
                             <a href="{{ route('profil.maklumat') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Maklumat Pelayanan</a>
                             <a href="{{ route('profil.dasar_hukum') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Dasar Hukum</a>
+                         </div>
+                     </div>
+
+                     <!-- Standar Pelayanan Dropdown (Mobile) -->
+                     <div x-data="{ openStandar: false }" class="space-y-1">
+                         <button @click="openStandar = !openStandar" class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
+                             <span>Standar Pelayanan</span>
+                             <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openStandar}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                               <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                             </svg>
+                         </button>
+                         <div x-show="openStandar" class="pl-4 pr-2 space-y-1" style="display: none;">
+                            <a href="{{ route('standar.prosedur_pelayanan') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Prosedur Pelayanan Publik</a>
+                            <a href="{{ route('standar.prosedur_keberatan') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Prosedur Pengajuan Keberatan</a>
+                            <a href="{{ route('standar.prosedur_sengketa') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Prosedur Permohonan Sengketa</a>
+                            <a href="{{ route('standar.penanganan_sengketa') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Prosedur Penanganan Sengketa</a>
+                            <a href="{{ route('profil.sop') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">SOP PPID</a>
+                            <a href="{{ route('standar.kanal_layanan') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Kanal Layanan PPID</a>
+                            <a href="{{ route('standar.waktu_biaya') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Waktu dan Biaya Layanan</a>
                          </div>
                      </div>
 

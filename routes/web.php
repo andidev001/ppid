@@ -20,6 +20,13 @@ Route::get('/statistik', [\App\Http\Controllers\PageController::class, 'statisti
 Route::get('/pilih-permohonan', [\App\Http\Controllers\PageController::class, 'pilihPermohonan'])->name('pilih_permohonan');
 Route::get('/informasi/{kategori}', [\App\Http\Controllers\PageController::class, 'informasi'])->name('informasi.kategori');
 Route::get('/cek-status', [\App\Http\Controllers\PageController::class, 'cekStatus'])->name('cek_status');
+Route::get('/standar-pelayanan/prosedur-pelayanan', [\App\Http\Controllers\PageController::class, 'prosedurPelayanan'])->name('standar.prosedur_pelayanan');
+Route::get('/standar-pelayanan/prosedur-keberatan', [\App\Http\Controllers\PageController::class, 'prosedurKeberatan'])->name('standar.prosedur_keberatan');
+Route::get('/standar-pelayanan/prosedur-sengketa', [\App\Http\Controllers\PageController::class, 'prosedurSengketa'])->name('standar.prosedur_sengketa');
+Route::get('/standar-pelayanan/penanganan-sengketa', [\App\Http\Controllers\PageController::class, 'penangananSengketa'])->name('standar.penanganan_sengketa');
+Route::get('/standar-pelayanan/kanal-layanan', [\App\Http\Controllers\PageController::class, 'kanalLayanan'])->name('standar.kanal_layanan');
+Route::get('/standar-pelayanan/waktu-biaya', [\App\Http\Controllers\PageController::class, 'waktuBiaya'])->name('standar.waktu_biaya');
+
 Route::get('/publikasi/kategori/{type}', [\App\Http\Controllers\PageController::class, 'indexPublication'])->name('publikasi.index');
 Route::get('/publikasi/{slug}', [\App\Http\Controllers\PageController::class, 'showPublication'])->name('publikasi.show');
 Route::get('/buku-tamu', [\App\Http\Controllers\GuestbookController::class, 'create'])->name('guestbook.create');

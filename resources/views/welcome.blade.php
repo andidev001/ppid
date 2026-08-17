@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{{ isset($settings['app_logo']) && $settings['app_logo'] ? asset('storage/' . $settings['app_logo']) : asset('favicon.ico') }}">
+    <link rel="icon" type="image/x-icon"
+        href="{{ isset($settings['app_logo']) && $settings['app_logo'] ? asset('storage/' . $settings['app_logo']) : asset('favicon.ico') }}">
     <title>{{ $settings['app_name'] ?? 'PPID - Portal Informasi Publik' }} - Beranda PPID</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link
@@ -129,13 +130,27 @@
                             x-transition:leave-end="opacity-0 translate-y-1"
                             class="absolute top-full left-0 mt-1 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden py-2"
                             style="display: none;" @click.away="open = false">
-                            <a href="{{ route('standar.prosedur_pelayanan') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Prosedur Pelayanan Publik</a>
-                            <a href="{{ route('standar.prosedur_keberatan') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Prosedur Pengajuan Keberatan</a>
-                            <a href="{{ route('standar.prosedur_sengketa') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Prosedur Permohonan Sengketa</a>
-                            <a href="{{ route('standar.penanganan_sengketa') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Prosedur Penanganan Sengketa</a>
-                            <a href="{{ route('profil.sop') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">SOP PPID</a>
-                            <a href="{{ route('standar.kanal_layanan') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Kanal Layanan PPID</a>
-                            <a href="{{ route('standar.waktu_biaya') }}" class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Waktu dan Biaya Layanan</a>
+                            <a href="{{ route('standar.prosedur_pelayanan') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Prosedur
+                                Pelayanan Publik</a>
+                            <a href="{{ route('standar.prosedur_keberatan') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Prosedur
+                                Pengajuan Keberatan</a>
+                            <a href="{{ route('standar.prosedur_sengketa') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Prosedur
+                                Permohonan Sengketa</a>
+                            <a href="{{ route('standar.penanganan_sengketa') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Prosedur
+                                Penanganan Sengketa</a>
+                            <a href="{{ route('profil.sop') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">SOP
+                                PPID</a>
+                            <a href="{{ route('standar.kanal_layanan') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Kanal
+                                Layanan PPID</a>
+                            <a href="{{ route('standar.waktu_biaya') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Waktu
+                                dan Biaya Layanan</a>
                         </div>
                     </div>
 
@@ -188,19 +203,25 @@
                         <a href="{{ route('login') }}"
                             class="px-6 py-2.5 rounded-xl bg-slate-900 text-white font-medium hover:bg-slate-800 transition-all shadow-md hover:shadow-xl hover:shadow-slate-800 hover:-translate-y-0.5 brand-font text-sm whitespace-nowrap">Login</a>
                     @endauth
-                    
+
                     <!-- Mobile menu button -->
                     <div class="flex items-center md:hidden">
-                        <button type="button" @click="mobileMenuOpen = !mobileMenuOpen" class="inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-indigo-600 hover:bg-slate-100 focus:outline-none transition-colors"
+                        <button type="button" @click="mobileMenuOpen = !mobileMenuOpen"
+                            class="inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-indigo-600 hover:bg-slate-100 focus:outline-none transition-colors"
                             aria-controls="mobile-menu" aria-expanded="false">
                             <span class="sr-only">Buka menu utama</span>
                             <!-- Icon menu hamburger (hilang saat menu terbuka) -->
-                            <svg x-show="!mobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <svg x-show="!mobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                             <!-- Icon silang (tampil saat menu terbuka) -->
-                            <svg x-show="mobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" style="display: none;">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            <svg x-show="mobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"
+                                style="display: none;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>
@@ -208,79 +229,124 @@
             </div>
 
             <!-- Mobile Menu -->
-            <div x-show="mobileMenuOpen" 
-                 x-transition:enter="transition ease-out duration-200" 
-                 x-transition:enter-start="opacity-0 -translate-y-2" 
-                 x-transition:enter-end="opacity-100 translate-y-0" 
-                 x-transition:leave="transition ease-in duration-150" 
-                 x-transition:leave-start="opacity-100 translate-y-0" 
-                 x-transition:leave-end="opacity-0 -translate-y-2"
-                 class="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md shadow-xl border-b border-slate-200"
-                 id="mobile-menu"
-                 @click.away="mobileMenuOpen = false"
-                 style="display: none;">
-                 
-                 <div class="px-4 pt-2 pb-6 space-y-1">
-                     <a href="{{ url('/') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Beranda</a>
-                     
-                     <!-- Profil Dropdown (Mobile) -->
-                     <div x-data="{ openProfil: false }" class="space-y-1">
-                         <button @click="openProfil = !openProfil" class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
-                             <span>Profil PPID</span>
-                             <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openProfil}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                               <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                             </svg>
-                         </button>
-                         <div x-show="openProfil" class="pl-4 pr-2 space-y-1" style="display: none;">
-                            <a href="{{ route('profil.ppid') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Profil PPID</a>
-                            <a href="{{ route('profil.tugas_fungsi') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Tugas dan Fungsi</a>
-                            <a href="{{ route('profil.visi_misi') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Visi Misi</a>
-                            <a href="{{ route('profil.struktur') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Struktur Organisasi</a>
+            <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2"
+                class="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md shadow-xl border-b border-slate-200"
+                id="mobile-menu" @click.away="mobileMenuOpen = false" style="display: none;">
 
-                            <a href="{{ route('profil.maklumat') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Maklumat Pelayanan</a>
-                            <a href="{{ route('profil.dasar_hukum') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Dasar Hukum</a>
-                         </div>
-                     </div>
+                <div class="px-4 pt-2 pb-6 space-y-1">
+                    <a href="{{ url('/') }}"
+                        class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Beranda</a>
 
-                     <!-- Standar Pelayanan Dropdown (Mobile) -->
-                     <div x-data="{ openStandar: false }" class="space-y-1">
-                         <button @click="openStandar = !openStandar" class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
-                             <span>Standar Pelayanan</span>
-                             <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openStandar}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                               <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                             </svg>
-                         </button>
-                         <div x-show="openStandar" class="pl-4 pr-2 space-y-1" style="display: none;">
-                            <a href="{{ route('standar.prosedur_pelayanan') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Prosedur Pelayanan Publik</a>
-                            <a href="{{ route('standar.prosedur_keberatan') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Prosedur Pengajuan Keberatan</a>
-                            <a href="{{ route('standar.prosedur_sengketa') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Prosedur Permohonan Sengketa</a>
-                            <a href="{{ route('standar.penanganan_sengketa') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Prosedur Penanganan Sengketa</a>
-                            <a href="{{ route('profil.sop') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">SOP PPID</a>
-                            <a href="{{ route('standar.kanal_layanan') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Kanal Layanan PPID</a>
-                            <a href="{{ route('standar.waktu_biaya') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Waktu dan Biaya Layanan</a>
-                         </div>
-                     </div>
+                    <!-- Profil Dropdown (Mobile) -->
+                    <div x-data="{ openProfil: false }" class="space-y-1">
+                        <button @click="openProfil = !openProfil"
+                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
+                            <span>Profil PPID</span>
+                            <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openProfil}"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div x-show="openProfil" class="pl-4 pr-2 space-y-1" style="display: none;">
+                            <a href="{{ route('profil.ppid') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Profil
+                                PPID</a>
+                            <a href="{{ route('profil.tugas_fungsi') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Tugas
+                                dan Fungsi</a>
+                            <a href="{{ route('profil.visi_misi') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Visi
+                                Misi</a>
+                            <a href="{{ route('profil.struktur') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Struktur
+                                Organisasi</a>
 
-                     <!-- Publikasi Dropdown (Mobile) -->
-                     <div x-data="{ openPublikasi: false }" class="space-y-1">
-                         <button @click="openPublikasi = !openPublikasi" class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
-                             <span>Publikasi</span>
-                             <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openPublikasi}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                               <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                             </svg>
-                         </button>
-                         <div x-show="openPublikasi" class="pl-4 pr-2 space-y-1" style="display: none;">
-                            <a href="{{ route('publikasi.index', 'berita') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Berita</a>
-                            <a href="{{ route('publikasi.index', 'pengumuman') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Pengumuman</a>
-                            <a href="{{ route('publikasi.index', 'agenda') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Agenda</a>
-                         </div>
-                     </div>
+                            <a href="{{ route('profil.maklumat') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Maklumat
+                                Pelayanan</a>
+                            <a href="{{ route('profil.dasar_hukum') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Dasar
+                                Hukum</a>
+                        </div>
+                    </div>
 
-                     <a href="{{ route('guestbook.create') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Buku Tamu</a>
-                     <a href="{{ route('statistik') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Statistik</a>
-                     <a href="{{ route('cek_status') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-indigo-600 hover:bg-indigo-50 transition-colors">Cek Status</a>
-                     
-                 </div>
+                    <!-- Standar Pelayanan Dropdown (Mobile) -->
+                    <div x-data="{ openStandar: false }" class="space-y-1">
+                        <button @click="openStandar = !openStandar"
+                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
+                            <span>Standar Pelayanan</span>
+                            <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openStandar}"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div x-show="openStandar" class="pl-4 pr-2 space-y-1" style="display: none;">
+                            <a href="{{ route('standar.prosedur_pelayanan') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Prosedur
+                                Pelayanan Publik</a>
+                            <a href="{{ route('standar.prosedur_keberatan') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Prosedur
+                                Pengajuan Keberatan</a>
+                            <a href="{{ route('standar.prosedur_sengketa') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Prosedur
+                                Permohonan Sengketa</a>
+                            <a href="{{ route('standar.penanganan_sengketa') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Prosedur
+                                Penanganan Sengketa</a>
+                            <a href="{{ route('profil.sop') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">SOP
+                                PPID</a>
+                            <a href="{{ route('standar.kanal_layanan') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Kanal
+                                Layanan PPID</a>
+                            <a href="{{ route('standar.waktu_biaya') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Waktu
+                                dan Biaya Layanan</a>
+                        </div>
+                    </div>
+
+                    <!-- Publikasi Dropdown (Mobile) -->
+                    <div x-data="{ openPublikasi: false }" class="space-y-1">
+                        <button @click="openPublikasi = !openPublikasi"
+                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
+                            <span>Publikasi</span>
+                            <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openPublikasi}"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div x-show="openPublikasi" class="pl-4 pr-2 space-y-1" style="display: none;">
+                            <a href="{{ route('publikasi.index', 'berita') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Berita</a>
+                            <a href="{{ route('publikasi.index', 'pengumuman') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Pengumuman</a>
+                            <a href="{{ route('publikasi.index', 'agenda') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Agenda</a>
+                        </div>
+                    </div>
+
+                    <a href="{{ route('guestbook.create') }}"
+                        class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Buku
+                        Tamu</a>
+                    <a href="{{ route('statistik') }}"
+                        class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Statistik</a>
+                    <a href="{{ route('cek_status') }}"
+                        class="block px-3 py-2.5 rounded-lg text-base font-medium text-indigo-600 hover:bg-indigo-50 transition-colors">Cek
+                        Status</a>
+
+                </div>
             </div>
         </div>
     </nav>
@@ -427,77 +493,106 @@
                         @if($filteredInfos->count() > 0)
                             <div x-data="{ expanded_{{ $catKey }}: false }">
                                 <!-- Grid view for first 3 -->
-                                <div x-show="!expanded_{{ $catKey }}" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                <div x-show="!expanded_{{ $catKey }}"
+                                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                     @foreach($filteredInfos->values() as $index => $info)
                                         @if($index < 3)
-                                        <div class="bg-white rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-slate-100 p-6 sm:p-8 hover:shadow-[0_8px_30px_-4px_rgba(79,70,229,0.15)] hover:border-indigo-100 transition-all duration-500 transform hover:-translate-y-2 group flex flex-col relative overflow-hidden">
-                                        <div
-                                            class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left">
-                                        </div>
-
-                                        <div class="flex justify-between items-start mb-6">
                                             <div
-                                                class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                                    </path>
-                                                </svg>
-                                            </div>
-                                            <span
-                                                class="px-3 py-1 bg-slate-100 text-slate-500 rounded-full text-xs font-semibold uppercase tracking-wider">{{ $catLabel }}</span>
-                                        </div>
-
-                                        <h3 class="text-xl font-bold text-slate-900 mb-3 brand-font leading-tight">
-                                            {{ $info->title }}
-                                        </h3>
-                                        <p class="text-slate-500 mb-6 text-sm flex-grow leading-relaxed">
-                                            {{ Str::limit($info->description, 120) }}
-                                        </p>
-
-                                        @php
-                                            $ext = strtolower(pathinfo($info->file_path, PATHINFO_EXTENSION));
-                                            $isPdf = $ext === 'pdf';
-                                        @endphp
-
-                                        <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
-                                            @if($info->visibility === 'restricted')
-                                                <a href="{{ route('pilih_permohonan') }}"
-                                                    class="inline-flex items-center text-xs px-4 py-2 bg-rose-50 text-rose-700 rounded-lg font-semibold hover:bg-rose-100 transition-colors group/link brand-font border border-rose-200">
-                                                    Ajukan Permohonan Akses
-                                                    <svg class="w-4 h-4 ml-1.5 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                                </a>
-                                                <div class="text-slate-400" title="Informasi Dikecualikan / Tertutup">
-                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                                class="bg-white rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-slate-100 p-6 sm:p-8 hover:shadow-[0_8px_30px_-4px_rgba(79,70,229,0.15)] hover:border-indigo-100 transition-all duration-500 transform hover:-translate-y-2 group flex flex-col relative overflow-hidden">
+                                                <div
+                                                    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left">
                                                 </div>
-                                            @else
-                                                @if($isPdf)
-                                                    <button
-                                                        @click.prevent="showPreview = true; loadPdfViewer('{{ asset('storage/' . $info->file_path) }}')"
-                                                        class="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors group/link brand-font">
-                                                        Lihat Dokumen
-                                                        <svg class="w-4 h-4 ml-1.5 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                                    </button>
-                                                @else
-                                                    <button
-                                                        @click.prevent="showPreview = true; loadPdfViewer('{{ asset('storage/' . $info->file_path) }}')"
-                                                        class="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors group/link brand-font">
-                                                        Lihat Dokumen
-                                                        <svg class="w-4 h-4 ml-1.5 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                                    </button>
-                                                @endif
-                                            @endif
-                                        </div>
-                                    </div>
+
+                                                <div class="flex justify-between items-start mb-6">
+                                                    <div
+                                                        class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                    <span
+                                                        class="px-3 py-1 bg-slate-100 text-slate-500 rounded-full text-xs font-semibold uppercase tracking-wider">{{ $catLabel }}</span>
+                                                </div>
+
+                                                <h3 class="text-xl font-bold text-slate-900 mb-3 brand-font leading-tight">
+                                                    {{ $info->title }}
+                                                </h3>
+                                                <p class="text-slate-500 mb-6 text-sm flex-grow leading-relaxed">
+                                                    {{ Str::limit($info->description, 120) }}
+                                                </p>
+
+                                                @php
+                                                    $ext = strtolower(pathinfo($info->file_path, PATHINFO_EXTENSION));
+                                                    $isPdf = $ext === 'pdf';
+                                                @endphp
+
+                                                <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
+                                                    @if($info->visibility === 'restricted')
+                                                        <a href="{{ route('pilih_permohonan') }}"
+                                                            class="inline-flex items-center text-xs px-4 py-2 bg-rose-50 text-rose-700 rounded-lg font-semibold hover:bg-rose-100 transition-colors group/link brand-font border border-rose-200">
+                                                            Ajukan Permohonan Akses
+                                                            <svg class="w-4 h-4 ml-1.5 group-hover/link:translate-x-1 transition-transform"
+                                                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                                            </svg>
+                                                        </a>
+                                                        <div class="text-slate-400" title="Informasi Dikecualikan / Tertutup">
+                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                                                </path>
+                                                            </svg>
+                                                        </div>
+                                                    @else
+                                                        @if($isPdf)
+                                                            <button
+                                                                @click.prevent="showPreview = true; loadPdfViewer('{{ asset('storage/' . $info->file_path) }}')"
+                                                                class="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors group/link brand-font">
+                                                                Lihat Dokumen
+                                                                <svg class="w-4 h-4 ml-1.5 group-hover/link:translate-x-0.5 transition-transform"
+                                                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                                                    </path>
+                                                                </svg>
+                                                            </button>
+                                                        @else
+                                                            <button
+                                                                @click.prevent="showPreview = true; loadPdfViewer('{{ asset('storage/' . $info->file_path) }}')"
+                                                                class="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors group/link brand-font">
+                                                                Lihat Dokumen
+                                                                <svg class="w-4 h-4 ml-1.5 group-hover/link:translate-x-0.5 transition-transform"
+                                                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                                                    </path>
+                                                                </svg>
+                                                            </button>
+                                                        @endif
+                                                    @endif
+                                                </div>
+                                            </div>
                                         @endif
                                     @endforeach
                                 </div>
-                                
+
                                 @if($filteredInfos->count() > 3)
                                     <div class="mt-8 text-center">
-                                        <a href="{{ route('informasi.kategori', $catKey) }}" class="inline-flex items-center px-6 py-3 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-indigo-600 rounded-xl font-semibold transition-all shadow-sm group">
+                                        <a href="{{ route('informasi.kategori', $catKey) }}"
+                                            class="inline-flex items-center px-6 py-3 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-indigo-600 rounded-xl font-semibold transition-all shadow-sm group">
                                             Lihat Semua {{ $catLabel }} (Ada {{ $filteredInfos->count() }} Dokumen)
-                                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                            </svg>
                                         </a>
                                     </div>
                                 @endif
@@ -581,134 +676,161 @@
                 </div>
             </div>
 
-            {{-- ── Survei & Buku Tamu Cards ─────────────────────────── --}}
-            <div class="mt-24 grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                {{-- Buku Tamu --}}
-                <a href="{{ route('guestbook.create') }}"
-                   class="relative bg-gradient-to-br from-emerald-500 to-teal-700 rounded-3xl p-8 sm:p-12 overflow-hidden shadow-xl shadow-teal-900/10 group block">
-                    <div class="absolute top-0 right-0 -mt-10 -mr-10 w-48 h-48 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
-                    <div class="absolute bottom-0 left-0 w-36 h-36 bg-black/10 rounded-full blur-2xl group-hover:translate-x-4 transition-transform duration-700 pointer-events-none"></div>
-                    <div class="absolute -bottom-6 right-6 opacity-20 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none">
-                        <svg class="w-36 h-36 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path>
-                        </svg>
-                    </div>
-                    <div class="relative z-10">
-                        <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/30 mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl sm:text-3xl font-bold text-white brand-font mb-3">Buku Tamu</h3>
-                        <p class="text-emerald-50 text-sm sm:text-base leading-relaxed mb-8 max-w-sm">
-                            Tinggalkan jejak kunjungan Anda, berikan masukan, atau sampaikan pesan kepada kami secara langsung.
-                        </p>
-                        <span class="inline-flex items-center text-sm font-bold text-teal-700 rounded-full bg-white px-5 py-2.5 shadow-md group-hover:bg-emerald-50 transition-colors">
-                            Isi Buku Tamu Sekarang
-                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </span>
-                    </div>
-                </a>
-
-                {{-- Survei Kepuasan --}}
-                <a href="{{ route('survey.index') }}"
-                   class="relative bg-gradient-to-br from-amber-500 to-orange-600 rounded-3xl p-8 sm:p-12 overflow-hidden shadow-xl shadow-orange-900/10 group block">
-                    <div class="absolute top-0 left-0 -mt-10 -ml-10 w-48 h-48 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
-                    <div class="absolute bottom-0 right-0 w-36 h-36 bg-black/10 rounded-full blur-2xl group-hover:-translate-x-4 transition-transform duration-700 pointer-events-none"></div>
-                    <div class="absolute -bottom-6 right-6 opacity-20 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none">
-                        <svg class="w-36 h-36 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                    </div>
-                    <div class="relative z-10">
-                        <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/30 mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl sm:text-3xl font-bold text-white brand-font mb-3">Survei Kepuasan</h3>
-                        <p class="text-amber-50 text-sm sm:text-base leading-relaxed mb-8 max-w-sm">
-                            Bantu kami meningkatkan kualitas layanan dengan mengisi survei kepuasan masyarakat.
-                        </p>
-                        <span class="inline-flex items-center text-sm font-bold text-orange-600 rounded-full bg-white px-5 py-2.5 shadow-md group-hover:bg-orange-50 transition-colors">
-                            Mulai Survei
-                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </span>
-                    </div>
-                </a>
-            </div>
 
             @if(isset($news) && $news->count() > 0)
-            <div class="mt-24">
-                <div class="text-center mb-12">
-                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight inline-block relative brand-font">
-                        Berita & Publikasi Terkini
-                        <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-12 h-1 bg-indigo-600 rounded-full"></div>
-                    </h2>
-                    <p class="mt-6 text-slate-500 max-w-xl mx-auto">Ikuti perkembangan terbaru dan publikasi resmi dari Badan Publik kami.</p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 @if($news->count() < 3) justify-center @endif">
-                    @foreach($news as $item)
-                        <div onclick="window.location.href='{{ route('publikasi.show', $item->slug) }}'" class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 overflow-hidden flex flex-col group cursor-pointer relative">
-                            <div class="h-48 overflow-hidden relative bg-slate-100">
-                                @if($item->image)
-                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                @else
-                                    <div class="w-full h-full flex items-center justify-center text-slate-300">
-                                        <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                <div class="mt-24">
+                    <div class="text-center mb-12">
+                        <h2
+                            class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight inline-block relative brand-font">
+                            Berita & Publikasi Terkini
+                            <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-12 h-1 bg-indigo-600 rounded-full">
+                            </div>
+                        </h2>
+                        <p class="mt-6 text-slate-500 max-w-xl mx-auto">Ikuti perkembangan terbaru dan publikasi resmi dari
+                            Badan Publik kami.</p>
+                    </div>
+
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 @if($news->count() < 3) justify-center @endif">
+                        @foreach($news as $item)
+                            <div onclick="window.location.href='{{ route('publikasi.show', $item->slug) }}'"
+                                class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 overflow-hidden flex flex-col group cursor-pointer relative">
+                                <div class="h-48 overflow-hidden relative bg-slate-100">
+                                    @if($item->image)
+                                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}"
+                                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    @else
+                                        <div class="w-full h-full flex items-center justify-center text-slate-300">
+                                            <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    @endif
+                                    <div class="absolute top-4 left-4">
+                                        <span
+                                            class="px-3 py-1 bg-indigo-600/90 backdrop-blur text-white text-[10px] font-bold uppercase tracking-wider rounded-lg shadow-sm">
+                                            {{ $item->type }}
+                                        </span>
                                     </div>
-                                @endif
-                                <div class="absolute top-4 left-4">
-                                    <span class="px-3 py-1 bg-indigo-600/90 backdrop-blur text-white text-[10px] font-bold uppercase tracking-wider rounded-lg shadow-sm">
-                                        {{ $item->type }}
-                                    </span>
+                                </div>
+                                <div class="p-6 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-2 text-xs text-slate-400 mb-3 font-medium">
+                                        <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                            </path>
+                                        </svg>
+                                        {{ $item->created_at->format('d M Y') }}
+                                    </div>
+                                    <h3
+                                        class="text-lg font-bold text-slate-800 brand-font mb-3 leading-snug group-hover:text-indigo-600 transition-colors line-clamp-2">
+                                        {{ $item->title }}
+                                    </h3>
+                                    <p class="text-slate-500 text-sm line-clamp-3 mb-6 flex-grow">
+                                        {{ strip_tags($item->content) }}
+                                    </p>
+                                    <a href="{{ route('publikasi.show', $item->slug) }}"
+                                        class="inline-flex items-center text-sm font-bold text-indigo-600 hover:text-indigo-800 transition-colors mt-auto group/link brand-font">
+                                        Baca Selengkapnya
+                                        <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                        </svg>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <div class="flex items-center gap-2 text-xs text-slate-400 mb-3 font-medium">
-                                    <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                    {{ $item->created_at->format('d M Y') }}
-                                </div>
-                                <h3 class="text-lg font-bold text-slate-800 brand-font mb-3 leading-snug group-hover:text-indigo-600 transition-colors line-clamp-2">
-                                    {{ $item->title }}
-                                </h3>
-                                <p class="text-slate-500 text-sm line-clamp-3 mb-6 flex-grow">
-                                    {{ strip_tags($item->content) }}
-                                </p>
-                                <a href="{{ route('publikasi.show', $item->slug) }}" class="inline-flex items-center text-sm font-bold text-indigo-600 hover:text-indigo-800 transition-colors mt-auto group/link brand-font">
-                                    Baca Selengkapnya
-                                    <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
-            </div>
             @endif
 
-            <!-- Survei Kepuasan Banner -->
-            <div class="mt-24 mb-16 max-w-4xl mx-auto px-4 sm:px-6">
-                <div class="bg-indigo-50 rounded-3xl border border-indigo-100 p-10 sm:p-14 flex flex-col items-center text-center shadow-sm relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent"></div>
-                    <div class="w-16 h-16 text-indigo-600 mb-6 relative z-10 transform group-hover:scale-110 transition-transform duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full drop-shadow-sm">
-                          <path fill-rule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h9a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5h-1.082A2.25 2.25 0 0013.167 2h-2.334a2.25 2.25 0 00-2.25 1.75H7.5zm1.5 6a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm1.5-1.5a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5zm-1.5 6a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm1.5-1.5a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-800 brand-font mb-4 tracking-tight relative z-10">Survei Kepuasan</h3>
-                    <p class="text-slate-600 text-lg mb-8 max-w-md mx-auto leading-relaxed relative z-10">Bantu kami meningkatkan kualitas layanan publik dengan mengisi survei singkat.</p>
-                    <a href="{{ route('survey.index') }}" class="inline-flex items-center justify-center px-8 py-3.5 bg-indigo-600 text-white rounded-xl font-bold text-lg hover:bg-indigo-700 transition-all duration-300 shadow-lg shadow-indigo-600/30 hover:shadow-xl hover:shadow-indigo-600/50 hover:-translate-y-0.5 relative z-10 brand-font group/btn">
-                        Mulai Isi Survei
-                        <svg class="w-5 h-5 ml-2 mt-0.5 group-hover/btn:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
+            <!-- Buku Tamu & Survei Kepuasan -->
+            <div class="mt-24 mb-16 px-0">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Buku Tamu Card -->
+                    <a href="{{ route('guestbook.create') }}"
+                        class="group relative bg-emerald-50 border border-emerald-100 rounded-3xl p-10 sm:p-12 flex flex-col items-center text-center shadow-sm overflow-hidden hover:shadow-xl hover:shadow-emerald-900/10 hover:-translate-y-1 transition-all duration-300">
+                        <!-- Subtle gradient overlay -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-white/70 to-transparent pointer-events-none">
+                        </div>
+                        <!-- Decorative circle -->
+                        <div
+                            class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-100 rounded-full opacity-60 group-hover:scale-125 transition-transform duration-500 pointer-events-none">
+                        </div>
+                        <div
+                            class="absolute -bottom-8 -left-8 w-32 h-32 bg-teal-100 rounded-full opacity-40 group-hover:scale-110 transition-transform duration-500 pointer-events-none">
+                        </div>
+
+                        <div
+                            class="relative z-10 w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300 shadow-sm">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3
+                            class="relative z-10 text-2xl sm:text-3xl font-extrabold text-slate-800 brand-font mb-3 tracking-tight">
+                            Buku Tamu</h3>
+                        <p class="relative z-10 text-slate-600 text-base mb-8 max-w-xs mx-auto leading-relaxed">
+                            Tinggalkan pesan, masukan, atau saran Anda kepada kami melalui buku tamu digital.</p>
+                        <span
+                            class="relative z-10 inline-flex items-center justify-center px-8 py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-base hover:bg-emerald-700 shadow-lg shadow-emerald-600/30 group-hover:shadow-xl group-hover:shadow-emerald-600/50 brand-font">
+                            Isi Buku Tamu
+                            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1.5 transition-transform" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </span>
                     </a>
+
+                    <!-- Survei Kepuasan Card -->
+                    <a href="{{ route('survey.index') }}"
+                        class="group relative bg-indigo-50 border border-indigo-100 rounded-3xl p-10 sm:p-12 flex flex-col items-center text-center shadow-sm overflow-hidden hover:shadow-xl hover:shadow-indigo-900/10 hover:-translate-y-1 transition-all duration-300">
+                        <!-- Subtle gradient overlay -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent pointer-events-none">
+                        </div>
+                        <!-- Decorative circle -->
+                        <div
+                            class="absolute -top-10 -left-10 w-40 h-40 bg-indigo-100 rounded-full opacity-60 group-hover:scale-125 transition-transform duration-500 pointer-events-none">
+                        </div>
+                        <div
+                            class="absolute -bottom-8 -right-8 w-32 h-32 bg-purple-100 rounded-full opacity-40 group-hover:scale-110 transition-transform duration-500 pointer-events-none">
+                        </div>
+
+                        <div
+                            class="relative z-10 w-16 h-16 text-indigo-600 mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-full h-full drop-shadow-sm">
+                                <path fill-rule="evenodd"
+                                    d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h9a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5h-1.082A2.25 2.25 0 0013.167 2h-2.334a2.25 2.25 0 00-2.25 1.75H7.5zm1.5 6a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm1.5-1.5a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5zm-1.5 6a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm1.5-1.5a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <h3
+                            class="relative z-10 text-2xl sm:text-3xl font-extrabold text-slate-800 brand-font mb-3 tracking-tight">
+                            Survei Kepuasan</h3>
+                        <p class="relative z-10 text-slate-600 text-base mb-8 max-w-xs mx-auto leading-relaxed">Bantu
+                            kami meningkatkan kualitas layanan publik dengan mengisi survei singkat.</p>
+                        <span
+                            class="relative z-10 inline-flex items-center justify-center px-8 py-3.5 bg-indigo-600 text-white rounded-xl font-bold text-base shadow-lg shadow-indigo-600/30 group-hover:shadow-xl group-hover:shadow-indigo-600/50 brand-font">
+                            Mulai Isi Survei
+                            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1.5 transition-transform" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </span>
+                    </a>
+
                 </div>
             </div>
 
@@ -720,7 +842,7 @@
     @if(session('success'))
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-            // Jalankan segera (tanpa menunggu DOMContentLoaded kerena ini di bottom body)
+            // Jalankan sege        ra (tanpa menunggu DOMContentLoaded kerena ini di bottom body)
             // Ini untuk memastikan Hotwire Turbo tetap mau merender SweetAlert.
             setTimeout(() => {
                 Swal.fire({

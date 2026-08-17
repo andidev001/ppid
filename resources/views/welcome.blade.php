@@ -100,9 +100,7 @@
                             <a href="{{ route('profil.struktur') }}"
                                 class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Struktur
                                 Organisasi</a>
-                            <a href="{{ route('profil.sop') }}"
-                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">SOP
-                                Layanan</a>
+
                             <a href="{{ route('profil.maklumat') }}"
                                 class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Maklumat
                                 Pelayanan</a>
@@ -241,7 +239,7 @@
                             <a href="{{ route('profil.tugas_fungsi') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Tugas dan Fungsi</a>
                             <a href="{{ route('profil.visi_misi') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Visi Misi</a>
                             <a href="{{ route('profil.struktur') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Struktur Organisasi</a>
-                            <a href="{{ route('profil.sop') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">SOP Layanan</a>
+
                             <a href="{{ route('profil.maklumat') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Maklumat Pelayanan</a>
                             <a href="{{ route('profil.dasar_hukum') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Dasar Hukum</a>
                          </div>

@@ -40,11 +40,7 @@
                             class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
                             Struktur Organisasi
                         </button>
-                        <button type="button" @click="activeTab = 'sop'"
-                            :class="activeTab === 'sop' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
-                            class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
-                            SOP Layanan
-                        </button>
+
                         <button type="button" @click="activeTab = 'maklumat'"
                             :class="activeTab === 'maklumat' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
                             class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
@@ -70,6 +66,11 @@
                             <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 px-1">Standar
                                 Pelayanan</p>
                         </div>
+                        <button type="button" @click="activeTab = 'sop'"
+                            :class="activeTab === 'sop' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                            class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
+                            SOP Layanan
+                        </button>
                         <button type="button" @click="activeTab = 'prosedur_pelayanan'"
                             :class="activeTab === 'prosedur_pelayanan' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
                             class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">

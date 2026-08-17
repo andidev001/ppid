@@ -199,10 +199,7 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('guestbook.create') }}"
-                        class="px-4 py-2 text-slate-600 font-medium hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-colors text-sm">
-                        Buku Tamu
-                    </a>
+
 
                     <a href="{{ route('statistik') }}"
                         class="px-4 py-2 text-slate-600 font-medium hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-colors text-sm">

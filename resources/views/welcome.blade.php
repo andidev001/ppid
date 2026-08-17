@@ -167,10 +167,7 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('guestbook.create') }}"
-                        class="px-4 py-2 text-slate-600 font-medium hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-colors text-sm">
-                        Buku Tamu
-                    </a>
+
 
                     <a href="{{ route('statistik') }}"
                         class="px-4 py-2 text-slate-600 font-medium hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-colors text-sm">
@@ -582,6 +579,68 @@
                         </a>
                     </div>
                 </div>
+            </div>
+
+            {{-- ── Survei & Buku Tamu Cards ─────────────────────────── --}}
+            <div class="mt-24 grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                {{-- Buku Tamu --}}
+                <a href="{{ route('guestbook.create') }}"
+                   class="relative bg-gradient-to-br from-emerald-500 to-teal-700 rounded-3xl p-8 sm:p-12 overflow-hidden shadow-xl shadow-teal-900/10 group block">
+                    <div class="absolute top-0 right-0 -mt-10 -mr-10 w-48 h-48 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 w-36 h-36 bg-black/10 rounded-full blur-2xl group-hover:translate-x-4 transition-transform duration-700 pointer-events-none"></div>
+                    <div class="absolute -bottom-6 right-6 opacity-20 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none">
+                        <svg class="w-36 h-36 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path>
+                        </svg>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/30 mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white brand-font mb-3">Buku Tamu</h3>
+                        <p class="text-emerald-50 text-sm sm:text-base leading-relaxed mb-8 max-w-sm">
+                            Tinggalkan jejak kunjungan Anda, berikan masukan, atau sampaikan pesan kepada kami secara langsung.
+                        </p>
+                        <span class="inline-flex items-center text-sm font-bold text-teal-700 rounded-full bg-white px-5 py-2.5 shadow-md group-hover:bg-emerald-50 transition-colors">
+                            Isi Buku Tamu Sekarang
+                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+
+                {{-- Survei Kepuasan --}}
+                <a href="{{ route('survey.index') }}"
+                   class="relative bg-gradient-to-br from-amber-500 to-orange-600 rounded-3xl p-8 sm:p-12 overflow-hidden shadow-xl shadow-orange-900/10 group block">
+                    <div class="absolute top-0 left-0 -mt-10 -ml-10 w-48 h-48 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
+                    <div class="absolute bottom-0 right-0 w-36 h-36 bg-black/10 rounded-full blur-2xl group-hover:-translate-x-4 transition-transform duration-700 pointer-events-none"></div>
+                    <div class="absolute -bottom-6 right-6 opacity-20 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none">
+                        <svg class="w-36 h-36 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/30 mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white brand-font mb-3">Survei Kepuasan</h3>
+                        <p class="text-amber-50 text-sm sm:text-base leading-relaxed mb-8 max-w-sm">
+                            Bantu kami meningkatkan kualitas layanan dengan mengisi survei kepuasan masyarakat.
+                        </p>
+                        <span class="inline-flex items-center text-sm font-bold text-orange-600 rounded-full bg-white px-5 py-2.5 shadow-md group-hover:bg-orange-50 transition-colors">
+                            Mulai Survei
+                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </span>
+                    </div>
+                </a>
             </div>
 
             @if(isset($news) && $news->count() > 0)

@@ -3,4 +3,4 @@
     $pageSubtitle = 'Langkah-langkah pengajuan permohonan penyelesaian sengketa informasi publik.';
     $settingKey   = 'page_prosedur_sengketa';
 @endphp
-@include('pages.partials.standar_layout')
+@include('pages.partials.page_layout')

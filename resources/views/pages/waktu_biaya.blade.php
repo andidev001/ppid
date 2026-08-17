@@ -3,4 +3,4 @@
     $pageSubtitle = 'Informasi mengenai standar waktu penyediaan dan estimasi biaya layanan.';
     $settingKey   = 'page_waktu_biaya';
 @endphp
-@include('pages.partials.standar_layout')
+@include('pages.partials.page_layout')

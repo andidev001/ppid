@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{{ isset($settings['app_logo']) && $settings['app_logo'] ? asset('storage/' . $settings['app_logo']) : asset('favicon.ico') }}">
+    <link rel="icon" type="image/x-icon"
+        href="{{ isset($settings['app_logo']) && $settings['app_logo'] ? asset('storage/' . $settings['app_logo']) : asset('favicon.ico') }}">
     <title>{{ $settings['app_name'] ?? 'PPID - Portal Informasi Publik' }} - Beranda PPID</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link
@@ -51,7 +52,7 @@
 
 <body
     class="antialiased min-h-screen flex flex-col text-slate-800 selection:bg-indigo-500 selection:text-white relative"
-    x-data>
+    x-data="{ mobileMenuOpen: false }">
     <!-- Navbar -->
     <nav class="glass sticky top-0 z-50 border-b border-white/20 shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -180,6 +181,113 @@
                         <a href="{{ route('login') }}"
                             class="px-6 py-2.5 rounded-xl bg-slate-900 text-white font-medium hover:bg-slate-800 transition-all shadow-md hover:shadow-xl hover:shadow-slate-800 hover:-translate-y-0.5 brand-font text-sm whitespace-nowrap">Login</a>
                     @endauth
+
+                    <!-- Mobile menu button -->
+                    <div class="flex items-center md:hidden">
+                        <button type="button" @click="mobileMenuOpen = !mobileMenuOpen"
+                            class="inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-indigo-600 hover:bg-slate-100 focus:outline-none transition-colors"
+                            aria-controls="mobile-menu" aria-expanded="false">
+                            <span class="sr-only">Buka menu utama</span>
+                            <!-- Icon menu hamburger (hilang saat menu terbuka) -->
+                            <svg x-show="!mobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                            <!-- Icon silang (tampil saat menu terbuka) -->
+                            <svg x-show="mobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"
+                                style="display: none;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2"
+                class="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md shadow-xl border-b border-slate-200"
+                id="mobile-menu" @click.away="mobileMenuOpen = false" style="display: none;">
+
+                <div class="px-4 pt-2 pb-6 space-y-1">
+                    <a href="{{ url('/') }}"
+                        class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Beranda</a>
+
+                    <!-- Profil Dropdown (Mobile) -->
+                    <div x-data="{ openProfil: false }" class="space-y-1">
+                        <button @click="openProfil = !openProfil"
+                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
+                            <span>Profil PPID</span>
+                            <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openProfil}"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div x-show="openProfil" class="pl-4 pr-2 space-y-1" style="display: none;">
+                            <a href="{{ route('profil.ppid') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Profil
+                                PPID</a>
+                            <a href="{{ route('profil.tugas_fungsi') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Tugas
+                                dan Fungsi</a>
+                            <a href="{{ route('profil.visi_misi') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Visi
+                                Misi</a>
+                            <a href="{{ route('profil.struktur') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Struktur
+                                Organisasi</a>
+                            <a href="{{ route('profil.sop') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">SOP
+                                Layanan</a>
+                            <a href="{{ route('profil.maklumat') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Maklumat
+                                Pelayanan</a>
+                            <a href="{{ route('profil.dasar_hukum') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Dasar
+                                Hukum</a>
+                        </div>
+                    </div>
+
+                    <!-- Publikasi Dropdown (Mobile) -->
+                    <div x-data="{ openPublikasi: false }" class="space-y-1">
+                        <button @click="openPublikasi = !openPublikasi"
+                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
+                            <span>Publikasi</span>
+                            <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openPublikasi}"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div x-show="openPublikasi" class="pl-4 pr-2 space-y-1" style="display: none;">
+                            <a href="{{ route('publikasi.index', 'berita') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Berita</a>
+                            <a href="{{ route('publikasi.index', 'pengumuman') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Pengumuman</a>
+                            <a href="{{ route('publikasi.index', 'agenda') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Agenda</a>
+                        </div>
+                    </div>
+
+                    <a href="{{ route('guestbook.create') }}"
+                        class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Buku
+                        Tamu</a>
+                    <a href="{{ route('statistik') }}"
+                        class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Statistik</a>
+                    <a href="{{ route('cek_status') }}"
+                        class="block px-3 py-2.5 rounded-lg text-base font-medium text-indigo-600 hover:bg-indigo-50 transition-colors">Cek
+                        Status</a>
+
                 </div>
             </div>
         </div>

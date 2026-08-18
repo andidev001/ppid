@@ -239,7 +239,8 @@ class PageController extends Controller
             'setiap_saat' => 'Informasi Setiap Saat',
             'dikecualikan' => 'Informasi Dikecualikan',
             'pengadaan' => 'Informasi Pengadaan Barang dan Jasa',
-            'arsip' => 'Arsip Dokumen'
+            'arsip' => 'Arsip Dokumen',
+            'surat_pimpinan' => 'Surat Pimpinan'
         ];
 
         if (!array_key_exists($kategori, $categories)) {

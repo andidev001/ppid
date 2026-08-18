@@ -193,6 +193,9 @@
                             x-transition:leave-end="opacity-0 translate-y-1"
                             class="absolute top-full left-0 mt-1 w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden py-2"
                             style="display: none;" @click.away="open = false">
+                            <a href="{{ route('informasi.kategori', 'surat_pimpinan') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Surat
+                                Pimpinan</a>
                             <a href="{{ route('publikasi.index', 'berita') }}"
                                 class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Berita</a>
                             <a href="{{ route('publikasi.index', 'pengumuman') }}"
@@ -414,6 +417,9 @@
                             </svg>
                         </button>
                         <div x-show="openPublikasi" class="pl-4 pr-2 space-y-1" style="display: none;">
+                            <a href="{{ route('informasi.kategori', 'surat_pimpinan') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors border-b border-slate-100 pb-3 mb-2">Surat
+                                Pimpinan</a>
                             <a href="{{ route('publikasi.index', 'berita') }}"
                                 class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Berita</a>
                             <a href="{{ route('publikasi.index', 'pengumuman') }}"

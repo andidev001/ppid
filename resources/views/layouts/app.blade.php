@@ -108,7 +108,7 @@
                     </a>
 
                     <!-- Informasi Publik Dropdown -->
-                    <div x-data="{ open: {{ request()->routeIs('admin.public-info.index') || request()->routeIs('admin.information-groups.*') ? 'true' : 'false' }} }"
+                    <div x-data="{ open: {{ (request()->routeIs('admin.public-info.index') && request('category') !== 'surat_pimpinan') || request()->routeIs('admin.information-groups.*') ? 'true' : 'false' }} }"
                         class="mt-1">
                         <button @click="open = !open"
                             class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all text-indigo-200 hover:bg-white/10 hover:text-white">
@@ -193,7 +193,7 @@
                     </div>
 
                     <!-- Publikasi Dropdown -->
-                    <div x-data="{ open: {{ request()->routeIs('admin.publications.*') ? 'true' : 'false' }} }"
+                    <div x-data="{ open: {{ request()->routeIs('admin.publications.*') || (request()->routeIs('admin.public-info.index') && request('category') == 'surat_pimpinan') ? 'true' : 'false' }} }"
                         class="mt-1">
                         <button @click="open = !open"
                             class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all text-indigo-200 hover:bg-white/10 hover:text-white">
@@ -213,6 +213,9 @@
                         </button>
 
                         <div x-show="open" x-transition.opacity class="pl-9 pr-3 py-2 space-y-1" x-cloak>
+                            <a href="{{ route('admin.public-info.index', ['category' => 'surat_pimpinan']) }}"
+                                class="block text-xs font-medium {{ request('category') == 'surat_pimpinan' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Surat
+                                Pimpinan</a>
                             <a href="{{ route('admin.publications.index', ['type' => 'berita']) }}"
                                 class="block text-xs font-medium {{ request('type') == 'berita' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Berita</a>
                             <a href="{{ route('admin.publications.index', ['type' => 'pengumuman']) }}"

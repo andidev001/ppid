@@ -134,10 +134,8 @@
 
                     <form :action="formAction" method="POST">
                         @csrf
-                        <!-- Hidden variable inside standard form -->
-                        <div x-show="isEdit" style="display: none">
-                            @method('PUT')
-                        </div>
+                        <!-- Only send PUT method if in edit mode -->
+                        <input type="hidden" name="_method" value="PUT" x-bind:disabled="!isEdit">
 
                         <div class="p-6 space-y-4">
                             <!-- Nama Kelompok -->

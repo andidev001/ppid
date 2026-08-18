@@ -2,27 +2,27 @@
 
 @section('content')
     <div x-data="{ 
-            showPreview: false, 
-            previewUrl: '', 
-            showVideo: false, 
-            currentVideo: '',
-            openVideo(base64Content) {
-                let content = atob(base64Content);
-                if (content.includes('youtube.com/watch') || content.includes('youtu.be/')) {
-                    let videoId = '';
-                    if (content.includes('youtube.com/watch')) {
-                        videoId = content.split('v=')[1].split('&')[0];
-                    } else {
-                        videoId = content.split('youtu.be/')[1].split('?')[0];
-                    }
-                    content = `<iframe class=\'w-full h-full rounded-b-lg\' src=\'https://www.youtube.com/embed/${videoId}\' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\' allowfullscreen></iframe>`;
-                } else if (!content.includes('<iframe')) {
-                    content = `<iframe class=\'w-full h-full rounded-b-lg\' src=\'${content}\' frameborder=\'0\' allowfullscreen></iframe>`;
-                }
-                this.currentVideo = content;
-                this.showVideo = true;
-            }
-        }">
+                                    showPreview: false, 
+                                    previewUrl: '', 
+                                    showVideo: false, 
+                                    currentVideo: '',
+                                    openVideo(base64Content) {
+                                        let content = atob(base64Content);
+                                        if (content.includes('youtube.com/watch') || content.includes('youtu.be/')) {
+                                            let videoId = '';
+                                            if (content.includes('youtube.com/watch')) {
+                                                videoId = content.split('v=')[1].split('&')[0];
+                                            } else {
+                                                videoId = content.split('youtu.be/')[1].split('?')[0];
+                                            }
+                                            content = `<iframe class=\'w-full h-full rounded-b-lg\' src=\'https://www.youtube.com/embed/${videoId}\' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\' allowfullscreen></iframe>`;
+                                        } else if (!content.includes('<iframe')) {
+                                            content = `<iframe class=\'w-full h-full rounded-b-lg\' src=\'${content}\' frameborder=\'0\' allowfullscreen></iframe>`;
+                                        }
+                                        this.currentVideo = content;
+                                        this.showVideo = true;
+                                    }
+                                }">
         <div class="bg-slate-900 pb-32 pt-16 relative overflow-hidden">
             <div class="absolute inset-0 opacity-[0.05] text-white">
                 <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg">
@@ -73,18 +73,19 @@
                         <thead>
                             <tr
                                 class="bg-indigo-50/50 text-indigo-700 text-sm font-semibold brand-font border-b border-indigo-100/50">
+                                <th class="hidden">Group</th>
                                 <th class="px-6 py-4 w-16 text-center">No</th>
                                 <th class="px-6 py-4 w-4/12">Judul Informasi</th>
                                 <th class="px-6 py-4 w-2/12">Penanggung Jawab</th>
                                 <th class="px-6 py-4 w-3/12">Keterangan Singkat</th>
                                 @if($kategori === 'semua')
-                                <th class="px-6 py-4 text-center w-2/12">Kategori</th>
+                                    <th class="px-6 py-4 text-center w-2/12">Kategori</th>
                                 @endif
                                 <th class="px-6 py-4 text-center w-48">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-slate-100">
-                           <!-- DataTables Body -->
+                            <!-- DataTables Body -->
                         </tbody>
                     </table>
                 </div>
@@ -102,92 +103,169 @@
 @endsection
 
 @section('scripts')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<style>
-    /* Styling adjustments for datatables in public view */
-    .dataTables_wrapper .dataTables_paginate .paginate_button {
-        padding: 0.3em 0.8em;
-        border-radius: 0.5rem;
-        border: none;
-        background: transparent;
-    }
-    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-        background: #4f46e5;
-        border: none;
-        color: white !important;
-    }
-    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-        background: #e0e7ff;
-        border: none;
-        color: #4f46e5 !important;
-    }
-    .dataTables_wrapper .dataTables_filter input {
-        border-radius: 0.75rem;
-        border: 1px solid #e2e8f0;
-        padding: 0.5rem 1rem;
-        outline: none;
-    }
-    .dataTables_wrapper .dataTables_filter input:focus {
-        border-color: #818cf8;
-        box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
-    }
-    .dataTables_wrapper {
-        margin-top: -0.5rem;
-    }
-    .dataTables_wrapper .dataTables_length,
-    .dataTables_wrapper .dataTables_filter {
-        margin-bottom: 1rem;
-    }
-    .dataTables_wrapper .dataTables_info,
-    .dataTables_wrapper .dataTables_paginate {
-        margin-top: 1.5rem;
-    }
-    .dataTables_wrapper .dataTables_length label,
-    .dataTables_wrapper .dataTables_filter label {
-        font-weight: 500;
-        color: #475569;
-    }
-    @media (max-width: 768px) {
-        .dataTables_wrapper .dataTables_filter,
-        .dataTables_wrapper .dataTables_length {
-            margin-top: 0.5rem;
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <style>
+        /* Styling adjustments for datatables in public view */
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0.3em 0.8em;
+            border-radius: 0.5rem;
+            border: none;
+            background: transparent;
         }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background: #4f46e5;
+            border: none;
+            color: white !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background: #e0e7ff;
+            border: none;
+            color: #4f46e5 !important;
+        }
+
+        .dataTables_wrapper .dataTables_filter input {
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            padding: 0.5rem 1rem;
+            outline: none;
+        }
+
+        .dataTables_wrapper .dataTables_filter input:focus {
+            border-color: #818cf8;
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+        }
+
         .dataTables_wrapper {
-            margin-top: 0;
+            margin-top: -0.5rem;
         }
-    }
-</style>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#informasiTable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('informasi.kategori', ['kategori' => $kategori]) }}",
-            columns: [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false, className: 'text-center font-mono text-slate-400 px-6 py-5' },
-                { data: 'title', name: 'title', className: 'px-6 py-5' },
-                { data: 'penanggung_jawab', name: 'penanggung_jawab', className: 'px-6 py-5 text-indigo-500 font-medium whitespace-nowrap' },
-                { data: 'description', name: 'description', className: 'px-6 py-5 text-slate-500 leading-relaxed' },
-                @if($kategori === 'semua')
-                { data: 'category_badge', name: 'category', className: 'text-center px-6 py-5' },
-                @endif
-                { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center px-6 py-5' }
-            ],
-            language: {
-                search: "Cari Informasi:",
-                lengthMenu: "Tampilkan _MENU_ entri",
-                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ dokumen",
-                infoEmpty: "Tidak ada dokumen",
-                paginate: {
-                    first: "Awal",
-                    last: "Akhir",
-                    next: "Lanjut",
-                    previous: "Kembali"
-                }
+
+        @if(in_array($kategori, ['berkala', 'setiap_saat']))
+            /* Sembunyikan thead jika kategori berkala atau setiap saat (tampilan akordion) */
+            #informasiTable thead {
+                display: none;
             }
-        });
-    });
-</script>
+
+            #informasiTable.dataTable.no-footer {
+                border-bottom: none;
+            }
+
+            #informasiTable tbody tr {
+                border-bottom: 1px solid #f1f5f9;
+            }
+
+            #informasiTable tbody tr:hover {
+                background-color: #f8fafc;
+            }
+
+        @endif .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_filter {
+            margin-bottom: 1rem;
+        }
+
+        .dataTables_wrapper .dataTables_info,
+        .dataTables_wrapper .dataTables_paginate {
+            margin-top: 1.5rem;
+        }
+
+        .dataTables_wrapper .dataTables_length label,
+        .dataTables_wrapper .dataTables_filter label {
+            font-weight: 500;
+            color: #475569;
+        }
+
+        @media (max-width: 768px) {
+
+            .dataTables_wrapper .dataTables_filter,
+            .dataTables_wrapper .dataTables_length {
+                margin-top: 0.5rem;
+            }
+
+            .dataTables_wrapper {
+                margin-top: 0;
+            }
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        (function () {
+            const initDataTable = function () {
+                if (typeof $ === 'undefined' || typeof $.fn.DataTable === 'undefined') return;
+
+                if ($.fn.DataTable.isDataTable('#informasiTable')) {
+                    $('#informasiTable').DataTable().destroy();
+                }
+
+                $('#informasiTable').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ordering: {{ in_array($kategori, ['berkala', 'setiap_saat']) ? 'false' : 'true' }},
+                    ajax: "{{ route('informasi.kategori', ['kategori' => $kategori]) }}",
+                    columns: [
+                        { data: 'group_name', name: 'group_name', visible: false },
+                        { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false, className: 'text-center font-mono text-slate-800 font-bold px-6 py-5 align-middle', width: '50px' },
+                        { data: 'title', name: 'title', orderable: {{ in_array($kategori, ['berkala', 'setiap_saat']) ? 'false' : 'true' }}, className: 'px-6 py-5 align-middle text-slate-700' },
+                        { data: 'penanggung_jawab', name: 'penanggung_jawab', orderable: {{ in_array($kategori, ['berkala', 'setiap_saat']) ? 'false' : 'true' }}, className: 'px-6 py-5 text-indigo-500 font-medium whitespace-nowrap align-middle' },
+                        { data: 'description', name: 'description', orderable: {{ in_array($kategori, ['berkala', 'setiap_saat']) ? 'false' : 'true' }}, className: 'px-6 py-5 text-slate-500 leading-relaxed align-middle hidden md:table-cell' },
+                        @if($kategori === 'semua')
+                            { data: 'category_badge', name: 'category', orderable: false, className: 'text-center px-6 py-5 align-middle' },
+                        @endif
+                        { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-right px-6 py-5 align-middle' }
+                    ],
+                    drawCallback: function (settings) {
+                        var api = this.api();
+                        var rows = api.rows({ page: 'current' }).nodes();
+                        var last = null;
+                        var rowNum = 1;
+
+                        api.column(0, { page: 'current' }).data().each(function (group, i) {
+                            if (last !== group) {
+                                if (group) {
+                                    @if($kategori === 'semua')
+                                        var colspan = 6;
+                                    @else
+                                        var colspan = 5;
+                                    @endif
+                                    $(rows).eq(i).before(
+                                        '<tr class="group-header"><td colspan="' + colspan + '" class="bg-[#0f172a] text-white font-bold p-4 border-l-[6px] border-amber-500 text-sm sm:text-base tracking-wide">' + group + '</td></tr>'
+                                    );
+                                }
+                                last = group;
+                                rowNum = 1;
+                            }
+
+                            if (group) {
+                                $(rows).eq(i).find('td:eq(0)').html(rowNum + '.');
+                                rowNum++;
+                            }
+                        });
+                    },
+                    language: {
+                        search: "Cari Informasi:",
+                        lengthMenu: "Tampilkan _MENU_ entri",
+                        info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ dokumen",
+                        infoEmpty: "Tidak ada dokumen",
+                        paginate: {
+                            first: "Awal",
+                            last: "Akhir",
+                            next: "Lanjut",
+                            previous: "Kembali"
+                        }
+                    }
+                });
+            };
+
+            setTimeout(initDataTable, 100);
+
+            if (!window.dtInformasiTurboInterceptor) {
+                document.addEventListener('turbo:load', () => {
+                    setTimeout(() => { if (window.dtInformasiInitActive) window.dtInformasiInitActive(); }, 150);
+                });
+                window.dtInformasiTurboInterceptor = true;
+            }
+            window.dtInformasiInitActive = initDataTable;
+        })();
+    </script>
 @endsection

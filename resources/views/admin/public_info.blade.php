@@ -31,7 +31,8 @@
                             <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">No</th>
                             <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Judul
                                 Dokumen</th>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Penanggung Jawab</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Penanggung
+                                Jawab</th>
                             <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Akses
                             </th>
                             <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Tgl Diunggah
@@ -121,8 +122,9 @@
                                 'url' => $info->url,
                                 'video_embed' => $info->video_embed,
                                 'published_year' => $info->published_year,
-                                'penanggung_jawab' => $info->penanggung_jawab
-                            ]) }}" @click="let d = JSON.parse($event.currentTarget.dataset.info); openEdit(d.id, d.title, d.description, d.visibility, d.info_type, d.url, d.video_embed, d.published_year, d.penanggung_jawab)"
+                                'penanggung_jawab' => $info->penanggung_jawab,
+                                'group_name' => $info->group_name
+                            ]) }}" @click="let d = JSON.parse($event.currentTarget.dataset.info); openEdit(d.id, d.title, d.description, d.visibility, d.info_type, d.url, d.video_embed, d.published_year, d.penanggung_jawab, d.group_name)"
                                                             class="inline-block p-2 text-amber-500 hover:bg-amber-50 rounded-lg transition-colors mr-1"
                                                             title="Edit Dokumen">
                                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -262,16 +264,20 @@
                             <input type="text" name="title" x-model="editData.title" required
                                 class="w-full border border-slate-300 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
                         </div>
-                        
+
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 items-end">
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-1">Tahun Pembuatan/Penerbitan</label>
-                                <input type="number" name="published_year" x-model="editData.published_year" placeholder="Contoh: 2024"
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Tahun
+                                    Pembuatan/Penerbitan</label>
+                                <input type="number" name="published_year" x-model="editData.published_year"
+                                    placeholder="Contoh: 2024"
                                     class="w-full border border-slate-300 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-1">Penanggung Jawab (Bidang/Divisi)</label>
-                                <input type="text" name="penanggung_jawab" x-model="editData.penanggung_jawab" placeholder="Contoh: Kesiswaan, Sarpras..." list="bidangPilihan"
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Penanggung Jawab
+                                    (Bidang/Divisi)</label>
+                                <input type="text" name="penanggung_jawab" x-model="editData.penanggung_jawab"
+                                    placeholder="Contoh: Kesiswaan, Sarpras..." list="bidangPilihan"
                                     class="w-full border border-slate-300 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
                                 <datalist id="bidangPilihan">
                                     <option value="Kurikulum">
@@ -283,6 +289,24 @@
                                     <option value="Hubin">
                                 </datalist>
                             </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Kelompok Informasi
+                                (Opsional)</label>
+                            <input type="text" name="group_name" x-model="editData.group_name"
+                                placeholder="Contoh: A. Informasi Profil Sekolah" list="groupPilihan"
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
+                            <p class="text-[11px] text-slate-500 mt-1">Gunakan untuk mengelompokkan data yang sama,
+                                misalnya pada kategori Berkala.</p>
+                            <datalist id="groupPilihan">
+                                <option value="A. Informasi Profil Sekolah">
+                                <option value="B. Informasi Program">
+                                <option value="C. Informasi Keuangan">
+                                <option value="D. Pengadaan Barang dan Jasa">
+                                <option value="A. Menyediakan Dokumen Informasi">
+                                <option value="B. Menyediakan Dokumen Surat-surat Perjanjian">
+                            </datalist>
                         </div>
 
                         <div>
@@ -301,7 +325,8 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Bentuk Informasi yang Tersedia</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Bentuk Informasi yang
+                                Tersedia</label>
                             <select name="info_type" x-model="editData.info_type"
                                 class="w-full border border-slate-300 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white transition-all font-medium">
                                 <option value="file">Dokumen / File Upload</option>
@@ -414,7 +439,8 @@
                     visibility: 'public',
                     info_type: 'file',
                     url: '',
-                    video_embed: ''
+                    video_embed: '',
+                    group_name: ''
                 },
                 openCreate() {
                     this.isEditMode = false;
@@ -427,10 +453,11 @@
                     this.editData.video_embed = '';
                     this.editData.published_year = '{{ date('Y') }}';
                     this.editData.penanggung_jawab = '';
+                    this.editData.group_name = '';
                     this.editFormAction = '{{ route('admin.public-info.store') }}';
                     this.showEditModal = true;
                 },
-                openEdit(id, title, description, visibility, info_type = 'file', url = '', video_embed = '', published_year = '', penanggung_jawab = '') {
+                openEdit(id, title, description, visibility, info_type = 'file', url = '', video_embed = '', published_year = '', penanggung_jawab = '', group_name = '') {
                     this.isEditMode = true;
                     this.editData.id = id;
                     this.editData.title = title;
@@ -441,6 +468,7 @@
                     this.editData.video_embed = video_embed;
                     this.editData.published_year = published_year;
                     this.editData.penanggung_jawab = penanggung_jawab;
+                    this.editData.group_name = group_name;
                     this.editFormAction = `{{ url('admin/public-info') }}/${id}`;
                     this.showEditModal = true;
                 }

@@ -88,7 +88,7 @@
                                     @php $stats = $chartData[$q->id] ?? []; @endphp
                                     @foreach([5 => 'Sangat Baik', 4 => 'Baik', 3 => 'Cukup', 2 => 'Buruk', 1 => 'Sg. Buruk'] as $star => $label)
                                         @php 
-                                                                        $cnt = $stats[$star] ?? 0;
+                                                                                                    $cnt = $stats[$star] ?? 0;
                                             $total = array_sum($stats);
                                             $pct = $total > 0 ? round(($cnt / $total) * 100) : 0;
                                         @endphp
@@ -104,7 +104,7 @@
 
                             @elseif($q->type === 'yes_no')
                                 @php 
-                                                            $stats = $chartData[$q->id] ?? [];
+                                                                                    $stats = $chartData[$q->id] ?? [];
                                     $ya = $stats['Ya'] ?? 0;
                                     $tidak = $stats['Tidak'] ?? 0;
                                     $totalYN = $ya + $tidak;
@@ -286,44 +286,50 @@
     </style>
 
     <script>
-        $(document).ready(function () {
-            if ($('#responsesTable').length) {
-                $('#responsesTable').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    ajax: "{{ route('admin.survey.results.data') }}",
-                    order: [[1, 'desc']],
-                    columns: [
-                        { data: 'id', name: 'id', className: 'text-slate-500 font-bold' },
-                        { data: 'created_at_fmt', name: 'created_at_fmt', className: 'text-sm text-slate-600' },
-                        {
-                            data: 'name',
-                            name: 'name',
-                            className: 'font-bold text-slate-800',
-                            render: function (data, type, row) {
-                                let label = data ? data : '<span class="text-slate-400 italic">Anonim</span>';
-                                let email = row.email ? `<br><span class="text-xs font-normal text-slate-500">${row.email}</span>` : '';
-                                return label + email;
-                            }
-                        },
-                        {
-                            data: 'job',
-                            name: 'job',
-                            render: function (data) { return data ? `<span class="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-lg text-xs font-bold">${data}</span>` : '-'; }
-                        },
-                        {
-                            data: 'age_group',
-                            name: 'age_group',
-                            render: function (data) { return data ? data + ' thn' : '-'; }
-                        },
-                        { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' }
-                    ],
-                    language: {
-                        url: "https://cdn.datatables.net/plug-ins/1.13.7/i18n/id.json"
-                    }
-                });
+        function initSurveyResultsTable() {
+            if (typeof $ === 'undefined' || !$('#responsesTable').length) return;
+            if ($.fn.DataTable.isDataTable('#responsesTable')) {
+                $('#responsesTable').DataTable().destroy();
             }
-        });
+
+            $('#responsesTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('admin.survey.results.data') }}",
+                order: [[1, 'desc']],
+                columns: [
+                    { data: 'id', name: 'id', className: 'text-slate-500 font-bold' },
+                    { data: 'created_at_fmt', name: 'created_at_fmt', className: 'text-sm text-slate-600' },
+                    {
+                        data: 'name',
+                        name: 'name',
+                        className: 'font-bold text-slate-800',
+                        render: function (data, type, row) {
+                            let label = data ? data : '<span class="text-slate-400 italic">Anonim</span>';
+                            let email = row.email ? `<br><span class="text-xs font-normal text-slate-500">${row.email}</span>` : '';
+                            return label + email;
+                        }
+                    },
+                    {
+                        data: 'job',
+                        name: 'job',
+                        render: function (data) { return data ? `<span class="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-lg text-xs font-bold">${data}</span>` : '-'; }
+                    },
+                    {
+                        data: 'age_group',
+                        name: 'age_group',
+                        render: function (data) { return data ? data + ' thn' : '-'; }
+                    },
+                    { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' }
+                ],
+                language: {
+                    url: "https://cdn.datatables.net/plug-ins/1.13.7/i18n/id.json"
+                }
+            });
+        }
+
+        setTimeout(initSurveyResultsTable, 100);
+
 
         function viewDetails(id) {
             document.getElementById('detailContent').innerHTML = '<div class="flex justify-center py-10"><div class="w-8 h-8 rounded-full border-4 border-indigo-200 border-t-indigo-600 animate-spin"></div></div>';

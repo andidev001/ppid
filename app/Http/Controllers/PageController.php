@@ -170,20 +170,25 @@ class PageController extends Controller
             foreach ($completedReqs as $r) {
                 if ($r->created_at && $r->updated_at) {
                     $diff = $r->created_at->diffInDays($r->updated_at);
-                    if ($diff == 0) $diff = 1;
+                    if ($diff == 0)
+                        $diff = 1;
 
                     $year = $r->created_at->format('Y');
 
                     if ($year == '2026') {
-                        $sums['2026'] += $diff; $counts['2026']++;
+                        $sums['2026'] += $diff;
+                        $counts['2026']++;
                     } elseif ($year == '2025') {
-                        $sums['2025'] += $diff; $counts['2025']++;
+                        $sums['2025'] += $diff;
+                        $counts['2025']++;
                     } elseif ($year == '2024') {
-                        $sums['2024'] += $diff; $counts['2024']++;
+                        $sums['2024'] += $diff;
+                        $counts['2024']++;
                     }
 
                     if ($year >= 2021 && $year <= 2026) {
-                        $sums['2021_2026'] += $diff; $counts['2021_2026']++;
+                        $sums['2021_2026'] += $diff;
+                        $counts['2021_2026']++;
                     }
                 }
             }
@@ -240,17 +245,20 @@ class PageController extends Controller
         $data['kategori'] = $kategori;
 
         if ($kategori === 'semua') {
-            $query = \App\Models\PublicInformation::query();
+            $query = \App\Models\PublicInformation::query()->orderByRaw('group_name IS NULL, group_name ASC')->orderBy('id', 'asc');
         } else {
-            $query = \App\Models\PublicInformation::where('category', $kategori);
+            $query = \App\Models\PublicInformation::where('category', $kategori)->orderByRaw('group_name IS NULL, group_name ASC')->orderBy('id', 'asc');
         }
 
         if ($request->ajax()) {
             return \Yajra\DataTables\Facades\DataTables::of($query)
                 ->addIndexColumn()
+                ->addColumn('group_name', function ($info) {
+                    return $info->group_name ?: '';
+                })
                 ->editColumn('title', function ($info) {
-                    $yearHtml = $info->published_year 
-                        ? '<span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-bold border border-slate-200 ml-2">' . $info->published_year . '</span>' 
+                    $yearHtml = $info->published_year
+                        ? '<span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-bold border border-slate-200 ml-2">' . $info->published_year . '</span>'
                         : '';
                     return '<div class="font-bold text-slate-800">' . htmlspecialchars($info->title) . $yearHtml . '</div>';
                 })
@@ -281,13 +289,13 @@ class PageController extends Controller
                     } elseif ($info->info_type == 'video' && $info->video_embed) {
                         $url = $info->video_embed; // Wait, we might need a different handling for video or a link
                     }
-                    
+
                     if ($info->visibility !== 'public') {
-                         return '<span class="text-[11px] font-bold text-rose-600 bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-md uppercase tracking-wider">Dikecualikan</span>';
+                        return '<span class="text-[11px] font-bold text-rose-600 bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-md uppercase tracking-wider">Dikecualikan</span>';
                     }
-                    
+
                     if ($info->info_type == 'fisik') {
-                         return '<span class="text-[10px] sm:text-[11px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-2 py-1 sm:px-2.5 rounded-md tracking-wide flex items-center justify-center gap-1"><svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>Tersedia Cetak/Fisik</span>';
+                        return '<span class="text-[10px] sm:text-[11px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-2 py-1 sm:px-2.5 rounded-md tracking-wide flex items-center justify-center gap-1"><svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>Tersedia Cetak/Fisik</span>';
                     }
 
                     return '<a href="' . $url . '" target="_blank"
@@ -349,7 +357,7 @@ class PageController extends Controller
     {
         $data = $this->getCommonData();
         $data['videos'] = \App\Models\GalleryVideo::orderBy('order_num')->orderBy('created_at', 'desc')->paginate(12);
-        
+
         return view('pages.galeri', $data);
     }
 }

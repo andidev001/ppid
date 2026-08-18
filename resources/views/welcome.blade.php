@@ -179,16 +179,43 @@
                                 class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Pengumuman</a>
                             <a href="{{ route('publikasi.index', 'agenda') }}"
                                 class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors border-b border-slate-100 pb-3 mb-2">Agenda</a>
+                        </div>
+                    </div>
+
+                    <div class="relative group" x-data="{ open: false }" @mouseleave="open = false"
+                        @mouseover="open = true">
+                        <button
+                            class="px-4 py-2 text-slate-600 font-medium hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-colors flex items-center gap-1 text-sm outline-none">
+                            <span>Kategori</span>
+                            <svg class="w-4 h-4 transition-transform duration-200" :class="{'rotate-180': open}"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-1"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-1"
+                            class="absolute top-full left-0 mt-1 w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden py-2"
+                            style="display: none;" @click.away="open = false">
                             <a href="{{ route('informasi.kategori', ['kategori' => 'semua']) }}"
-                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Daftar Informasi</a>
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Daftar
+                                Informasi</a>
                             <a href="{{ route('informasi.kategori', ['kategori' => 'berkala']) }}"
-                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Informasi Berkala</a>
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Informasi
+                                Berkala</a>
                             <a href="{{ route('informasi.kategori', ['kategori' => 'serta_merta']) }}"
-                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Informasi Serta Merta</a>
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Informasi
+                                Serta Merta</a>
                             <a href="{{ route('informasi.kategori', ['kategori' => 'setiap_saat']) }}"
-                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Informasi Setiap Saat</a>
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Informasi
+                                Setiap Saat</a>
                             <a href="{{ route('informasi.kategori', ['kategori' => 'pengadaan']) }}"
-                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Pengadaan Barang dan Jasa</a>
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Pengadaan
+                                Barang dan Jasa</a>
                         </div>
                     </div>
 
@@ -217,7 +244,8 @@
                                 class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Laporan
                                 PPID</a>
                             <a href="{{ route('laporan.survey') }}"
-                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Laporan Hasil Survey</a>
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Laporan
+                                Hasil Survey</a>
                             <a href="{{ route('statistik') }}"
                                 class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Statistik</a>
 
@@ -369,16 +397,38 @@
                                 class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Pengumuman</a>
                             <a href="{{ route('publikasi.index', 'agenda') }}"
                                 class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors border-b border-slate-100 pb-3 mb-2">Agenda</a>
+                        </div>
+                    </div>
+
+                    <!-- Kategori Dropdown (Mobile) -->
+                    <div x-data="{ openKategori: false }" class="space-y-1">
+                        <button @click="openKategori = !openKategori"
+                            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50 transition-colors">
+                            <span>Kategori</span>
+                            <svg class="h-5 w-5 transform transition-transform" :class="{'rotate-180': openKategori}"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div x-show="openKategori" class="pl-4 pr-2 space-y-1" style="display: none;">
                             <a href="{{ route('informasi.kategori', ['kategori' => 'semua']) }}"
-                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Daftar Informasi</a>
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Daftar
+                                Informasi</a>
                             <a href="{{ route('informasi.kategori', ['kategori' => 'berkala']) }}"
-                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Informasi Berkala</a>
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Informasi
+                                Berkala</a>
                             <a href="{{ route('informasi.kategori', ['kategori' => 'serta_merta']) }}"
-                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Informasi Serta Merta</a>
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Informasi
+                                Serta Merta</a>
                             <a href="{{ route('informasi.kategori', ['kategori' => 'setiap_saat']) }}"
-                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Informasi Setiap Saat</a>
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Informasi
+                                Setiap Saat</a>
                             <a href="{{ route('informasi.kategori', ['kategori' => 'pengadaan']) }}"
-                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Pengadaan Barang dan Jasa</a>
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Pengadaan
+                                Barang dan Jasa</a>
                         </div>
                     </div>
 
@@ -862,43 +912,73 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                     <!-- Buku Tamu Card -->
-                    <a href="{{ route('guestbook.create') }}" class="group relative bg-white border border-slate-200 rounded-3xl p-8 sm:p-10 shadow-sm hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-200 overflow-hidden hover:-translate-y-1 transition-all duration-300 block">
-                        <div class="absolute -right-8 -top-8 w-64 h-64 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-full opacity-50 blur-3xl group-hover:opacity-80 transition-opacity duration-500 pointer-events-none"></div>
-                        
+                    <a href="{{ route('guestbook.create') }}"
+                        class="group relative bg-white border border-slate-200 rounded-3xl p-8 sm:p-10 shadow-sm hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-200 overflow-hidden hover:-translate-y-1 transition-all duration-300 block">
+                        <div
+                            class="absolute -right-8 -top-8 w-64 h-64 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-full opacity-50 blur-3xl group-hover:opacity-80 transition-opacity duration-500 pointer-events-none">
+                        </div>
+
                         <div class="relative z-10 flex flex-col md:flex-row items-start gap-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-blue-600 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-indigo-500/30 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300">
+                            <div
+                                class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-blue-600 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-indigo-500/30 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                    </path>
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-xl font-extrabold text-slate-800 brand-font mb-2 tracking-tight group-hover:text-indigo-600 transition-colors">Buku Tamu Digital</h3>
-                                <p class="text-slate-500 text-sm mb-6 leading-relaxed">Berikan saran, masukan, dan kritik membangun Anda kepada instansi kami melalui sistem buku tamu digital yang terintegrasi.</p>
-                                <span class="inline-flex items-center text-indigo-600 font-bold text-sm group-hover:text-indigo-700">
+                                <h3
+                                    class="text-xl font-extrabold text-slate-800 brand-font mb-2 tracking-tight group-hover:text-indigo-600 transition-colors">
+                                    Buku Tamu Digital</h3>
+                                <p class="text-slate-500 text-sm mb-6 leading-relaxed">Berikan saran, masukan, dan
+                                    kritik membangun Anda kepada instansi kami melalui sistem buku tamu digital yang
+                                    terintegrasi.</p>
+                                <span
+                                    class="inline-flex items-center text-indigo-600 font-bold text-sm group-hover:text-indigo-700">
                                     Isi Buku Tamu Sekarang
-                                    <svg class="w-4 h-4 ml-1.5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                    <svg class="w-4 h-4 ml-1.5 group-hover:translate-x-2 transition-transform"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                    </svg>
                                 </span>
                             </div>
                         </div>
                     </a>
 
                     <!-- Survei Kepuasan Card -->
-                    <a href="{{ route('survey.index') }}" class="group relative bg-slate-900 border border-slate-700/50 rounded-3xl p-8 sm:p-10 shadow-xl shadow-slate-900/20 hover:shadow-2xl hover:shadow-blue-900/30 hover:border-slate-600 overflow-hidden hover:-translate-y-1 transition-all duration-300 block">
-                        <div class="absolute -left-10 -bottom-10 w-64 h-64 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full opacity-50 blur-3xl group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none"></div>
+                    <a href="{{ route('survey.index') }}"
+                        class="group relative bg-slate-900 border border-slate-700/50 rounded-3xl p-8 sm:p-10 shadow-xl shadow-slate-900/20 hover:shadow-2xl hover:shadow-blue-900/30 hover:border-slate-600 overflow-hidden hover:-translate-y-1 transition-all duration-300 block">
+                        <div
+                            class="absolute -left-10 -bottom-10 w-64 h-64 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full opacity-50 blur-3xl group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                        </div>
+                        <div
+                            class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none">
+                        </div>
 
                         <div class="relative z-10 flex flex-col md:flex-row items-start gap-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-violet-500 to-purple-600 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-purple-500/30 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300">
+                            <div
+                                class="w-16 h-16 bg-gradient-to-br from-violet-500 to-purple-600 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-purple-500/30 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                                    </path>
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-xl font-extrabold text-white brand-font mb-2 tracking-tight">Survei Kepuasan</h3>
-                                <p class="text-indigo-200 text-sm mb-6 leading-relaxed">Bantu kami meningkatkan standar dan kualitas layanan publik dengan berpartisipasi mengisi survei IKM ini.</p>
-                                <span class="inline-flex items-center text-indigo-300 font-bold text-sm group-hover:text-white transition-colors">
+                                <h3 class="text-xl font-extrabold text-white brand-font mb-2 tracking-tight">Survei
+                                    Kepuasan</h3>
+                                <p class="text-indigo-200 text-sm mb-6 leading-relaxed">Bantu kami meningkatkan standar
+                                    dan kualitas layanan publik dengan berpartisipasi mengisi survei IKM ini.</p>
+                                <span
+                                    class="inline-flex items-center text-indigo-300 font-bold text-sm group-hover:text-white transition-colors">
                                     Mulai Isi Survei
-                                    <svg class="w-4 h-4 ml-1.5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                    <svg class="w-4 h-4 ml-1.5 group-hover:translate-x-2 transition-transform"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                    </svg>
                                 </span>
                             </div>
                         </div>
@@ -911,27 +991,43 @@
         <section class="bg-slate-900 pt-20 pb-40 -mb-20 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    
+
                     <!-- Left: Website Wilayah (Standard Tailwind Colors) -->
                     <div class="bg-slate-800 border border-slate-700 rounded-3xl p-6 sm:p-8">
                         <div class="flex items-center gap-4 border-b border-slate-700 pb-5 mb-6">
-                            <div class="w-10 h-10 rounded-xl bg-orange-400 text-white flex items-center justify-center shrink-0 shadow-lg shadow-orange-500/30">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <div
+                                class="w-10 h-10 rounded-xl bg-orange-400 text-white flex items-center justify-center shrink-0 shadow-lg shadow-orange-500/30">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                    </path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
                             </div>
                             <h3 class="text-sm font-bold text-white tracking-widest uppercase">Link Terkait</h3>
                         </div>
 
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
                             @forelse($related_links ?? [] as $link)
-                                <a href="{{ $link->url }}" target="_blank" rel="noopener noreferrer" class="group flex flex-col items-center justify-center p-4 bg-slate-900/50 rounded-2xl hover:bg-slate-700/80 border border-slate-700/50 transition-colors gap-3">
-                                    <div class="w-14 h-14 bg-slate-800 rounded-full p-2 border border-slate-600 flex items-center justify-center group-hover:scale-110 transition-transform overflow-hidden">
+                                <a href="{{ $link->url }}" target="_blank" rel="noopener noreferrer"
+                                    class="group flex flex-col items-center justify-center p-4 bg-slate-900/50 rounded-2xl hover:bg-slate-700/80 border border-slate-700/50 transition-colors gap-3">
+                                    <div
+                                        class="w-14 h-14 bg-slate-800 rounded-full p-2 border border-slate-600 flex items-center justify-center group-hover:scale-110 transition-transform overflow-hidden">
                                         @if($link->logo_path)
-                                            <img src="{{ asset('storage/' . $link->logo_path) }}" class="w-full h-full object-contain" alt="">
+                                            <img src="{{ asset('storage/' . $link->logo_path) }}"
+                                                class="w-full h-full object-contain" alt="">
                                         @else
-                                            <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                            <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                                                </path>
+                                            </svg>
                                         @endif
                                     </div>
-                                    <span class="text-xs font-bold text-slate-300 text-center group-hover:text-white">{{ $link->title }}</span>
+                                    <span
+                                        class="text-xs font-bold text-slate-300 text-center group-hover:text-white">{{ $link->title }}</span>
                                 </a>
                             @empty
                                 <p class="text-slate-400 text-sm italic col-span-3">Belum ada data wilayah tersimpan.</p>
@@ -940,45 +1036,68 @@
                     </div>
 
                     <!-- Right: Galeri Video -->
-                    <div class="bg-slate-800 border border-slate-700 rounded-3xl p-6 sm:p-8 flex flex-col justify-between">
+                    <div
+                        class="bg-slate-800 border border-slate-700 rounded-3xl p-6 sm:p-8 flex flex-col justify-between">
                         <div>
                             <div class="flex items-center gap-4 border-b border-slate-700 pb-5 mb-6">
-                                <div class="w-10 h-10 rounded-xl bg-orange-400 text-white flex items-center justify-center shrink-0 shadow-lg shadow-orange-500/30">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-orange-400 text-white flex items-center justify-center shrink-0 shadow-lg shadow-orange-500/30">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
                                 </div>
                                 <h3 class="text-sm font-bold text-white tracking-widest uppercase">Galeri</h3>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 @forelse($gallery_videos ?? [] as $vid)
-                                <a href="{{ $vid->youtube_url }}" target="_blank" class="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-slate-700 group block">
-                                    @if($vid->youtube_id)
-                                        <img src="https://img.youtube.com/vi/{{ $vid->youtube_id }}/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/{{ $vid->youtube_id }}/hqdefault.jpg'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Video">
-                                    @else
-                                        <div class="w-full h-full bg-slate-900 flex items-center justify-center">
-                                            <svg class="w-8 h-8 text-slate-500" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                    <a href="{{ $vid->youtube_url }}" target="_blank"
+                                        class="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-slate-700 group block">
+                                        @if($vid->youtube_id)
+                                            <img src="https://img.youtube.com/vi/{{ $vid->youtube_id }}/maxresdefault.jpg"
+                                                onerror="this.src='https://img.youtube.com/vi/{{ $vid->youtube_id }}/hqdefault.jpg'"
+                                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                                alt="Video">
+                                        @else
+                                            <div class="w-full h-full bg-slate-900 flex items-center justify-center">
+                                                <svg class="w-8 h-8 text-slate-500" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M8 5v14l11-7z" />
+                                                </svg>
+                                            </div>
+                                        @endif
+                                        <div
+                                            class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-colors">
+                                            <div
+                                                class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-white ml-1" fill="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path d="M8 5v14l11-7z" />
+                                                </svg>
+                                            </div>
                                         </div>
-                                    @endif
-                                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-colors">
-                                        <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                                            <svg class="w-5 h-5 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                        <div class="absolute bottom-2 left-2 right-2 flex justify-center">
+                                            <span
+                                                class="bg-black/70 backdrop-blur text-white text-[10px] font-bold px-3 py-1 rounded inline-block text-center line-clamp-1">{{ strtoupper($vid->title) }}</span>
                                         </div>
-                                    </div>
-                                    <div class="absolute bottom-2 left-2 right-2 flex justify-center">
-                                        <span class="bg-black/70 backdrop-blur text-white text-[10px] font-bold px-3 py-1 rounded inline-block text-center line-clamp-1">{{ strtoupper($vid->title) }}</span>
-                                    </div>
-                                </a>
+                                    </a>
                                 @empty
-                                    <p class="text-slate-400 text-sm italic col-span-2">Belum ada galeri video tersimpan.</p>
+                                    <p class="text-slate-400 text-sm italic col-span-2">Belum ada galeri video tersimpan.
+                                    </p>
                                 @endforelse
                             </div>
                         </div>
 
                         <!-- Action Button -->
                         <div class="mt-8 flex justify-start">
-                            <a href="{{ route('galeri') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-500 text-slate-300 text-sm font-semibold hover:bg-white hover:text-slate-900 transition-colors shadow-sm">
+                            <a href="{{ route('galeri') }}"
+                                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-500 text-slate-300 text-sm font-semibold hover:bg-white hover:text-slate-900 transition-colors shadow-sm">
                                 Lihat semua galeri
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
                             </a>
                         </div>
                     </div>

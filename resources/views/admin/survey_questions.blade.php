@@ -70,12 +70,18 @@
         </div>
 
         <!-- Modal Form -->
-        <div id="questionModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm hidden" style="display: none;">
+        <div id="questionModal"
+            class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm hidden"
+            style="display: none;">
             <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden transform transition-all">
                 <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/50">
                     <h3 class="text-lg font-bold text-slate-800 brand-font" id="modalTitle">Tambah Pertanyaan</h3>
-                    <button onclick="closeModal()" class="text-slate-400 hover:text-rose-500 transition-colors p-1 bg-white rounded-lg hover:bg-rose-50">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    <button onclick="closeModal()"
+                        class="text-slate-400 hover:text-rose-500 transition-colors p-1 bg-white rounded-lg hover:bg-rose-50">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
                     </button>
                 </div>
                 <!-- Native Form via AJAX -->
@@ -84,13 +90,16 @@
                     <div class="p-6 space-y-4">
                         <div>
                             <x-input-label for="question" value="Pertanyaan Lengkap" class="font-bold" />
-                            <textarea id="question" name="question" required rows="3" class="mt-1 block w-full border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm text-sm" placeholder="Contoh: Bagaimana kepuasan Anda terhadap layanan kami?"></textarea>
+                            <textarea id="question" name="question" required rows="3"
+                                class="mt-1 block w-full border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm text-sm"
+                                placeholder="Contoh: Bagaimana kepuasan Anda terhadap layanan kami?"></textarea>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <x-input-label for="type" value="Tipe Jawaban" class="font-bold" />
-                                <select id="type" name="type" required class="mt-1 block w-full border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm text-sm">
+                                <select id="type" name="type" required
+                                    class="mt-1 block w-full border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm text-sm">
                                     <option value="rating">Rating (Skala 1-5)</option>
                                     <option value="yes_no">Ya / Tidak</option>
                                     <option value="text">Teks Bebas</option>
@@ -98,22 +107,29 @@
                             </div>
                             <div>
                                 <x-input-label for="order_num" value="Nomor Urut" class="font-bold" />
-                                <x-text-input id="order_num" name="order_num" type="number" required class="mt-1 block w-full" value="0" />
+                                <x-text-input id="order_num" name="order_num" type="number" required
+                                    class="mt-1 block w-full" value="0" />
                             </div>
                         </div>
 
                         <div>
                             <x-input-label for="is_active" value="Status Aktif" class="font-bold mb-2" />
                             <label class="inline-flex items-center cursor-pointer">
-                                <input type="checkbox" id="is_active" name="is_active" value="1" class="sr-only peer" checked>
-                                <div class="relative w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-success"></div>
+                                <input type="checkbox" id="is_active" name="is_active" value="1" class="sr-only peer"
+                                    checked>
+                                <div
+                                    class="relative w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-success">
+                                </div>
                                 <span class="ms-3 text-sm font-medium text-slate-700">Tampilkan ke Publik</span>
                             </label>
                         </div>
                     </div>
                     <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3 rounded-b-2xl">
-                        <button type="button" onclick="closeModal()" class="px-4 py-2 text-sm font-bold text-slate-600 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 transition-colors">Batal</button>
-                        <button type="submit" class="px-5 py-2 text-sm font-bold text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors shadow-sm shadow-indigo-200">Simpan Data</button>
+                        <button type="button" onclick="closeModal()"
+                            class="px-4 py-2 text-sm font-bold text-slate-600 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 transition-colors">Batal</button>
+                        <button type="submit"
+                            class="px-5 py-2 text-sm font-bold text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors shadow-sm shadow-indigo-200">Simpan
+                            Data</button>
                     </div>
                 </form>
             </div>
@@ -123,9 +139,10 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script>
-        let surveyTable;
+        var surveyTable;
 
         function initSurveyTable() {
+            if (typeof $ === 'undefined') return;
             if ($.fn.DataTable.isDataTable('#questionsTable')) {
                 $('#questionsTable').DataTable().destroy();
             }
@@ -186,18 +203,18 @@
 
         window.editQuestion = function (id) {
             Swal.fire({ title: 'Loading...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-            $.get(`/admin/survey/${id}/edit`, function(data) {
+            $.get(`/admin/survey/${id}/edit`, function (data) {
                 Swal.close();
                 document.getElementById('question_id').value = data.id;
                 document.getElementById('question').value = data.question;
                 document.getElementById('type').value = data.type;
                 document.getElementById('order_num').value = data.order_num;
                 document.getElementById('is_active').checked = data.is_active === 1 || data.is_active === true;
-                
+
                 document.getElementById('modalTitle').innerText = 'Edit Pertanyaan';
                 document.getElementById('questionModal').classList.remove('hidden');
                 document.getElementById('questionModal').style.display = 'flex';
-            }).fail(function() {
+            }).fail(function () {
                 Swal.fire('Error', 'Data tidak ditemukan.', 'error');
             });
         };
@@ -252,7 +269,7 @@
             });
         }
 
-        function deleteQuestion(id) {
+        window.deleteQuestion = function (id) {
             Swal.fire({
                 title: 'Hapus Pertanyaan?',
                 text: "Data yang dihapus tidak dapat dikembalikan!",
@@ -284,11 +301,9 @@
                     });
                 }
             });
-        }
+        };
 
         // Initialize table
-        $(document).ready(function() {
-            initSurveyTable();
-        });
+        setTimeout(initSurveyTable, 100);
     </script>
 </x-app-layout>

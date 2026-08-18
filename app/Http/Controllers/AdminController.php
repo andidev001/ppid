@@ -15,7 +15,7 @@ class AdminController extends Controller
         $this->middleware(function ($request, $next) {
             // Only admin can access these specific routes/methods
             $adminOnly = ['settings', 'updateSettings', 'uploadLogo', 'users', 'usersData', 'storeUser', 'deleteUser', 'userDestroy'];
-            
+
             if (in_array($request->route()->getActionMethod(), $adminOnly)) {
                 if (auth()->user()->role !== 'admin') {
                     abort(403, 'Unauthorized action.');
@@ -321,6 +321,7 @@ class AdminController extends Controller
         $req->validate([
             'title' => 'required|string',
             'category' => 'required|string',
+            'group_name' => 'nullable|string',
             'published_year' => 'nullable|integer',
             'description' => 'nullable|string',
             'penanggung_jawab' => 'nullable|string',
@@ -339,6 +340,7 @@ class AdminController extends Controller
         PublicInformation::create([
             'title' => $req->title,
             'category' => $req->category,
+            'group_name' => $req->group_name,
             'published_year' => $req->published_year,
             'description' => $req->description,
             'penanggung_jawab' => $req->penanggung_jawab,
@@ -375,6 +377,7 @@ class AdminController extends Controller
 
         $req->validate([
             'title' => 'required|string',
+            'group_name' => 'nullable|string',
             'published_year' => 'nullable|integer',
             'description' => 'nullable|string',
             'penanggung_jawab' => 'nullable|string',
@@ -401,6 +404,7 @@ class AdminController extends Controller
         }
 
         $info->title = $req->title;
+        $info->group_name = $req->group_name;
         $info->description = $req->description;
         $info->published_year = $req->published_year;
         $info->penanggung_jawab = $req->penanggung_jawab;
@@ -505,8 +509,9 @@ class AdminController extends Controller
 
         // Handle SOP Files
         $sopAttachments = json_decode(Setting::where('key', 'sop_attachments')->value('value') ?? '[]', true);
-        if (!is_array($sopAttachments)) $sopAttachments = [];
-        
+        if (!is_array($sopAttachments))
+            $sopAttachments = [];
+
         $fileTitles = $request->input('sop_file_titles', []);
         $removes = $request->input('remove_sop_files', []);
         $uploadedFiles = $request->file('sop_files', []);
@@ -514,7 +519,8 @@ class AdminController extends Controller
         for ($i = 1; $i <= 7; $i++) {
             // Remove file if checked
             if (isset($removes[$i]) && $removes[$i] == 1) {
-                if (isset($sopAttachments[$i])) unset($sopAttachments[$i]);
+                if (isset($sopAttachments[$i]))
+                    unset($sopAttachments[$i]);
                 continue;
             }
 

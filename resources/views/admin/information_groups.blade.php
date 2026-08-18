@@ -183,63 +183,61 @@
 
     </div>
 
-    @section('scripts')
-        <script>
-            function groupManager() {
-                return {
-                    isModalOpen: false,
-                    isEdit: false,
-                    formAction: '{{ route('admin.information-groups.store') }}',
-                    formData: {
-                        id: null,
-                        name: '',
-                        category: 'berkala'
-                    },
+    <script>
+        function groupManager() {
+            return {
+                isModalOpen: false,
+                isEdit: false,
+                formAction: '{{ route('admin.information-groups.store') }}',
+                formData: {
+                    id: null,
+                    name: '',
+                    category: 'berkala'
+                },
 
-                    openCreate() {
-                        this.isEdit = false;
-                        this.formAction = '{{ route('admin.information-groups.store') }}';
-                        this.formData = { id: null, name: '', category: 'berkala' };
-                        this.isModalOpen = true;
-                    },
+                openCreate() {
+                    this.isEdit = false;
+                    this.formAction = '{{ route('admin.information-groups.store') }}';
+                    this.formData = { id: null, name: '', category: 'berkala' };
+                    this.isModalOpen = true;
+                },
 
-                    openEdit(data) {
-                        this.isEdit = true;
-                        this.formAction = `/admin/information-groups/${data.id}`;
-                        this.formData = {
-                            id: data.id,
-                            name: data.name,
-                            category: data.category
-                        };
-                        this.isModalOpen = true;
-                    },
+                openEdit(data) {
+                    this.isEdit = true;
+                    this.formAction = `/admin/information-groups/${data.id}`;
+                    this.formData = {
+                        id: data.id,
+                        name: data.name,
+                        category: data.category
+                    };
+                    this.isModalOpen = true;
+                },
 
-                    closeModal() {
-                        this.isModalOpen = false;
-                    }
-                };
-            }
+                closeModal() {
+                    this.isModalOpen = false;
+                }
+            };
+        }
 
-            function confirmDelete(form) {
-                Swal.fire({
-                    title: 'Hapus Kelompok?',
-                    text: "Data kelompok referensi ini akan dihapus permanen! Namun dokumen yang sudah dibuat tidak akan ikut terhapus.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#ef4444',
-                    cancelButtonColor: '#94a3b8',
-                    confirmButtonText: 'Ya, Hapus!',
-                    cancelButtonText: 'Batal',
-                    reverseButtons: true,
-                    customClass: {
-                        container: 'font-sans'
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-                });
-            }
-        </script>
-    @endsection
+        function confirmDelete(form) {
+            Swal.fire({
+                title: 'Hapus Kelompok?',
+                text: "Data kelompok referensi ini akan dihapus permanen! Namun dokumen yang sudah dibuat tidak akan ikut terhapus.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#94a3b8',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true,
+                customClass: {
+                    container: 'font-sans'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+    </script>
 </x-app-layout>

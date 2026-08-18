@@ -521,6 +521,7 @@ class AdminController extends Controller
         // Allowed page keys
         $keys = [
             'page_profil_ppid',
+            'page_profil_pimpinan',
             'page_tugas_fungsi',
             'page_visi_misi',
             'page_struktur',

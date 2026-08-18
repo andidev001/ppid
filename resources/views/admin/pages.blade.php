@@ -35,6 +35,11 @@
                             class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
                             Profil PPID
                         </button>
+                        <button type="button" @click="activeTab = 'pimpinan'"
+                            :class="activeTab === 'pimpinan' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                            class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
+                            Profil Pimpinan
+                        </button>
                         <button type="button" @click="activeTab = 'struktur'"
                             :class="activeTab === 'struktur' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
                             class="flex flex-col md:flex-row text-left px-3 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap md:whitespace-normal">
@@ -115,6 +120,15 @@
                         <div class="flex-1 relative">
                             <textarea name="page_profil_ppid"
                                 class="tinymce">{!! $settings['page_profil_ppid'] ?? '' !!}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 flex flex-col h-full w-full"
+                        x-bind:style="activeTab === 'pimpinan' ? 'position: relative; display: flex;' : 'position: absolute; transform: translateX(-9999px); visibility: hidden; opacity: 0;'">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Konten Profil Pimpinan</label>
+                        <div class="flex-1 relative">
+                            <textarea name="page_profil_pimpinan"
+                                class="tinymce">{!! $settings['page_profil_pimpinan'] ?? '' !!}</textarea>
                         </div>
                     </div>
 

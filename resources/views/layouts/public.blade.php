@@ -108,6 +108,9 @@
                             <a href="{{ route('profil.ppid') }}"
                                 class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Profil
                                 PPID</a>
+                            <a href="{{ route('profil.pimpinan') }}"
+                                class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Profil
+                                Pimpinan</a>
                             <a href="{{ route('profil.tugas_fungsi') }}"
                                 class="block px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">Tugas
                                 dan Fungsi</a>
@@ -337,6 +340,9 @@
                             <a href="{{ route('profil.ppid') }}"
                                 class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Profil
                                 PPID</a>
+                            <a href="{{ route('profil.pimpinan') }}"
+                                class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Profil
+                                Pimpinan</a>
                             <a href="{{ route('profil.tugas_fungsi') }}"
                                 class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-colors">Tugas
                                 dan Fungsi</a>

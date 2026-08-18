@@ -11,6 +11,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/galeri', [\App\Http\Controllers\PageController::class, 'galeri'])->name('galeri');
 
 Route::get('/profil/ppid', [\App\Http\Controllers\PageController::class, 'profilPpid'])->name('profil.ppid');
+Route::get('/profil/pimpinan', [\App\Http\Controllers\PageController::class, 'profilPimpinan'])->name('profil.pimpinan');
 Route::get('/profil/tugas-fungsi', [\App\Http\Controllers\PageController::class, 'tugasFungsi'])->name('profil.tugas_fungsi');
 Route::get('/profil/visi-misi', [\App\Http\Controllers\PageController::class, 'visiMisi'])->name('profil.visi_misi');
 Route::get('/profil/struktur', [\App\Http\Controllers\PageController::class, 'struktur'])->name('profil.struktur');

@@ -24,6 +24,11 @@ class PageController extends Controller
         return view('pages.profil_ppid', $this->getCommonData());
     }
 
+    public function profilPimpinan()
+    {
+        return view('pages.profil_pimpinan', $this->getCommonData());
+    }
+
     public function visiMisi()
     {
         return view('pages.visi_misi', $this->getCommonData());

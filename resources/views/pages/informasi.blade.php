@@ -2,27 +2,27 @@
 
 @section('content')
     <div x-data="{ 
-                                        showPreview: false, 
-                                        previewUrl: '', 
-                                        showVideo: false, 
-                                        currentVideo: '',
-                                        openVideo(base64Content) {
-                                            let content = atob(base64Content);
-                                            if (content.includes('youtube.com/watch') || content.includes('youtu.be/')) {
-                                                let videoId = '';
-                                                if (content.includes('youtube.com/watch')) {
-                                                    videoId = content.split('v=')[1].split('&')[0];
-                                                } else {
-                                                    videoId = content.split('youtu.be/')[1].split('?')[0];
+                                            showPreview: false, 
+                                            previewUrl: '', 
+                                            showVideo: false, 
+                                            currentVideo: '',
+                                            openVideo(base64Content) {
+                                                let content = atob(base64Content);
+                                                if (content.includes('youtube.com/watch') || content.includes('youtu.be/')) {
+                                                    let videoId = '';
+                                                    if (content.includes('youtube.com/watch')) {
+                                                        videoId = content.split('v=')[1].split('&')[0];
+                                                    } else {
+                                                        videoId = content.split('youtu.be/')[1].split('?')[0];
+                                                    }
+                                                    content = `<iframe class=\'w-full h-full rounded-b-lg\' src=\'https://www.youtube.com/embed/${videoId}\' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\' allowfullscreen></iframe>`;
+                                                } else if (!content.includes('<iframe')) {
+                                                    content = `<iframe class=\'w-full h-full rounded-b-lg\' src=\'${content}\' frameborder=\'0\' allowfullscreen></iframe>`;
                                                 }
-                                                content = `<iframe class=\'w-full h-full rounded-b-lg\' src=\'https://www.youtube.com/embed/${videoId}\' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\' allowfullscreen></iframe>`;
-                                            } else if (!content.includes('<iframe')) {
-                                                content = `<iframe class=\'w-full h-full rounded-b-lg\' src=\'${content}\' frameborder=\'0\' allowfullscreen></iframe>`;
+                                                this.currentVideo = content;
+                                                this.showVideo = true;
                                             }
-                                            this.currentVideo = content;
-                                            this.showVideo = true;
-                                        }
-                                    }">
+                                        }">
         <div class="bg-slate-900 pb-32 pt-16 relative overflow-hidden">
             <div class="absolute inset-0 opacity-[0.05] text-white">
                 <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg">
@@ -229,7 +229,7 @@
                                         var colspan = 5;
                                     @endif
                                     $(rows).eq(i).before(
-                                        '<tr class="group-header"><td colspan="' + colspan + '" class="text-white font-bold p-4 text-sm sm:text-base tracking-wide" style="background-color: #4f46e5; border-left: 6px solid #f59e0b; color: white;">' + group + '</td></tr>'
+                                        '<tr class="group-header"><td colspan="' + colspan + '" class="text-white font-bold p-4 text-sm sm:text-base tracking-wide" style="background-color: #1e40af; border-left: 6px solid #f59e0b; color: white;">' + group + '</td></tr>'
                                     );
                                 }
                                 last = group;

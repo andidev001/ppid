@@ -229,7 +229,7 @@
                                         var colspan = 5;
                                     @endif
                                     $(rows).eq(i).before(
-                                        '<tr class="group-header"><td colspan="' + colspan + '" class="text-white font-bold p-4 text-sm sm:text-base tracking-wide" style="background-color: #0f172a; border-left: 6px solid #f59e0b; color: white;">' + group + '</td></tr>'
+                                        '<tr class="group-header"><td colspan="' + colspan + '" class="text-white font-bold p-4 text-sm sm:text-base tracking-wide" style="background-color: #4f46e5; border-left: 6px solid #f59e0b; color: white;">' + group + '</td></tr>'
                                     );
                                 }
                                 last = group;

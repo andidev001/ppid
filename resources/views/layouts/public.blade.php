@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon"
-        href="{{ isset($settings['app_logo']) && $settings['app_logo'] ? asset('storage/' . $settings['app_logo']) : asset('favicon.ico') }}">
+        href="{{ isset($settings['app_favicon']) && $settings['app_favicon'] ? asset('storage/' . $settings['app_favicon']) : asset('favicon.ico') }}">
     <title>{{ $settings['app_name'] ?? 'PPID - Portal Informasi Publik' }} - Beranda PPID</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link

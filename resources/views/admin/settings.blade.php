@@ -175,6 +175,35 @@
                             </div>
                         </div>
 
+                        <!-- Favicon Website -->
+                        <div
+                            class="flex flex-col sm:flex-row items-start gap-6 p-5 border border-slate-200 rounded-2xl bg-white shadow-sm">
+                            @if(isset($settings['app_favicon']) && $settings['app_favicon'])
+                                <div
+                                    class="w-16 h-16 rounded-xl bg-white border border-slate-200 overflow-hidden shadow-sm flex items-center justify-center shrink-0 p-1">
+                                    <img src="{{ asset('storage/' . $settings['app_favicon']) }}" alt="Favicon"
+                                        class="max-w-full max-h-full object-contain">
+                                </div>
+                            @else
+                                <div
+                                    class="w-16 h-16 rounded-xl bg-slate-50 border-2 border-dashed border-slate-300 flex flex-col items-center justify-center text-slate-400 shrink-0">
+                                    <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            @endif
+                            <div class="flex-1">
+                                <h4 class="text-[13px] font-semibold text-slate-800 mb-1">Upload Favicon (Ikon Tab
+                                    Browser)</h4>
+                                <p class="text-xs text-slate-500 mb-3">Sebaiknya berformat PNG/ICO dengan ukuran segi
+                                    empat (Misal: 512x512px). Maks 1MB.</p>
+                                <input type="file" name="app_favicon" accept=".png, .ico, .svg, .jpg, .jpeg"
+                                    class="block w-full text-[13px] text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 focus:outline-none">
+                            </div>
+                        </div>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Foto Kepsek -->
                             <div

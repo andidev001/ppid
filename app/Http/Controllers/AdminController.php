@@ -490,11 +490,12 @@ class AdminController extends Controller
     {
         $request->validate([
             'app_logo' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
+            'app_favicon' => 'nullable|image|mimes:jpeg,png,jpg,svg,ico|max:1024',
             'app_foto_kepsek' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'app_foto_sekda' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        $mediaFields = ['app_logo', 'app_foto_kepsek', 'app_foto_sekda'];
+        $mediaFields = ['app_logo', 'app_favicon', 'app_foto_kepsek', 'app_foto_sekda'];
 
         foreach ($mediaFields as $field) {
             if ($request->hasFile($field)) {

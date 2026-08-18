@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="icon" type="image/x-icon"
-        href="{{ \App\Models\Setting::where('key', 'app_logo')->value('value') ? asset('storage/' . \App\Models\Setting::where('key', 'app_logo')->value('value')) : asset('favicon.ico') }}">
+        href="{{ \App\Models\Setting::where('key', 'app_favicon')->value('value') ? asset('storage/' . \App\Models\Setting::where('key', 'app_favicon')->value('value')) : asset('favicon.ico') }}">
     <title>{{ \App\Models\Setting::where('key', 'app_name')->value('value') ?? config('app.name', 'PPID Portal') }} -
         Dashboard</title>
 

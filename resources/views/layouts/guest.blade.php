@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="icon" type="image/x-icon" href="{{ \App\Models\Setting::where('key', 'app_logo')->value('value') ? asset('storage/' . \App\Models\Setting::where('key', 'app_logo')->value('value')) : asset('favicon.ico') }}">
+    <link rel="icon" type="image/x-icon"
+        href="{{ \App\Models\Setting::where('key', 'app_logo')->value('value') ? asset('storage/' . \App\Models\Setting::where('key', 'app_logo')->value('value')) : asset('favicon.ico') }}">
     <title>{{ \App\Models\Setting::where('key', 'app_name')->value('value') ?? config('app.name', 'PPID Portal') }} -
         Akses Autentikasi</title>
 
@@ -54,10 +55,8 @@
         <div class="mb-6 mt-4 md:mt-8 text-center">
             <a href="/" class="inline-flex items-center gap-2 group">
                 @if($appLogo)
-                    <div
-                        class="w-12 h-12 bg-white rounded-xl flex items-center justify-center p-1 shadow-lg shadow-indigo-200 group-hover:scale-105 transition-transform duration-300">
-                        <img src="{{ asset('storage/' . $appLogo) }}" class="max-w-full max-h-full object-contain">
-                    </div>
+                    <img src="{{ asset('storage/' . $appLogo) }}"
+                        class="h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
                 @else
                     <div
                         class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200 group-hover:scale-105 transition-transform duration-300">
@@ -67,11 +66,11 @@
                             </path>
                         </svg>
                     </div>
+                    <span
+                        class="text-3xl font-extrabold brand-font bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-indigo-800 tracking-tight text-left leading-tight">
+                        {{ $appName ?? 'Portal PPID' }}
+                    </span>
                 @endif
-                <span
-                    class="text-3xl font-extrabold brand-font bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-indigo-800 tracking-tight text-left leading-tight">
-                    Portal PPID
-                </span>
             </a>
         </div>
 

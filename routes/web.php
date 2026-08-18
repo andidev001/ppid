@@ -21,6 +21,7 @@ Route::get('/statistik', [\App\Http\Controllers\PageController::class, 'statisti
 Route::get('/laporan-ppid', [\App\Http\Controllers\PageController::class, 'laporanPpid'])->name('laporan.ppid');
 Route::get('/laporan-survey', [\App\Http\Controllers\PageController::class, 'laporanSurvey'])->name('laporan.survey');
 Route::get('/pilih-permohonan', [\App\Http\Controllers\PageController::class, 'pilihPermohonan'])->name('pilih_permohonan');
+Route::get('/informasi/{kategori}/export', [\App\Http\Controllers\PageController::class, 'exportExcel'])->name('informasi.export');
 Route::get('/informasi/{kategori}', [\App\Http\Controllers\PageController::class, 'informasi'])->name('informasi.kategori');
 Route::get('/cek-status', [\App\Http\Controllers\PageController::class, 'cekStatus'])->name('cek_status');
 Route::get('/standar-pelayanan/prosedur-pelayanan', [\App\Http\Controllers\PageController::class, 'prosedurPelayanan'])->name('standar.prosedur_pelayanan');

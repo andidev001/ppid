@@ -108,7 +108,7 @@
                     </a>
 
                     <!-- Informasi Publik Dropdown -->
-                    <div x-data="{ open: {{ request()->routeIs('admin.public-info.index') ? 'true' : 'false' }} }"
+                    <div x-data="{ open: {{ request()->routeIs('admin.public-info.index') || request()->routeIs('admin.information-groups.*') ? 'true' : 'false' }} }"
                         class="mt-1">
                         <button @click="open = !open"
                             class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all text-indigo-200 hover:bg-white/10 hover:text-white">
@@ -141,7 +141,8 @@
                                 class="block text-xs font-medium {{ request('category') == 'dikecualikan' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Informasi
                                 Dikecualikan</a>
                             <a href="{{ route('admin.public-info.index', ['category' => 'pengadaan']) }}"
-                                class="block text-xs font-medium {{ request('category') == 'pengadaan' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Pengadaan Barang dan Jasa</a>
+                                class="block text-xs font-medium {{ request('category') == 'pengadaan' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Pengadaan
+                                Barang dan Jasa</a>
                             <a href="{{ route('admin.public-info.index', ['category' => 'arsip']) }}"
                                 class="block text-xs font-medium {{ request('category') == 'arsip' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Arsip
                                 Dokumen</a>
@@ -149,7 +150,11 @@
                                 class="block text-xs font-medium {{ request('category') == 'laporan' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Laporan
                                 PPID</a>
                             <a href="{{ route('admin.public-info.index', ['category' => 'laporan_survey']) }}"
-                                class="block text-xs font-medium {{ request('category') == 'laporan_survey' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Laporan Survey</a>
+                                class="block text-xs font-medium {{ request('category') == 'laporan_survey' ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Laporan
+                                Survey</a>
+                            <a href="{{ route('admin.information-groups.index') }}"
+                                class="block text-xs font-medium {{ request()->routeIs('admin.information-groups.*') ? 'text-white font-bold' : 'text-indigo-300 hover:text-white' }} py-1.5 transition-colors relative before:absolute before:w-1.5 before:h-1.5 before:bg-indigo-400/50 before:rounded-full before:top-[11px] before:-left-4 hover:before:bg-indigo-300">Grup
+                                Informasi</a>
                         </div>
                     </div>
 
@@ -253,15 +258,15 @@
                         </div>
 
                         @if(auth()->user()->role === 'admin')
-                        <a href="{{ route('admin.users') }}"
-                            class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all {{ request()->routeIs('admin.users') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-indigo-200 hover:bg-white/10 hover:text-white' }} mt-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
-                                </path>
-                            </svg>
-                            <span class="font-medium text-sm brand-font">Pengguna</span>
-                        </a>
+                            <a href="{{ route('admin.users') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all {{ request()->routeIs('admin.users') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-indigo-200 hover:bg-white/10 hover:text-white' }} mt-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                                    </path>
+                                </svg>
+                                <span class="font-medium text-sm brand-font">Pengguna</span>
+                            </a>
                         @endif
 
                         <a href="{{ route('admin.guestbooks.index') }}"
@@ -322,23 +327,27 @@
                         </a>
 
                         @if(auth()->user()->role === 'admin')
-                          <a href="{{ route('admin.home_content.index') }}"
-                              class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all {{ request()->routeIs('admin.home_content.*') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-indigo-200 hover:bg-white/10 hover:text-white' }} mt-1">
-                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                              <span class="font-medium text-sm brand-font">Galeri & Tautan</span>
-                          </a>
+                            <a href="{{ route('admin.home_content.index') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all {{ request()->routeIs('admin.home_content.*') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-indigo-200 hover:bg-white/10 hover:text-white' }} mt-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                                <span class="font-medium text-sm brand-font">Galeri & Tautan</span>
+                            </a>
 
-                          <a href="{{ route('admin.settings') }}"
-                              class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all {{ request()->routeIs('admin.settings') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-indigo-200 hover:bg-white/10 hover:text-white' }} mt-1">
-                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-                                  </path>
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                              </svg>
-                              <span class="font-medium text-sm brand-font">Pengaturan</span>
-                          </a>
+                            <a href="{{ route('admin.settings') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all {{ request()->routeIs('admin.settings') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-indigo-200 hover:bg-white/10 hover:text-white' }} mt-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                                    </path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                <span class="font-medium text-sm brand-font">Pengaturan</span>
+                            </a>
                         @endif
                     </div>
                 @endif

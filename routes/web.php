@@ -96,6 +96,14 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/public-info/{id}', [AdminController::class, 'updatePublicInfo'])->name('admin.public-info.update');
     Route::delete('/admin/public-info/{id}', [AdminController::class, 'destroyPublicInfo'])->name('admin.public-info.destroy');
 
+    Route::post('/admin/public-info/upload-image', [AdminController::class, 'uploadImage'])->name('admin.public-info.upload-image');
+
+    // Information Groups
+    Route::get('/admin/information-groups', [\App\Http\Controllers\InformationGroupController::class, 'index'])->name('admin.information-groups.index');
+    Route::post('/admin/information-groups', [\App\Http\Controllers\InformationGroupController::class, 'store'])->name('admin.information-groups.store');
+    Route::put('/admin/information-groups/{group}', [\App\Http\Controllers\InformationGroupController::class, 'update'])->name('admin.information-groups.update');
+    Route::delete('/admin/information-groups/{group}', [\App\Http\Controllers\InformationGroupController::class, 'destroy'])->name('admin.information-groups.destroy');
+
     Route::get('/admin/publications', [\App\Http\Controllers\PublicationController::class, 'index'])->name('admin.publications.index');
     Route::get('/admin/publications/data', [\App\Http\Controllers\PublicationController::class, 'data'])->name('admin.publications.data');
     Route::get('/admin/publications/create', [\App\Http\Controllers\PublicationController::class, 'create'])->name('admin.publications.create');

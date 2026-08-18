@@ -300,12 +300,9 @@
                             <p class="text-[11px] text-slate-500 mt-1">Gunakan untuk mengelompokkan data yang sama,
                                 misalnya pada kategori Berkala.</p>
                             <datalist id="groupPilihan">
-                                <option value="A. Informasi Profil Sekolah">
-                                <option value="B. Informasi Program">
-                                <option value="C. Informasi Keuangan">
-                                <option value="D. Pengadaan Barang dan Jasa">
-                                <option value="A. Menyediakan Dokumen Informasi">
-                                <option value="B. Menyediakan Dokumen Surat-surat Perjanjian">
+                                @foreach($informationGroups as $group)
+                                    <option value="{{ $group->name }}">
+                                @endforeach
                             </datalist>
                         </div>
 

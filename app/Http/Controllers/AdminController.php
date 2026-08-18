@@ -368,7 +368,9 @@ class AdminController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return view('admin.public_info', compact('informations', 'category'));
+        $informationGroups = \App\Models\InformationGroup::where('category', $category)->orderBy('name')->get();
+
+        return view('admin.public_info', compact('informations', 'category', 'informationGroups'));
     }
 
     public function updatePublicInfo(Request $req, $id)

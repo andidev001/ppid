@@ -57,13 +57,10 @@
     <nav class="glass sticky top-0 z-50 border-b border-white/20 shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <div class="flex items-center gap-3">
+                <a href="{{ url('/') }}" class="flex items-center gap-3">
                     @if(isset($settings['app_logo']) && $settings['app_logo'])
-                        <div
-                            class="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center p-1 cursor-pointer hover:scale-105 transition-transform z-10">
-                            <img src="{{ asset('storage/' . $settings['app_logo']) }}" alt="Logo"
-                                class="max-h-full max-w-full object-contain">
-                        </div>
+                        <img src="{{ asset('storage/' . $settings['app_logo']) }}" alt="Logo"
+                            class="h-10 w-auto object-contain cursor-pointer hover:scale-105 transition-transform z-10">
                     @else
                         <div
                             class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200 cursor-pointer hover:scale-105 transition-transform">
@@ -73,12 +70,12 @@
                                 </path>
                             </svg>
                         </div>
+                        <span
+                            class="text-lg sm:text-xl font-bold brand-font bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-indigo-800 tracking-tight">
+                            {{ $settings['app_name'] ?? 'Portal PPID' }}
+                        </span>
                     @endif
-                    <span
-                        class="text-lg sm:text-xl font-bold brand-font bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-indigo-800 tracking-tight">
-                        Portal PPID
-                    </span>
-                </div>
+                </a>
 
                 <div class="hidden md:flex items-center space-x-1">
                     <a href="{{ url('/') }}"

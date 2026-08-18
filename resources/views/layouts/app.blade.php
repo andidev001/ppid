@@ -57,10 +57,8 @@
                     @php $appLogo = \App\Models\Setting::where('key', 'app_logo')->value('value');
                     $appName = \App\Models\Setting::where('key', 'app_name')->value('value'); @endphp
                     @if($appLogo)
-                        <div
-                            class="w-8 h-8 bg-white rounded-lg flex items-center justify-center p-0.5 shadow-md group-hover:scale-105 transition-transform">
-                            <img src="{{ asset('storage/' . $appLogo) }}" class="max-w-full max-h-full object-contain">
-                        </div>
+                        <img src="{{ asset('storage/' . $appLogo) }}"
+                            class="h-8 w-auto object-contain group-hover:scale-105 transition-transform">
                     @else
                         <div
                             class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
@@ -70,8 +68,9 @@
                                 </path>
                             </svg>
                         </div>
+                        <span
+                            class="text-lg font-bold brand-font tracking-wide line-clamp-1">{{ $appName ?? 'Portal PPID' }}</span>
                     @endif
-                    <span class="text-lg font-bold brand-font tracking-wide line-clamp-1">Portal PPID</span>
                 </a>
                 <button @click="sidebarOpen = false" class="lg:hidden text-indigo-300 hover:text-white">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

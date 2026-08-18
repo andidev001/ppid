@@ -17,16 +17,16 @@
                 <div class="flex items-center gap-3 mb-6">
                     @if (!empty($settings['app_logo']))
                         <img src="{{ asset('storage/' . $settings['app_logo']) }}" alt="Logo"
-                            class="h-10 object-contain drop-shadow-md">
+                            class="h-12 w-auto object-contain drop-shadow-md">
                     @else
                         <div
                             class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-indigo-500/30">
                             P
                         </div>
+                        <span class="font-bold text-white brand-font text-xl tracking-wide">
+                            {{ $settings['app_name'] ?? 'PPID Portal' }}
+                        </span>
                     @endif
-                    <span class="font-bold text-white brand-font text-xl tracking-wide">
-                        {{ $settings['app_name'] ?? 'PPID Portal' }}
-                    </span>
                 </div>
                 <p class="text-slate-400 text-sm leading-relaxed mb-6 max-w-md">
                     {{ $settings['app_description'] ?? 'Portal resmi Pejabat Pengelola Informasi dan Dokumentasi (PPID) untuk mewujudkan tata kelola yang transparan, mudah, dan akuntabel dalam pelayanan informasi publik.' }}

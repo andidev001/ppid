@@ -58,7 +58,7 @@
                     $appName = \App\Models\Setting::where('key', 'app_name')->value('value'); @endphp
                     @if($appLogo)
                         <img src="{{ asset('storage/' . $appLogo) }}"
-                            class="h-8 w-auto object-contain group-hover:scale-105 transition-transform">
+                            class="h-8 w-auto max-w-[180px] object-contain group-hover:scale-105 transition-transform">
                     @else
                         <div
                             class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">

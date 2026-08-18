@@ -56,7 +56,7 @@
             <a href="/" class="inline-flex items-center gap-2 group">
                 @if($appLogo)
                     <img src="{{ asset('storage/' . $appLogo) }}"
-                        class="h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
+                        class="h-12 w-auto max-w-[280px] object-contain group-hover:scale-105 transition-transform duration-300">
                 @else
                     <div
                         class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200 group-hover:scale-105 transition-transform duration-300">

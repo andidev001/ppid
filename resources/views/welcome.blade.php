@@ -44,7 +44,7 @@
                 <a href="{{ url('/') }}" class="flex items-center gap-3">
                     @if(isset($settings['app_logo']) && $settings['app_logo'])
                         <img src="{{ asset('storage/' . $settings['app_logo']) }}" alt="Logo"
-                            class="h-10 w-auto object-contain cursor-pointer hover:scale-105 transition-transform z-10">
+                            class="h-9 md:h-10 w-auto max-w-[160px] sm:max-w-xs object-contain cursor-pointer hover:scale-105 transition-transform z-10">
                     @else
                         <div
                             class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200 cursor-pointer hover:scale-105 transition-transform">

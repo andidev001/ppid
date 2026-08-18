@@ -185,8 +185,8 @@
 
     @section('scripts')
         <script>
-            document.addEventListener('alpine:init', () => {
-                Alpine.data('groupManager', () => ({
+            function groupManager() {
+                return {
                     isModalOpen: false,
                     isEdit: false,
                     formAction: '{{ route('admin.information-groups.store') }}',
@@ -205,7 +205,6 @@
 
                     openEdit(data) {
                         this.isEdit = true;
-                        // Because PUT method in laravel needs a specific route including ID
                         this.formAction = `/admin/information-groups/${data.id}`;
                         this.formData = {
                             id: data.id,
@@ -218,8 +217,8 @@
                     closeModal() {
                         this.isModalOpen = false;
                     }
-                }));
-            });
+                };
+            }
 
             function confirmDelete(form) {
                 Swal.fire({

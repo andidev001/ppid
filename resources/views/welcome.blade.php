@@ -990,7 +990,7 @@
         <!-- Galeri & Link Terkait Section -->
         <section class="bg-slate-900 pt-20 pb-40 -mb-20 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" style="gap: 2rem;">
 
                     <!-- Left: Website Wilayah (Standard Tailwind Colors) -->
                     <div class="bg-slate-800 border border-slate-700 rounded-3xl p-6 sm:p-8">
@@ -1008,7 +1008,7 @@
                             <h3 class="text-sm font-bold text-white tracking-widest uppercase">Link Terkait</h3>
                         </div>
 
-                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4" style="gap: 1rem;">
                             @forelse($related_links ?? [] as $link)
                                 <a href="{{ $link->url }}" target="_blank" rel="noopener noreferrer"
                                     class="group flex flex-col items-center justify-center p-4 bg-slate-900/50 rounded-2xl hover:bg-slate-700/80 border border-slate-700/50 transition-colors gap-3">
@@ -1051,7 +1051,7 @@
                                 <h3 class="text-sm font-bold text-white tracking-widest uppercase">Galeri</h3>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" style="gap: 1rem;">
                                 @forelse($gallery_videos ?? [] as $vid)
                                     <a href="{{ $vid->youtube_url }}" target="_blank"
                                         class="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-slate-700 group block">

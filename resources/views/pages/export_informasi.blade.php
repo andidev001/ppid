@@ -1,9 +1,3 @@
-@php
-    header("Content-Type: application/vnd.ms-excel");
-    header("Content-Disposition: attachment; filename=Informasi_{$kategori}_PPID.xls");
-    header("Pragma: no-cache");
-    header("Expires: 0");
-@endphp
 <!DOCTYPE html>
 <html>
 
@@ -58,7 +52,7 @@
                             </td>
                         </tr>
                         @php 
-                                            $currentGroup = $groupName;
+                                                            $currentGroup = $groupName;
                             $no = 1; // Reset number per group
                         @endphp
                     @endif
@@ -73,10 +67,12 @@
                     </td>
                     <td style="vertical-align: top; border: 1px solid #000;">{{ $info->penanggung_jawab ?: '-' }}</td>
                     <td style="vertical-align: top; border: 1px solid #000;">
-                        {{ \Illuminate\Support\Str::limit(strip_tags($info->description), 150) }}</td>
+                        {{ \Illuminate\Support\Str::limit(strip_tags($info->description), 150) }}
+                    </td>
                     @if($kategori === 'semua')
                         <td style="text-align: center; vertical-align: top; border: 1px solid #000;">
-                            {{ ucwords(str_replace('_', ' ', $info->category)) }}</td>
+                            {{ ucwords(str_replace('_', ' ', $info->category)) }}
+                        </td>
                     @endif
                     <td style="text-align: center; vertical-align: top; border: 1px solid #000;">
                         @if($info->visibility == 'public')

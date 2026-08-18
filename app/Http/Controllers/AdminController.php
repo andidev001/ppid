@@ -373,6 +373,42 @@ class AdminController extends Controller
         return view('admin.public_info', compact('informations', 'category', 'informationGroups'));
     }
 
+    public function exportExcel(Request $request)
+    {
+        $kategori = $request->query('category', 'berkala');
+
+        $categoriesLabel = [
+            'semua' => 'Daftar Informasi Publik',
+            'berkala' => 'Informasi Berkala',
+            'serta_merta' => 'Informasi Serta Merta',
+            'setiap_saat' => 'Informasi Setiap Saat',
+            'dikecualikan' => 'Informasi Dikecualikan',
+            'pengadaan' => 'Informasi Pengadaan Barang dan Jasa',
+            'arsip' => 'Arsip Dokumen'
+        ];
+
+        $query = \App\Models\PublicInformation::query();
+        if ($kategori !== 'semua') {
+            $query->where('category', $kategori);
+        }
+
+        if (in_array($kategori, ['berkala', 'setiap_saat'])) {
+            $query->orderBy('group_name', 'asc')->orderBy('created_at', 'desc');
+        } else {
+            $query->latest();
+        }
+
+        $informations = $query->get();
+        $kategoriLabel = $categoriesLabel[$kategori] ?? 'Informasi Publik';
+        $fileName = 'Informasi_' . ucfirst($kategori) . '_PPID.xls';
+
+        return response(view('pages.export_informasi', compact('informations', 'kategori', 'kategoriLabel')))
+            ->header('Content-Type', 'application/vnd.ms-excel; charset=utf-8')
+            ->header('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', '0');
+    }
+
     public function updatePublicInfo(Request $req, $id)
     {
         $info = PublicInformation::findOrFail($id);

@@ -12,15 +12,26 @@
                 <p class="text-sm text-slate-500 mt-2">Kelola dan rapikan dokumen informasi publik yang telah diunggah.
                 </p>
             </div>
-            <form method="GET" action="{{ route('admin.public-info.index') }}" class="relative w-full sm:w-72">
-                <input type="text" name="search" value="{{ request('search') }}"
-                    class="block w-full pl-10 pr-3 py-2 border border-slate-200 rounded-xl leading-5 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors"
-                    placeholder="Cari dokumen...">
-            </form>
-            <button @click="openCreate()"
-                class="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-200 shrink-0">
-                + Tambah Dokumen
-            </button>
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+                <form method="GET" action="{{ route('admin.public-info.index') }}" class="relative w-full sm:w-64">
+                    <input type="text" name="search" value="{{ request('search') }}"
+                        class="block w-full pl-3 pr-3 py-2 border border-slate-200 rounded-xl leading-5 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors"
+                        placeholder="Cari dokumen...">
+                </form>
+                <a href="{{ route('admin.public-info.export', ['category' => $category]) }}"
+                    class="px-4 py-2 bg-emerald-600 inline-flex items-center gap-2 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition shadow-lg shadow-emerald-200 shrink-0 whitespace-nowrap">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                        </path>
+                    </svg>
+                    Export
+                </a>
+                <button @click="openCreate()"
+                    class="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-200 shrink-0 whitespace-nowrap">
+                    + Tambah
+                </button>
+            </div>
         </div>
 
         <div class="bg-white shadow-xl shadow-slate-200/40 rounded-2xl border border-slate-200 overflow-hidden mb-6">

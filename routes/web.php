@@ -21,7 +21,6 @@ Route::get('/statistik', [\App\Http\Controllers\PageController::class, 'statisti
 Route::get('/laporan-ppid', [\App\Http\Controllers\PageController::class, 'laporanPpid'])->name('laporan.ppid');
 Route::get('/laporan-survey', [\App\Http\Controllers\PageController::class, 'laporanSurvey'])->name('laporan.survey');
 Route::get('/pilih-permohonan', [\App\Http\Controllers\PageController::class, 'pilihPermohonan'])->name('pilih_permohonan');
-Route::get('/informasi/{kategori}/export', [\App\Http\Controllers\PageController::class, 'exportExcel'])->name('informasi.export');
 Route::get('/informasi/{kategori}', [\App\Http\Controllers\PageController::class, 'informasi'])->name('informasi.kategori');
 Route::get('/cek-status', [\App\Http\Controllers\PageController::class, 'cekStatus'])->name('cek_status');
 Route::get('/standar-pelayanan/prosedur-pelayanan', [\App\Http\Controllers\PageController::class, 'prosedurPelayanan'])->name('standar.prosedur_pelayanan');
@@ -93,6 +92,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/users/{id}', [AdminController::class, 'userDestroy'])->name('admin.users.destroy');
 
     Route::get('/admin/public-info', [AdminController::class, 'publicInfoIndex'])->name('admin.public-info.index');
+    Route::get('/admin/public-info/export', [AdminController::class, 'exportExcel'])->name('admin.public-info.export');
     Route::post('/admin/public-info', [AdminController::class, 'storePublicInfo'])->name('admin.public-info.store');
     Route::put('/admin/public-info/{id}', [AdminController::class, 'updatePublicInfo'])->name('admin.public-info.update');
     Route::delete('/admin/public-info/{id}', [AdminController::class, 'destroyPublicInfo'])->name('admin.public-info.destroy');

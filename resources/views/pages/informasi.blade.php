@@ -2,27 +2,27 @@
 
 @section('content')
     <div x-data="{ 
-                                                    showPreview: false, 
-                                                    previewUrl: '', 
-                                                    showVideo: false, 
-                                                    currentVideo: '',
-                                                    openVideo(base64Content) {
-                                                        let content = atob(base64Content);
-                                                        if (content.includes('youtube.com/watch') || content.includes('youtu.be/')) {
-                                                            let videoId = '';
-                                                            if (content.includes('youtube.com/watch')) {
-                                                                videoId = content.split('v=')[1].split('&')[0];
-                                                            } else {
-                                                                videoId = content.split('youtu.be/')[1].split('?')[0];
+                                                        showPreview: false, 
+                                                        previewUrl: '', 
+                                                        showVideo: false, 
+                                                        currentVideo: '',
+                                                        openVideo(base64Content) {
+                                                            let content = atob(base64Content);
+                                                            if (content.includes('youtube.com/watch') || content.includes('youtu.be/')) {
+                                                                let videoId = '';
+                                                                if (content.includes('youtube.com/watch')) {
+                                                                    videoId = content.split('v=')[1].split('&')[0];
+                                                                } else {
+                                                                    videoId = content.split('youtu.be/')[1].split('?')[0];
+                                                                }
+                                                                content = `<iframe class=\'w-full h-full rounded-b-lg\' src=\'https://www.youtube.com/embed/${videoId}\' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\' allowfullscreen></iframe>`;
+                                                            } else if (!content.includes('<iframe')) {
+                                                                content = `<iframe class=\'w-full h-full rounded-b-lg\' src=\'${content}\' frameborder=\'0\' allowfullscreen></iframe>`;
                                                             }
-                                                            content = `<iframe class=\'w-full h-full rounded-b-lg\' src=\'https://www.youtube.com/embed/${videoId}\' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\' allowfullscreen></iframe>`;
-                                                        } else if (!content.includes('<iframe')) {
-                                                            content = `<iframe class=\'w-full h-full rounded-b-lg\' src=\'${content}\' frameborder=\'0\' allowfullscreen></iframe>`;
+                                                            this.currentVideo = content;
+                                                            this.showVideo = true;
                                                         }
-                                                        this.currentVideo = content;
-                                                        this.showVideo = true;
-                                                    }
-                                                }">
+                                                    }">
         <div class="bg-slate-900 pb-32 pt-16 relative overflow-hidden">
             <div class="absolute inset-0 opacity-[0.05] text-white">
                 <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg">
@@ -63,18 +63,6 @@
                             </svg>
                         </div>
                         <h2 class="text-xl font-black text-[#0f172a] brand-font tracking-tight">{{ $kategoriLabel }}</h2>
-                    </div>
-
-
-                    
-                    <div>
-                        <a href="{{ route('informasi.export', $kategori) }}" 
-                           class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold py-2.5 px-5 rounded-xl shadow-sm transition-all focus:ring-2 focus:ring-emerald-500 focus:ring-offset-1 focus:outline-none whitespace-nowrap">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            Export Excel
-                        </a>
                     </div>
                 </div>
 
